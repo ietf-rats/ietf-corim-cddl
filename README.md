@@ -9,10 +9,10 @@
 
 * assemble and validate
 ```
-$ make -C cddl
+$ make
 ```
 
 * remove generated files
 ```
-$ make -C cddl clean
+$ make clean
 ```

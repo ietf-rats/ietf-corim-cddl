@@ -1,0 +1,25 @@
+unsigned-corim = {
+  corim-id => corim-id-type,
+  tags => one-or-more<concise-tag>
+  ; hint for finding manifest files
+  ? dependent-rims => one-or-more<corim-locator>
+  * $$unsigned-corim-extension
+}
+
+corim-id-type = tstr / uuid
+
+corim-locator = {
+  ; e.g. https://isv.example.mymodule.corim
+  href => any-uri,
+  ; the digest computed over mymodule.corim
+  ? thumbprint => hash-entry,
+  ; **Note:should there be an extension point here?**
+}
+
+; NOTE(henk) does a concise-mid-tag by itself should be
+; allowed to be singed the same as a CoSWID tag?
+concise-tag = 
+  #6.47116(concise-swid-tag) / 
+  #6.47117(concise-mid-tag)
+
+; vim: set tw=60 ts=2 et:

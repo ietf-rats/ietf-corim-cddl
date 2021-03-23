@@ -1,0 +1,21 @@
+; $rel extensions
+$rel /= m-requires
+$rel /= m-runs-on
+
+; A software module identified by this tag may require or
+; depend on the referenced (firmware) module to be loaded or
+; present
+m-requires = 12
+
+; A software module identified by this tag runs on a module
+; identified by the linked tag(s). The module here
+; represents the hardware where this software is executed
+m-runs-on = 13
+
+; $role extensions
+$role /= module-creator
+
+; module creator
+module-creator = 7
+
+; vim: set tw=60 ts=2 et:

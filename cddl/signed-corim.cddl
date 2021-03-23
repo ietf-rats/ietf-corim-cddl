@@ -1,0 +1,40 @@
+signed-corim = #6.18(COSE-Sign1-corim)
+
+cose-label = int / tstr
+cose-values = any
+
+protected-signed-corim-header = {
+  1 => int,                      ; algorithm identifier
+  3 => "application/rim+cbor",   ; content type identifier
+  4 => bstr,                     ; key identifier of issuer?
+  corim-meta-key => corim-meta   ; corim signature attrs
+  * cose-label => cose-values,
+}
+
+; scoped to protected-signed-corim-header map
+corim-meta-key = 8 
+
+; entity-entry is pointing to the manifest issuer - compare
+; tag-metadata tag-issuer these are different things
+corim-meta = {
+  signer => entity-entry,
+  ? validity-entry
+}
+
+validity-entry = (
+  ? not-before => time,
+  not-after => time,
+)
+
+unprotected-signed-corim-header = {
+  * cose-label => cose-values,
+}
+
+COSE-Sign1-corim = [
+  protected: bstr .cbor protected-signed-corim-header,
+  unprotected: unprotected-signed-corim-header,
+  payload: bstr .cbor unsigned-corim,
+  signature: bstr,
+]
+
+; vim: set tw=60 ts=2 et:

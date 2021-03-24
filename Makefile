@@ -1,6 +1,8 @@
 .DEFAULT_GOAL := check
 
-check: corim.cddl ; cddl $< g 1
+include tools.mk
+
+check: corim.cddl install-tools ; $(cddl) $< g 1
 
 CLEANFILES += corim.cddl
 

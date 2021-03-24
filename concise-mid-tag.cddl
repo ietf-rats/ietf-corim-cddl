@@ -28,15 +28,10 @@ $tag-id-type /= uuid
 tag-version-type = integer .default 0
 
 module-metadata-type = {
-  ? 0 => module-name,
-  ? 1 => $module-type,
-  ? 2 => module-version,
-  ? 3 => module-vendor,
-  ? 4 => module-index,
+  ? 0 => element-name,
+  ? 1 => module-version,
   * $$module-metadata-extension
 }
-
-module-name = text
 
 $module-type /= tagged-oid
 $module-type /= tagged-uuid
@@ -46,7 +41,7 @@ $module-type /= tagged-impl-id
 ; From draft-ietf-cbor-tags-oid (TBD, roid and pen)
 ;
 oid = bstr
-tagged-oid = #6.111(bstr)
+tagged-oid = #6.111(oid)
 
 ;
 ; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
@@ -71,10 +66,6 @@ module-version = {
   0 => text .default '0.0.0', ; version
   1 => $version-scheme,       ; version-scheme
 }
-
-module-vendor = text
-
-module-index = uint
 
 linked-tag-entry = {
   0 => $tag-id-type,

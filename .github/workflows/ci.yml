@@ -1,0 +1,13 @@
+name: CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: thomasfossati/i-d-template:latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: assemble CoRIM cddl from fragments and check the result
+        run: make check

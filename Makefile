@@ -24,7 +24,7 @@ GITHUB := https://raw.githubusercontent.com/
 COSWID_REPO := sacmwg/draft-ietf-sacm-coswid/master
 COSWID_REPO_URL := $(join $(GITHUB), $(COSWID_REPO))
 
-concise-swid-tag.cddl: ; wget $(COSWID_REPO_URL)/$@
+concise-swid-tag.cddl: ; $(curl) -O $(COSWID_REPO_URL)/$@
 
 CLEANFILES += concise-swid-tag.cddl
 

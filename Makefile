@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := check
 
+SHELL := /bin/bash
+
 include tools.mk
 
 check: corim.cddl ; $(cddl) $< g 1

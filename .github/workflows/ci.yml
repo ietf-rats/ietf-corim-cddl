@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: install cddl
-        run: gem install cddl
+        run: gem install --user-install cddl
       - uses: actions/checkout@v2
       - name: assemble CoRIM cddl from fragments and check the result
         run: make check

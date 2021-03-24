@@ -10,6 +10,4 @@ jobs:
         run: gem install --user-install cddl
       - uses: actions/checkout@v2
       - name: assemble CoRIM cddl from fragments and check the result
-        run: |
-          export PATH="${PATH}:$(gem env gempath)"
-          make check
+        run: cddl="$(gem env gempath | cut -d':' -f1)/bin/cddl" make check

@@ -161,7 +161,9 @@ ip-addr-type = ip4-addr-type / ip6-addr-type
 ip4-addr-type = bytes .size 4
 ip6-addr-type = bytes .size 16
 
-mac-addr-type = bytes .size 6
+mac-addr-type = eui48-addr-type / eui64-addr-type
+eui48-addr-type = bytes .size 6
+eui64-addr-type = bytes .size 8
 
 serial-number-type = text
 

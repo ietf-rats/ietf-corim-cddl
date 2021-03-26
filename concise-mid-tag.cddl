@@ -145,14 +145,14 @@ instance-value = {
 
 $$instance-claim-choice = (
   mac-addr-key => mac-addr-type //
-  ip-addrs-key => one-or-more<ip-addr-type> //
+  ip-addr-key => ip-addr-type //
   serial-number-key => serial-number-type //
   ueid-key => ueid //
   uuid-key => uuid
 )
 
 mac-addr-key = 1
-ip-addrs-key = 2
+ip-addr-key = 2
 serial-number-key = 3
 ueid-key = 4
 uuid-key = 5

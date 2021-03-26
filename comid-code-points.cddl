@@ -18,7 +18,23 @@ comid.module-version = 1
 comid.linked-tag-id = 0
 comid.tag-rel = 1
 
-; $tag-rel-choice values
+; element-name-map
+comid.label = 0
+comid.vendor = 1
+comid.module = 2
+comid.model = 3
+comid.layer = 4
+comid.index = 5
+
+; element-value-map
+comid.version = 0
+comid.svn = 1
+comid.digests = 2
+comid.flags = 3
+comid.raw-value = 4
+comid.raw-value-mask = 5
+
+; $tag-rel-type-choice values
 ;
 ; The current module has additional module(s) identified by
 ; the linked tag(s). The union of all modules describes an
@@ -48,8 +64,20 @@ comid.replaces = 4
 ; contains both valid and replaced claims.
 comid.patches = 5
 
+; module-version-map
+;comid.version = 0
+comid.version-scheme = 1
+
+; endorsed-value-map
+;comid.element-name = 0
+comid.element-value = 1
+
+; ref-value-map
+;comid.element-name = 0
+;comid.element-value = 1
+
 ; claims-entry
-comid.reference-values = 0
+comid.ref-values = 0
 comid.endorsements = 1
 comid.identity-claims = 2
 comid.instance-claims = 3

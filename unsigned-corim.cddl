@@ -6,7 +6,7 @@ unsigned-corim = {
   * $$unsigned-corim-extension
 }
 
-corim-id-type = tstr / uuid
+corim-id-type = tstr / uuid-type
 
 corim-locator = {
   ; e.g. https://isv.example.mymodule.corim

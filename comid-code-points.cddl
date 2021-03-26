@@ -40,24 +40,29 @@ comid.raw-value-mask = 5
 ; the linked tag(s). The union of all modules describes an
 ; acceptable device.
 comid.includes = 0
+
 ; The current module has additional module(s) identified by
 ; the linked tag(s) that describe alternative acceptable
 ; modules. At least one of the alternatives is included to
 ; describe an acceptable device.
 comid.or-includes = 1
+
 ; The current module has additional claims that augment the
 ; claim set of the target module. The current tag module
 ; information must match the target module for the claims to
 ; be combined under the target.
 comid.supplements = 2
+
 ; The current module contains claims that fully replace the
 ; target module claims. This is applied when the module is
 ; updated or changes in some fashion.
 comid.updates = 3
+
 ; The current tag contains corrections to a previously
 ; issued tag. This tag replaces the target tag. The tag-id
 ; remains unchanged. The tag-version is incremented.
 comid.replaces = 4
+
 ; The current module contains claims that partially replace
 ; the target module claims. This is applied when the module
 ; is updated or changes in some fashion.  The target module

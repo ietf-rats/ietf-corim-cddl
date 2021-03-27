@@ -82,7 +82,7 @@ comid.element-value = 1
 ;comid.element-value = 1
 
 ; claims-entry
-comid.ref-values = 0
+comid.reference-claims = 0
 comid.endorsements = 1
 comid.identity-claims = 2
 comid.instance-claims = 3

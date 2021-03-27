@@ -1,157 +1,91 @@
 ; Notes:
-; - entity and entity-entry are defined by CoSWID
+; - entity-entry is defined by CoSWID
 ; - linked-tags contains references to dependent CoSWID and
 ;   CoMID tags
 ; - claims may be omitted for manifests that only capture
 ;   dependencies to other manifests
 concise-mid-tag = {
-  ? language => text,
-  tag-metadata => tag-metadata-type,
-  ? module-metadata => module-metadata-type,
-  ? comid-entity => one-or-more<entity-entry>,
-  ? linked-tags => one-or-more<linked-tag-entry>,
-  ? claims => claims-entry,
-  * $$comid-extension
+  ? comid.language => language-type
+  comid.tag-metadata => tag-metadata-map
+  ? comid.module-metadata => module-metadata-map
+  ? comid.entity => one-or-more<entity-entry>
+  ? comid.linked-tags => one-or-more<linked-tag-map>
+  ? comid.claims => claims-map
+  * $$concise-mid-tag-extension
 }
+
+language-type = text
 
 ; one-or-more<T> imported from CoSWID
 
-tag-metadata-type = {
-  0 => $tag-id-type,
-  1 => tag-version-type,
-  * $$tag-metadata-extension,
+tag-metadata-map = {
+  comid.tag-id => $tag-id-type-choice
+  comid.tag-version => tag-version-type
+  * $$tag-metadata-map-extension
 }
 
-$tag-id-type /= tstr
-$tag-id-type /= uuid
+$tag-id-type-choice /= tstr
+$tag-id-type-choice /= uuid-type
 
-tag-version-type = integer .default 0
+tag-version-type = uint .default 0
 
-module-metadata-type = {
-  ? 0 => element-name,
-  ? 1 => module-version,
-  * $$module-metadata-extension
+module-metadata-map = {
+  ? comid.element-name => element-name-map
+  ? comid.module-version => module-version-map
+  * $$module-metadata-map-extension
 }
 
-$module-type /= tagged-oid
-$module-type /= tagged-uuid
-$module-type /= tagged-impl-id
-
-;
-; From draft-ietf-cbor-tags-oid (TBD, roid and pen)
-;
-oid = bstr
-tagged-oid = #6.111(oid)
-
-;
-; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
-;
-uuid = bytes .size 16
-tagged-uuid = #6.37(uuid)
-
-;
-; From draft-tschofenig-rats-psa-token
-;
-impl-id = bytes .size 32
-tagged-impl-id = #6.47115(impl-id)
-
-;
-; From draft-ietf-rats-eat
-;
-ueid = bstr .size 33
-tagged-ueid = #6.48000(ueid)
-
-; version-scheme defined in CoSWID
-module-version = {
-  0 => text .default '0.0.0', ; version
-  1 => $version-scheme,       ; version-scheme
+linked-tag-map = {
+  comid.linked-tag-id => $tag-id-type-choice
+  comid.tag-rel => $tag-rel-type-choice
 }
 
-linked-tag-entry = {
-  0 => $tag-id-type,
-  1 => $tag-rel-type,
-}
-
-$tag-rel-type /= comid-includes
-$tag-rel-type /= comid-or-includes
-$tag-rel-type /= comid-supplements
-$tag-rel-type /= comid-updates
-$tag-rel-type /= comid-replaces
-$tag-rel-type /= comid-patches
-
-; The current module has additional module(s) identified by
-; the linked tag(s). The union of all modules describes an
-; acceptable device.
-comid-includes = 0
-; The current module has additional module(s) identified by
-; the linked tag(s) that describe alternative acceptable
-; modules. At least one of the alternatives is included to
-; describe an acceptable device.
-comid-or-includes = 1
-; The current module has additional claims that augment the
-; claim set of the target module. The current tag module
-; information must match the target module for the claims to
-; be combined under the target.
-comid-supplements = 2
-; The current module contains claims that fully replace the
-; target module claims. This is applied when the module is
-; updated or changes in some fashion.
-comid-updates = 3
-; The current tag contains corrections to a previously
-; issued tag. This tag replaces the target tag. The tag-id
-; remains unchanged. The tag-version is incremented.
-comid-replaces = 4
-; The current module contains claims that partially replace
-; the target module claims. This is applied when the module
-; is updated or changes in some fashion.  The target module
-; contains both valid and replaced claims.
-comid-patches = 5
+$tag-rel-type-choice /= comid.includes
+$tag-rel-type-choice /= comid.or-includes
+$tag-rel-type-choice /= comid.supplements
+$tag-rel-type-choice /= comid.updates
+$tag-rel-type-choice /= comid.replaces
+$tag-rel-type-choice /= comid.patches
 
 ; Notes:
-; - any reference-value entry can match evidence
-claims-entry = {
-  ? ref-claims => one-or-more<reference-value>
-  ? end-claims => one-or-more<endorsed-value>
-  ? identity-claims => one-or-more<identity-value>
-  ? instance-claims => one-or-more<instance-value>
-  * $$claims-entry-extension
+; - any ref-value entry can match evidence
+claims-map = {
+  ? comid.reference-claims => one-or-more<reference-claim-map>
+  ? comid.endorsements => one-or-more<endorsed-value-map>
+  ? comid.identity-claims => one-or-more<identity-claim-map>
+  ? comid.instance-claims => one-or-more<instance-claim-map>
+  * $$claims-map-extension
 }
 
-identity-value = {
-  ? 0 => $device-id-type, ; device id
-  1 => COSE_KeySet, ; key material
+identity-claim-map = {
+  ? comid.device-id => $device-id-type-choice
+  comid.key-material => COSE_KeySet
 }
 
-$device-id-type /= tagged-ueid
-$device-id-type /= tagged-uuid
+$device-id-type-choice /= tagged-ueid-type
+$device-id-type-choice /= tagged-uuid-type
 
 ; Note: is there a #6.4711 definition for hardwaremodulename
 ; RFC4108?
 
-instance-value = {
-  ? 0 => element-name
-  $$instance-claim-choice
+instance-claim-map = {
+  ? comid.instance-element-name => element-name-map
+  $instance-value-group-choice
 }
 
-$$instance-claim-choice = (
-  mac-addr-key => mac-addr-type //
-  ip-addr-key => ip-addr-type //
-  serial-number-key => serial-number-type //
-  ueid-key => ueid //
-  uuid-key => uuid
+$instance-value-group-choice = (
+  comid.mac-addr => mac-addr-type-choice //
+  comid.ip-addr => ip-addr-type-choice //
+  comid.serial-number => serial-number-type //
+  comid.ueid => ueid-type //
+  comid.uuid => uuid-type
 )
 
-mac-addr-key = 1
-ip-addr-key = 2
-serial-number-key = 3
-ueid-key = 4
-uuid-key = 5
-
-ip-addr-type = ip4-addr-type / ip6-addr-type
+ip-addr-type-choice = ip4-addr-type / ip6-addr-type
 ip4-addr-type = bytes .size 4
 ip6-addr-type = bytes .size 16
 
-mac-addr-type = eui48-addr-type / eui64-addr-type
+mac-addr-type-choice = eui48-addr-type / eui64-addr-type
 eui48-addr-type = bytes .size 6
 eui64-addr-type = bytes .size 8
 
@@ -164,13 +98,13 @@ serial-number-type = text
 ; - vendor is the namespace authority designation
 ; - type SHOULD include a namespace authority if vendor is
 ;   omitted
-element-name = {
-  ? 0 => label-type
-  ? 1 => vendor-type
-  ? 2 => $module-type
-  ? 3 => model-type
-  ? 4 => layer-type,
-  ? 5 => index-type,
+element-name-map = {
+  ? comid.label => label-type
+  ? comid.vendor => vendor-type
+  ? comid.module => $module-type-choice
+  ? comid.model => model-type
+  ? comid.layer => layer-type
+  ? comid.index => index-type
 }
 
 label-type = text
@@ -179,29 +113,64 @@ model-type = text
 layer-type = int
 index-type = int
 
+$module-type-choice /= tagged-oid-type
+$module-type-choice /= tagged-uuid-type
+$module-type-choice /= tagged-impl-id-type
+
+;
+; From draft-ietf-cbor-tags-oid (TBD, roid and pen)
+;
+oid-type = bytes
+tagged-oid-type = #6.111(oid-type)
+
+;
+; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
+;
+uuid-type = bytes .size 16
+tagged-uuid-type = #6.37(uuid-type)
+
+;
+; From draft-tschofenig-rats-psa-token
+;
+impl-id-type = bytes .size 32
+tagged-impl-id-type = #6.47115(impl-id-type)
+
+;
+; From draft-ietf-rats-eat
+;
+ueid-type = bytes .size 33
+tagged-ueid-type = #6.48000(ueid-type)
+
+; version-scheme is defined in CoSWID
+module-version-map = {
+  comid.version => version-type
+  comid.version-scheme => $version-scheme
+}
+
+version-type = text .default '0.0.0'
+
 ; Notes:
 ; - do we need an extension point in element-value given
 ;   there are extension points in endorsed-value and
-;   reference-value?
-element-value = {
-  ? 0 => version-type
-  ? 1 => svn-type
-  ? 2 => digests-entry
-  ? 3 => flags-type
-  ? raw-value-entry
+;   ref-value?
+element-value-map = {
+  ? comid.version => version-type
+  ? comid.svn => svn-type
+  ? comid.digests => digests-type
+  ? comid.flags => flags-type
+  ? raw-value-group
 }
 
-version-type = text
 svn-type = int
 flags-type = bytes .bits operational-flags
 
-raw-value-entry = (
-  4 => raw-value-type
-  ? 5 => raw-value-mask-type
+raw-value-group = (
+  comid.raw-value => raw-value-type
+  ? comid.raw-value-mask => raw-value-mask-type
 )
 
-raw-value-type = bstr
-raw-value-mask-type = bstr
+raw-value-type = bytes
+raw-value-mask-type = bytes
 
 ; Notes:
 ; - one endorser benefits from the element-value of another
@@ -209,33 +178,33 @@ raw-value-mask-type = bstr
 ; - How do vendor specific schemas allocate indices (keys)?
 ;   We need to specify a range of keys with rules 'first
 ;   come first served'
-endorsed-value = {
-  0 => element-name,
-  ? 1 => element-value,
-  * $$endorsed-value-extension
+endorsed-value-map = {
+  comid.element-name => element-name-map
+  ? comid.element-value => element-value-map
+  * $$endorsed-value-map-extension
 }
 
 ; Notes:
 ; - a collection of reference values can be modeled using
 ;   multiplicity of tags and/or claims, but we need to
 ;   verify how to apply AND and OR logic for matching
-reference-value = {
-  0 => element-name,
-  1 => element-value,
-  * $$reference-value-extension,
+reference-claim-map = {
+  comid.element-name => element-name-map
+  comid.element-value => element-value-map
+  * $$reference-claim-map-extension
 }
 
 ; Notes:
 ; - requires functional compare
 operational-flags = &(
-  not-configured: 0,
-  not-secure: 1,
-  recovery: 2,
-  debug: 3,
+  not-configured: 0
+  not-secure: 1
+  recovery: 2
+  debug: 3
 )
 
 ; Notes:
 ; - hash-entry is defined in CoSWID schema
-digests-entry = [ hash-entry / [2* hash-entry] ]
+digests-type = [ hash-entry / [2* hash-entry] ]
 
 ; vim: set tw=60 ts=2 et:

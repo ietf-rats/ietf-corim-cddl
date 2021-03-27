@@ -18,7 +18,7 @@ CDDL_FRAGS += comid-code-points.cddl
 CDDL_FRAGS += cose-key.cddl
 
 corim.cddl: $(CDDL_FRAGS)
-	for f in $^ ; do ( cat $$f ; echo ) ; done > $@
+	for f in $^ ; do ( grep -v '^;' $$f ; echo ) ; done > $@
 
 GITHUB := https://raw.githubusercontent.com/
 COSWID_REPO := sacmwg/draft-ietf-sacm-coswid/master

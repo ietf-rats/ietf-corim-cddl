@@ -2,7 +2,7 @@
 
 ## Tools
 
-* `wget`
+* `curl`
 * `cddl`
 
 ## Make targets

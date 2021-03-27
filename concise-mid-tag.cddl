@@ -50,7 +50,7 @@ $tag-rel-type-choice /= comid.patches
 ; Notes:
 ; - any ref-value entry can match evidence
 claims-map = {
-  ? comid.ref-values => one-or-more<ref-value-map>
+  ? comid.reference-claims => one-or-more<reference-claim-map>
   ? comid.endorsements => one-or-more<endorsed-value-map>
   ? comid.identity-claims => one-or-more<identity-claim-map>
   ? comid.instance-claims => one-or-more<instance-claim-map>
@@ -188,10 +188,10 @@ endorsed-value-map = {
 ; - a collection of reference values can be modeled using
 ;   multiplicity of tags and/or claims, but we need to
 ;   verify how to apply AND and OR logic for matching
-ref-value-map = {
+reference-claim-map = {
   comid.element-name => element-name-map
   comid.element-value => element-value-map
-  * $$ref-value-map-extension
+  * $$reference-claim-map-extension
 }
 
 ; Notes:

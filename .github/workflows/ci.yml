@@ -6,8 +6,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: install cddl
-        run: gem install --user-install cddl
+      - name: install cbor-diag and cddl 
+        run: gem install --user-install cbor-diag cddl
       - uses: actions/checkout@v2
       - name: assemble CoRIM cddl from fragments and check the result
-        run: cddl="$(gem env gempath | cut -d':' -f1)/bin/cddl" make check
+        run: cddl="$(gem env gempath | cut -d':' -f1)/bin/cddl" diag2diag="$(gem env gempath | cut -d':' -f1)/bin/diag2diag.rb" make check

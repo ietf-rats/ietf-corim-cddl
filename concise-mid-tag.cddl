@@ -30,7 +30,7 @@ $tag-id-type-choice /= uuid-type
 tag-version-type = uint .default 0
 
 module-metadata-map = {
-  ? comid.element-name => element-name-map
+  ? comid.module-name => element-name-map
   ? comid.module-version => module-version-map
   * $$module-metadata-map-extension
 }

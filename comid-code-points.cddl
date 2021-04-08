@@ -11,7 +11,7 @@ comid.tag-id = 0
 comid.tag-version = 1
 
 ; module-metadata-map
-comid.element-name = 0
+comid.module-name = 0
 comid.module-version = 1
 
 ; linked-tag-map
@@ -74,7 +74,7 @@ comid.patches = 5
 comid.version-scheme = 1
 
 ; endorsed-value-map
-;comid.element-name = 0
+comid.element-name = 0
 comid.element-value = 1
 
 ; reference-claim-map

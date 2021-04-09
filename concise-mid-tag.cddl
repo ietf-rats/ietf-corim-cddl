@@ -101,7 +101,7 @@ serial-number-type = text
 element-name-map = {
   ? comid.label => label-type
   ? comid.vendor => vendor-type
-  ? comid.module => $module-type-choice
+  ? comid.class-id => $class-id-type-choice
   ? comid.model => model-type
   ? comid.layer => layer-type
   ? comid.index => index-type
@@ -113,9 +113,9 @@ model-type = text
 layer-type = int
 index-type = int
 
-$module-type-choice /= tagged-oid-type
-$module-type-choice /= tagged-uuid-type
-$module-type-choice /= tagged-impl-id-type
+$class-id-type-choice /= tagged-oid-type
+$class-id-type-choice /= tagged-uuid-type
+$class-id-type-choice /= tagged-impl-id-type
 
 ;
 ; From draft-ietf-cbor-tags-oid (TBD, roid and pen)

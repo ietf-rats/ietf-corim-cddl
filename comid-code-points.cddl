@@ -21,7 +21,7 @@ comid.tag-rel = 1
 ; element-name-map
 comid.label = 0
 comid.vendor = 1
-comid.module = 2
+comid.class-id = 2
 comid.model = 3
 comid.layer = 4
 comid.index = 5

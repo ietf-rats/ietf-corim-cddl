@@ -16,6 +16,10 @@ concise-mid-tag = {
 
 language-type = text
 
+; Make sure that there is at least one item in an object
+; with only optional fields.
+non-empty<M> = (M) .and ({ + any => any })
+
 ; one-or-more<T> imported from CoSWID
 
 tag-metadata-map = {
@@ -49,13 +53,13 @@ $tag-rel-type-choice /= comid.patches
 
 ; Notes:
 ; - any ref-value entry can match evidence
-claims-map = {
+claims-map = non-empty<{
   ? comid.reference-claims => one-or-more<reference-claim-map>
   ? comid.endorsements => one-or-more<endorsed-value-map>
   ? comid.identity-claims => one-or-more<identity-claim-map>
   ? comid.instance-claims => one-or-more<instance-claim-map>
   * $$claims-map-extension
-}
+}>
 
 identity-claim-map = {
   ? comid.device-id => $device-id-type-choice
@@ -98,14 +102,14 @@ serial-number-type = text
 ; - vendor is the namespace authority designation
 ; - type SHOULD include a namespace authority if vendor is
 ;   omitted
-element-name-map = {
+element-name-map = non-empty<{
   ? comid.label => label-type
   ? comid.vendor => vendor-type
   ? comid.class-id => $class-id-type-choice
   ? comid.model => model-type
   ? comid.layer => layer-type
   ? comid.index => index-type
-}
+}>
 
 label-type = text
 vendor-type = text
@@ -153,13 +157,13 @@ version-type = text .default '0.0.0'
 ; - do we need an extension point in element-value given
 ;   there are extension points in endorsed-value and
 ;   ref-value?
-element-value-map = {
+element-value-map = non-empty<{
   ? comid.version => version-type
   ? comid.svn => svn-type
   ? comid.digests => digests-type
   ? comid.flags => flags-type
   ? raw-value-group
-}
+}>
 
 svn-type = int
 flags-type = bytes .bits operational-flags

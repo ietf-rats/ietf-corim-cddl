@@ -18,14 +18,11 @@ protected-signed-xcorim-header = {
   * cose-label => cose-values,
 }
 
-; scoped to protected-signed-xcorim-header map
-corim-meta-key = 8
-
 corim-meta = {
-  ; entity-entry is pointing to the manifest issuer -
+  ; xcorim-entity-map is pointing to the details regarding construction and signing of xCoRIM
   ; compare tag-metadata tag-issuer these are different
   ; things
-  signer => entity-entry,
+  xcorim.entity => one-or-more<xcorim-entity-map>
   ; NOTE(henk) this needed a key to be valid, but I am not
   ; sure what the semantics are
   ? validity => validity-entry,
@@ -34,9 +31,15 @@ corim-meta = {
   ? deny-id => $corim-id-type,
 }
 
-signer = 98
-deny-id = 99
-validity = 121
+xcorim-entity-map = {
+  xcorim.entity-name => text,
+  ? xcorim.reg-id => any-uri,
+  xcorim.role => one-or-more<$xrim-role>,
+  * $$xcorim-entity-map-extension
+}
+
+$xrim-role /= xcorim.creator
+$xrim-role /= xcorim.signer
 
 unprotected-signed-xcorim-header = {
   * cose-label => cose-values,
@@ -53,11 +56,9 @@ unsigned-xcorim = {
   denied-rims => one-or-more<corim-id>
   * $$unsigned-xcorim-extension
 }
-denied-rims=120
 
 corim-id = bstr .size 16
 
-entity-entry = "a CoSWID entity entry" 
 validity-entry = "a XCoRIM validity entry"
 $corim-id-type /= "one of many corim ID types"
 

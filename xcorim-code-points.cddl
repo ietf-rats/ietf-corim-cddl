@@ -1,0 +1,15 @@
+; scoped to protected-signed-xcorim-header map
+corim-meta-key = 8
+
+deny-id = 99
+validity = 121
+
+denied-rims=120
+
+xcorim.entity = 0
+
+; person or org responsible for creating the xCoRIM
+xcorim.creator = 1
+
+; person or org responsible for signing the xCoRIM
+xcorim.signer = 2

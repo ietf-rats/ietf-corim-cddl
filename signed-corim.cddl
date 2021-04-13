@@ -14,12 +14,22 @@ protected-signed-corim-header = {
 ; scoped to protected-signed-corim-header map
 corim-meta-key = 8 
 
-; entity-entry is pointing to the manifest issuer - compare
+; corim-entity-map is pointing to the details regarding construction and signing of manifest
 ; tag-metadata tag-issuer these are different things
 corim-meta = {
-  signer => entity-entry,
+  corim.entity => one-or-more<corim-entity-map>
   ? validity-entry
 }
+
+corim-entity-map = {
+  corim.entity-name => text,
+  ? corim.reg-id => any-uri,
+  corim.role => one-or-more<$rim-role>,
+  * $$corim-entity-map-extension
+}
+
+$rim-role /= corim.creator
+$rim-role /= corim.signer
 
 validity-entry = (
   ? not-before => time,

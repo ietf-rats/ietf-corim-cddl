@@ -1,5 +1,4 @@
 ; Notes:
-; - entity-entry is defined by CoSWID
 ; - linked-tags contains references to dependent CoSWID and
 ;   CoMID tags
 ; - claims may be omitted for manifests that only capture
@@ -8,7 +7,7 @@ concise-mid-tag = {
   ? comid.language => language-type
   comid.tag-metadata => tag-metadata-map
   ? comid.module-metadata => module-metadata-map
-  ? comid.entity => one-or-more<entity-entry>
+  ? comid.entity => one-or-more<module-entity-map>
   ? comid.linked-tags => one-or-more<linked-tag-map>
   ? comid.claims => claims-map
   * $$concise-mid-tag-extension
@@ -38,6 +37,19 @@ module-metadata-map = {
   ? comid.module-version => module-version-map
   * $$module-metadata-map-extension
 }
+
+module-entity-map = {
+  comid.entity-name => text,
+  ? comid.reg-id => any-uri,
+  comid.role => one-or-more<$module-role>,
+  * $$module-entity-map-extension
+}
+
+$module-role /= comid.tag-creator
+$module-role /= comid.creator
+$module-role /= comid.distributor
+$module-role /= comid.licensor
+$module-role /= comid.maintainer
 
 linked-tag-map = {
   comid.linked-tag-id => $tag-id-type-choice

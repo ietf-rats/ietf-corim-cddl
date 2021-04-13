@@ -15,6 +15,8 @@ CDDL_FRAGS += concise-mid-tag.cddl
 CDDL_FRAGS += concise-swid-tag.cddl
 CDDL_FRAGS += concise-swid-tag-ext.cddl
 CDDL_FRAGS += comid-code-points.cddl
+CDDL_FRAGS += corim-code-points.cddl
+CDDL_FRAGS += xcorim-code-points.cddl
 CDDL_FRAGS += cose-key.cddl
 
 corim.cddl: $(CDDL_FRAGS)

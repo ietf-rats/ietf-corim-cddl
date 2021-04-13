@@ -1,0 +1,23 @@
+; unsigned-corim
+corim-id = 123 ; TBD
+tags = 97
+dependent-rims = 122; TBD
+
+; corim-meta
+signer = 98
+deny-id = 99
+
+corim.entity = 0
+
+; corim-entity-map
+corim.entity-name = 1
+corim.reg-id = 2
+corim.role = 3
+
+; person or org responsible for creating the CoRIM
+corim.creator = 1
+
+; person or org responsible for signing the CoRIM
+corim.signer = 2
+
+; vim: set tw=60 ts=2 et:

@@ -1,0 +1,657 @@
+concise-reference-integrity-manifest =
+  #6.47111(unsigned-corim) / 
+  #6.47112(signed-corim)
+
+
+signed-corim = #6.18(COSE-Sign1-corim)
+
+cose-label = int / tstr
+cose-values = any
+
+protected-signed-corim-header = {
+  1 => int,                      ; algorithm identifier
+  3 => "application/rim+cbor",   ; content type identifier
+  4 => bstr,                     ; key identifier of issuer?
+  corim-meta-key => corim-meta   ; corim signature attrs
+  * cose-label => cose-values,
+}
+
+corim-meta-key = 8 
+
+corim-meta = {
+  corim.entity => one-or-more<corim-entity-map>
+  ? validity-entry
+}
+
+corim-entity-map = {
+  corim.entity-name => text,
+  ? corim.reg-id => any-uri,
+  corim.role => one-or-more<$rim-role>,
+  * $$corim-entity-map-extension
+}
+
+$rim-role /= corim.creator
+$rim-role /= corim.signer
+
+validity-entry = (
+  ? not-before => time,
+  not-after => time,
+)
+
+unprotected-signed-corim-header = {
+  * cose-label => cose-values,
+}
+
+COSE-Sign1-corim = [
+  protected: bstr .cbor protected-signed-corim-header,
+  unprotected: unprotected-signed-corim-header,
+  payload: bstr .cbor unsigned-corim,
+  signature: bstr,
+]
+
+
+unsigned-corim = {
+  corim-id => corim-id-type,
+  tags => one-or-more<concise-tag>
+  ; hint for finding manifest files
+  ? dependent-rims => one-or-more<corim-locator>
+  * $$unsigned-corim-extension
+}
+
+corim-id-type = tstr / uuid-type
+
+corim-locator = {
+  ; e.g. https://isv.example.mymodule.corim
+  href => any-uri,
+  ; the digest computed over mymodule.corim
+  ? thumbprint => hash-entry,
+  ; **Note:should there be an extension point here?**
+}
+
+concise-tag = 
+  #6.47116(concise-swid-tag) / 
+  #6.47117(concise-mid-tag)
+
+
+concise-mid-tag = {
+  ? comid.language => language-type
+  comid.tag-metadata => tag-metadata-map
+  ? comid.module-metadata => module-metadata-map
+  ? comid.entity => one-or-more<module-entity-map>
+  ? comid.linked-tags => one-or-more<linked-tag-map>
+  ? comid.claims => claims-map
+  * $$concise-mid-tag-extension
+}
+
+language-type = text
+
+
+tag-metadata-map = {
+  comid.tag-id => $tag-id-type-choice
+  comid.tag-version => tag-version-type
+  * $$tag-metadata-map-extension
+}
+
+$tag-id-type-choice /= tstr
+$tag-id-type-choice /= uuid-type
+
+tag-version-type = uint .default 0
+
+module-metadata-map = {
+  ? comid.module-name => element-name-map
+  ? comid.module-version => module-version-map
+  * $$module-metadata-map-extension
+}
+
+module-entity-map = {
+  comid.entity-name => text,
+  ? comid.reg-id => any-uri,
+  comid.role => one-or-more<$module-role>,
+  * $$module-entity-map-extension
+}
+
+$module-role /= comid.tag-creator
+$module-role /= comid.creator
+$module-role /= comid.distributor
+$module-role /= comid.licensor
+$module-role /= comid.maintainer
+
+linked-tag-map = {
+  comid.linked-tag-id => $tag-id-type-choice
+  comid.tag-rel => $tag-rel-type-choice
+}
+
+$tag-rel-type-choice /= comid.includes
+$tag-rel-type-choice /= comid.or-includes
+$tag-rel-type-choice /= comid.supplements
+$tag-rel-type-choice /= comid.updates
+$tag-rel-type-choice /= comid.replaces
+$tag-rel-type-choice /= comid.patches
+
+claims-map = {
+  ? comid.reference-claims => one-or-more<reference-claim-map>
+  ? comid.endorsements => one-or-more<endorsed-value-map>
+  ? comid.identity-claims => one-or-more<identity-claim-map>
+  ? comid.instance-claims => one-or-more<instance-claim-map>
+  * $$claims-map-extension
+}
+
+identity-claim-map = {
+  ? comid.device-id => $device-id-type-choice
+  comid.key-material => COSE_KeySet
+}
+
+$device-id-type-choice /= tagged-ueid-type
+$device-id-type-choice /= tagged-uuid-type
+
+
+instance-claim-map = {
+  ? comid.instance-element-name => element-name-map
+  $instance-value-group-choice
+}
+
+$instance-value-group-choice = (
+  comid.mac-addr => mac-addr-type-choice //
+  comid.ip-addr => ip-addr-type-choice //
+  comid.serial-number => serial-number-type //
+  comid.ueid => ueid-type //
+  comid.uuid => uuid-type
+)
+
+ip-addr-type-choice = ip4-addr-type / ip6-addr-type
+ip4-addr-type = bytes .size 4
+ip6-addr-type = bytes .size 16
+
+mac-addr-type-choice = eui48-addr-type / eui64-addr-type
+eui48-addr-type = bytes .size 6
+eui64-addr-type = bytes .size 8
+
+serial-number-type = text
+
+
+element-name-map = {
+  ? comid.label => label-type
+  ? comid.vendor => vendor-type
+  ? comid.class-id => $class-id-type-choice
+  ? comid.model => model-type
+  ? comid.layer => layer-type
+  ? comid.index => index-type
+}
+
+label-type = text
+vendor-type = text
+model-type = text
+layer-type = int
+index-type = int
+
+$class-id-type-choice /= tagged-oid-type
+$class-id-type-choice /= tagged-uuid-type
+$class-id-type-choice /= tagged-impl-id-type
+
+oid-type = bytes
+tagged-oid-type = #6.111(oid-type)
+
+uuid-type = bytes .size 16
+tagged-uuid-type = #6.37(uuid-type)
+
+impl-id-type = bytes .size 32
+tagged-impl-id-type = #6.47115(impl-id-type)
+
+ueid-type = bytes .size 33
+tagged-ueid-type = #6.48000(ueid-type)
+
+module-version-map = {
+  comid.version => version-type
+  comid.version-scheme => $version-scheme
+}
+
+version-type = text .default '0.0.0'
+
+element-value-map = {
+  ? comid.version => version-type
+  ? comid.svn => svn-type
+  ? comid.digests => digests-type
+  ? comid.flags => flags-type
+  ? raw-value-group
+}
+
+svn-type = int
+flags-type = bytes .bits operational-flags
+
+raw-value-group = (
+  comid.raw-value => raw-value-type
+  ? comid.raw-value-mask => raw-value-mask-type
+)
+
+raw-value-type = bytes
+raw-value-mask-type = bytes
+
+endorsed-value-map = {
+  comid.element-name => element-name-map
+  ? comid.element-value => element-value-map
+  * $$endorsed-value-map-extension
+}
+
+reference-claim-map = {
+  comid.element-name => element-name-map
+  comid.element-value => element-value-map
+  * $$reference-claim-map-extension
+}
+
+operational-flags = &(
+  not-configured: 0
+  not-secure: 1
+  recovery: 2
+  debug: 3
+)
+
+digests-type = [ hash-entry / [2* hash-entry] ]
+
+
+concise-swid-tag = {
+  tag-id => text / bstr .size 16,
+  tag-version => integer,
+  ? corpus => bool,
+  ? patch => bool,
+  ? supplemental => bool,
+  software-name => text,
+  ? software-version => text,
+  ? version-scheme => $version-scheme,
+  ? media => text,
+  ? software-meta => one-or-more<software-meta-entry>,
+  entity => one-or-more<entity-entry>,
+  ? link => one-or-more<link-entry>,
+  ? payload-or-evidence,
+  * $$coswid-extension,
+  global-attributes,
+}
+
+payload-or-evidence //= ( payload => payload-entry )
+payload-or-evidence //= ( evidence => evidence-entry )
+
+any-uri = uri
+label = text / int
+
+$version-scheme /= multipartnumeric
+$version-scheme /= multipartnumeric-suffix
+$version-scheme /= alphanumeric
+$version-scheme /= decimal
+$version-scheme /= semver
+$version-scheme /= int / text
+
+any-attribute = (
+  label => one-or-more<text> / one-or-more<int>
+)
+
+one-or-more<T> = T / [ 2* T ]
+
+global-attributes = (
+  ? lang => text,
+  * any-attribute,
+)
+
+hash-entry = [
+  hash-alg-id: int,
+  hash-value: bytes,
+]
+
+entity-entry = {
+  entity-name => text,
+  ? reg-id => any-uri,
+  role => one-or-more<$role>,
+  ? thumbprint => hash-entry,
+  * $$entity-extension,
+  global-attributes,
+}
+
+$role /= tag-creator
+$role /= software-creator
+$role /= aggregator
+$role /= distributor
+$role /= licensor
+$role /= maintainer
+$role /= int / text
+
+link-entry = {
+  ? artifact => text,
+  href => any-uri,
+  ? media => text,
+  ? ownership => $ownership,
+  rel => $rel,
+  ? media-type => text,
+  ? use => $use,
+  * $$link-extension,
+  global-attributes,
+}
+
+$ownership /= shared
+$ownership /= private
+$ownership /= abandon
+$ownership /= int / text
+
+$rel /= ancestor
+$rel /= component
+$rel /= feature
+$rel /= installationmedia
+$rel /= packageinstaller
+$rel /= parent
+$rel /= patches
+$rel /= requires
+$rel /= see-also
+$rel /= supersedes
+$rel /= supplemental
+$rel /= -256..64436 / text
+
+$use /= optional
+$use /= required
+$use /= recommended
+$use /= int / text
+
+software-meta-entry = {
+  ? activation-status => text,
+  ? channel-type => text,
+  ? colloquial-version => text,
+  ? description => text,
+  ? edition => text,
+  ? entitlement-data-required => bool,
+  ? entitlement-key => text,
+  ? generator => text,
+  ? persistent-id => text,
+  ? product => text,
+  ? product-family => text,
+  ? revision => text,
+  ? summary => text,
+  ? unspsc-code => text,
+  ? unspsc-version => text,
+  * $$software-meta-extension,
+  global-attributes,
+}
+
+path-elements-group = ( ? directory => one-or-more<directory-entry>,
+                        ? file => one-or-more<file-entry>,
+                      )
+
+resource-collection = (
+  path-elements-group,
+  ? process => one-or-more<process-entry>,
+  ? resource => one-or-more<resource-entry>,
+  * $$resource-collection-extension,
+)
+
+file-entry = {
+  filesystem-item,
+  ? size => uint,
+  ? file-version => text,
+  ? hash => hash-entry,
+  * $$file-extension,
+  global-attributes,
+}
+
+directory-entry = {
+  filesystem-item,
+  ? path-elements => { path-elements-group },
+  * $$directory-extension,
+  global-attributes,
+}
+
+process-entry = {
+  process-name => text,
+  ? pid => integer,
+  * $$process-extension,
+  global-attributes,
+}
+
+resource-entry = {
+  type => text,
+  * $$resource-extension,
+  global-attributes,
+}
+
+filesystem-item = (
+  ? key => bool,
+  ? location => text,
+  fs-name => text,
+  ? root => text,
+)
+
+payload-entry = {
+  resource-collection,
+  * $$payload-extension,
+  global-attributes,
+}
+
+evidence-entry = {
+  resource-collection,
+  ? date => integer-time,
+  ? device-id => text,
+  * $$evidence-extension,
+  global-attributes,
+}
+
+integer-time = #6.1(int)
+
+tag-id = 0
+software-name = 1
+entity = 2
+evidence = 3
+link = 4
+software-meta = 5
+payload = 6
+hash = 7
+corpus = 8
+patch = 9
+media = 10
+supplemental = 11
+tag-version = 12
+software-version = 13
+version-scheme = 14
+lang = 15
+directory = 16
+file = 17
+process = 18
+resource = 19
+size = 20
+file-version = 21
+key = 22
+location = 23
+fs-name = 24
+root = 25
+path-elements = 26
+process-name = 27
+pid = 28
+type = 29
+entity-name = 31
+reg-id = 32
+role = 33
+thumbprint = 34
+date = 35
+device-id = 36
+artifact = 37
+href = 38
+ownership = 39
+rel = 40
+media-type = 41
+use = 42
+activation-status = 43
+channel-type = 44
+colloquial-version = 45
+description = 46
+edition = 47
+entitlement-data-required = 48
+entitlement-key = 49
+generator = 50
+persistent-id = 51
+product = 52
+product-family = 53
+revision = 54
+summary = 55
+unspsc-code = 56
+unspsc-version = 57
+
+multipartnumeric = 1
+multipartnumeric-suffix = 2
+alphanumeric = 3
+decimal = 4
+semver = 16384
+
+tag-creator=1
+software-creator=2
+aggregator=3
+distributor=4
+licensor=5
+maintainer=6
+
+shared=1
+private=2
+abandon=3
+
+ancestor=1
+component=2
+feature=3
+installationmedia=4
+packageinstaller=5
+parent=6
+patches=7
+requires=8
+see-also=9
+supersedes=10
+
+optional=1
+required=2
+recommended=3
+
+$rel /= requires-module
+$rel /= runs-on-module
+
+requires-module = 12
+
+runs-on-module = 13
+
+
+comid.language = 0
+comid.tag-metadata = 1
+comid.module-metadata = 2
+comid.entity = 3
+comid.linked-tags = 4
+comid.claims = 5
+
+comid.tag-id = 0
+comid.tag-version = 1
+
+comid.module-name = 0
+comid.module-version = 1
+
+comid.entity-name = 0
+comid.reg-id = 1
+comid.role = 2
+
+comid.linked-tag-id = 0
+comid.tag-rel = 1
+
+comid.label = 0
+comid.vendor = 1
+comid.class-id = 2
+comid.model = 3
+comid.layer = 4
+comid.index = 5
+
+comid.version = 0
+comid.svn = 1
+comid.digests = 2
+comid.flags = 3
+comid.raw-value = 4
+comid.raw-value-mask = 5
+
+comid.includes = 0
+
+comid.or-includes = 1
+
+comid.supplements = 2
+
+comid.updates = 3
+
+comid.replaces = 4
+
+comid.patches = 5
+
+comid.version-scheme = 1
+
+comid.element-name = 0
+comid.element-value = 1
+
+
+comid.reference-claims = 0
+comid.endorsements = 1
+comid.identity-claims = 2
+comid.instance-claims = 3
+
+comid.device-id = 0
+comid.key-material = 1
+
+comid.instance-element-name = 0
+comid.mac-addr = 1
+comid.ip-addr = 2
+comid.serial-number = 3
+comid.ueid = 4
+comid.uuid = 5
+
+not-before = 100
+not-after = 101
+
+comid.tag-creator = 1
+
+comid.creator = 2
+
+comid.distributor = 3
+
+comid.licensor = 4
+
+comid.maintainer = 5
+
+
+corim-id = 123 ; TBD
+tags = 97
+dependent-rims = 122; TBD
+
+signer = 98
+deny-id = 99
+
+corim.entity = 0
+
+corim.entity-name = 1
+corim.reg-id = 2
+corim.role = 3
+
+corim.creator = 1
+
+corim.signer = 2
+
+
+corim-meta-key = 8
+
+deny-id = 99
+validity = 121
+
+denied-rims=120
+
+xcorim.entity = 0
+
+xcorim.creator = 1
+
+xcorim.signer = 2
+
+COSE_Key = {
+  1 => tstr / int,          ; kty
+  ? 2 => bstr,              ; kid
+  ? 3 => tstr / int,        ; alg
+  ? 4 => [+ (tstr / int) ], ; key_ops
+  ? 5 => bstr,              ; Base IV
+  * cose-key-label => cose-key-values
+}
+
+cose-key-label = int / tstr
+cose-key-values = any
+
+COSE_KeySet = [+COSE_Key]
+
+

@@ -12,30 +12,4 @@ requires-module = 12
 ; represents the hardware where this software is executed
 runs-on-module = 13
 
-; $role extensions
-$role /= module-creator
-$role /= module-distributor
-$role /= module-licensor
-$role /= module-maintainer
-$role /= corim-creator
-$role /= corim-signer
-
-; module creator
-module-creator = 7
-
-; module distributor, entity that furthers marketing, selling or distribution of module 
-module-distributor = 8
-
-; module licensor, person or org that holds the right to issue a module license
-module-licensor = 9
-
-; module maintainer, person or org making updates to a module. To be used when entity is different than module creator
-module-maintainer = 10
-
-; corim creator
-corim-creator = 11
-
-; corim signer, person or org responsible for signing the CoRIM
-corim-signer = 12
-
 ; vim: set tw=60 ts=2 et:

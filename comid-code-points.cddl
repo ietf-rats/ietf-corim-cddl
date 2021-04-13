@@ -14,6 +14,11 @@ comid.tag-version = 1
 comid.module-name = 0
 comid.module-version = 1
 
+; module-entity-map
+comid.entity-name = 0
+comid.reg-id = 1
+comid.role = 2
+
 ; linked-tag-map
 comid.linked-tag-id = 0
 comid.tag-rel = 1
@@ -99,17 +104,24 @@ comid.serial-number = 3
 comid.ueid = 4
 comid.uuid = 5
 
-; corim-meta
-signer = 98
-deny-id = 99
-
 ; validity-entry
 not-before = 100
 not-after = 101
 
-; unsigned-corim
-corim-id = 123 ; TBD
-tags = 97
-dependent-rims = 122; TBD
+; person or org that created the CoMID tag
+comid.tag-creator = 1
+
+; person or org that created the module
+comid.creator = 2
+
+; entity that furthers marketing, selling or distribution of the module 
+comid.distributor = 3
+
+; person or org that holds the right to issue the module license
+comid.licensor = 4
+
+; person or org making updates to a module.
+; To be used when different from the module creator
+comid.maintainer = 5
 
 ; vim: set tw=60 ts=2 et:

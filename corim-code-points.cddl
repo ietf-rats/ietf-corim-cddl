@@ -1,23 +1,37 @@
-; unsigned-corim
-corim-id = 123 ; TBD
-tags = 97
-dependent-rims = 122; TBD
+; unsigned-corim-map
+corim.id = 0
+corim.tags = 1
+corim.dependent-rims = 2
 
-; corim-meta
-signer = 98
-deny-id = 99
+; corim-locator-map
+corim.href = 0
+corim.thumbprint = 1
 
-corim.entity = 0
+; protected-signed-corim-header-map
+corim.alg-id = 1
+corim.content-type = 3
+corim.issuer-key-id = 4
+corim.meta = 8
+
+; validity-map
+corim.not-before = 0
+corim.not-after = 1
+
+; corim-meta-map
+corim.signer = 0
+corim.validity = 1
 
 ; corim-entity-map
 corim.entity-name = 1
 corim.reg-id = 2
 corim.role = 3
 
-; person or org responsible for creating the CoRIM
-corim.creator = 1
+; $entity-name-type-choice values
+;
+; Person or organization responsible for creating the CoRIM
+corim.manifest-creator = 1
 
-; person or org responsible for signing the CoRIM
-corim.signer = 2
+; Person or organization responsible for signing the CoRIM
+corim.manifest-signer = 2
 
 ; vim: set tw=60 ts=2 et:

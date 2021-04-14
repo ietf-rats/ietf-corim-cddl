@@ -1,0 +1,13 @@
+; definitions shared by both corim and xcorim
+
+cose-label = int / tstr
+cose-values = any
+
+$entity-name-type-choice /= text
+
+$corim-id-type-choice /= tstr
+$corim-id-type-choice /= uuid-type
+
+uuid-type = bytes .size 16
+
+; vim: set tw=60 ts=2 et:

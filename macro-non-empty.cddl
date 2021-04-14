@@ -1,0 +1,5 @@
+; The non-empty macro makes sure that there is at least one
+; item in an object with only optional fields.
+non-empty<M> = (M) .and ({ + any => any })
+
+; vim: set tw=60 ts=2 et:

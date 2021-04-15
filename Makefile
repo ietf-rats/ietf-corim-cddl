@@ -9,7 +9,7 @@ check: check-corim check-xcorim
 define cddl_check_template
 
 check-$(1): $(1)-autogen.cddl
-	$$(cddl) $$< g 1
+	$$(cddl) $$< g 1 | $$(diag2diag) -e
 
 .PHONY: check-$(1)
 

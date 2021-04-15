@@ -15,12 +15,6 @@ concise-mid-tag = {
 
 language-type = text
 
-; Make sure that there is at least one item in an object
-; with only optional fields.
-non-empty<M> = (M) .and ({ + any => any })
-
-; one-or-more<T> imported from CoSWID
-
 tag-metadata-map = {
   comid.tag-id => $tag-id-type-choice
   comid.tag-version => tag-version-type
@@ -39,17 +33,17 @@ module-metadata-map = {
 }
 
 module-entity-map = {
-  comid.entity-name => text,
-  ? comid.reg-id => any-uri,
-  comid.role => one-or-more<$module-role>,
+  comid.entity-name => text
+  ? comid.reg-id => uri
+  comid.role => one-or-more<$module-role-type-choice>
   * $$module-entity-map-extension
 }
 
-$module-role /= comid.tag-creator
-$module-role /= comid.creator
-$module-role /= comid.distributor
-$module-role /= comid.licensor
-$module-role /= comid.maintainer
+$module-role-type-choice /= comid.tag-creator
+$module-role-type-choice /= comid.creator
+$module-role-type-choice /= comid.distributor
+$module-role-type-choice /= comid.licensor
+$module-role-type-choice /= comid.maintainer
 
 linked-tag-map = {
   comid.linked-tag-id => $tag-id-type-choice
@@ -86,10 +80,10 @@ $device-id-type-choice /= tagged-uuid-type
 
 instance-claim-map = {
   ? comid.instance-element-name => element-name-map
-  $instance-value-group-choice
+  $$instance-value-group-choice
 }
 
-$instance-value-group-choice = (
+$$instance-value-group-choice //= (
   comid.mac-addr => mac-addr-type-choice //
   comid.ip-addr => ip-addr-type-choice //
   comid.serial-number => serial-number-type //
@@ -142,7 +136,6 @@ tagged-oid-type = #6.111(oid-type)
 ;
 ; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
 ;
-uuid-type = bytes .size 16
 tagged-uuid-type = #6.37(uuid-type)
 
 ;

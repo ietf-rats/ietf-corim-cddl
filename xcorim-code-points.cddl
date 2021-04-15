@@ -1,15 +1,28 @@
-; scoped to protected-signed-xcorim-header map
-corim-meta-key = 8
+; unsigned-xcorim-map
+xcorim.creator = 0
+xcorim.deny-list = 1
 
-deny-id = 99
-validity = 121
+; xcorim-entity-map
+xcorim.entity-name = 0
+xcorim.role = 1
+xcorim.reg-id = 2
 
-denied-rims=120
+; $xcorim-role-type-choice
+;
+; The person or organization that issued the xCoRIM
+xcorim.deny-list-signer = 1
 
-xcorim.entity = 0
+; The person or organization that created the xCoRIM
+xcorim.deny-list-creator = 2
 
-; person or org responsible for creating the xCoRIM
-xcorim.creator = 1
+; protected-signed-xcorim-header-map
+xcorim.alg-id = 1
+xcorim.content-type = 3
+xcorim.issuer-key-id = 4
+xcorim.meta = 9
 
-; person or org responsible for signing the xCoRIM
-xcorim.signer = 2
+; xcorim-meta-map
+xcorim.signer = 0
+xcorim.timestamp = 1
+
+; vim: set tw=60 ts=2 et:

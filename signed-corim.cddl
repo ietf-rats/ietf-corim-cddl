@@ -1,50 +1,42 @@
 signed-corim = #6.18(COSE-Sign1-corim)
 
-cose-label = int / tstr
-cose-values = any
-
-protected-signed-corim-header = {
-  1 => int,                      ; algorithm identifier
-  3 => "application/rim+cbor",   ; content type identifier
-  4 => bstr,                     ; key identifier of issuer?
-  corim-meta-key => corim-meta   ; corim signature attrs
-  * cose-label => cose-values,
+protected-signed-corim-header-map = {
+  corim.alg-id => int
+  corim.content-type => "application/rim+cbor"
+  corim.issuer-key-id => bstr
+  corim.meta => corim-meta-map
+  * cose-label => cose-values 
 }
 
-; scoped to protected-signed-corim-header map
-corim-meta-key = 8 
-
-; corim-entity-map is pointing to the details regarding construction and signing of manifest
-; tag-metadata tag-issuer these are different things
-corim-meta = {
-  corim.entity => one-or-more<corim-entity-map>
-  ? validity-entry
+corim-meta-map = {
+  corim.signer => one-or-more<corim-entity-map>
+  ? corim.validity => validity-map
 }
 
 corim-entity-map = {
-  corim.entity-name => text,
-  ? corim.reg-id => any-uri,
-  corim.role => one-or-more<$rim-role>,
+  corim.entity-name => $entity-name-type-choice
+  ? corim.reg-id => uri
+  corim.role => $corim-role-type-choice
   * $$corim-entity-map-extension
 }
 
-$rim-role /= corim.creator
-$rim-role /= corim.signer
+$corim-role-type-choice /= corim.manifest-creator
+$corim-role-type-choice /= corim.manifest-signer
 
-validity-entry = (
-  ? not-before => time,
-  not-after => time,
-)
+validity-map = {
+  ? corim.not-before => time
+  corim.not-after => time
+}
 
-unprotected-signed-corim-header = {
-  * cose-label => cose-values,
+unprotected-signed-corim-header-map = {
+  * cose-label => cose-values
 }
 
 COSE-Sign1-corim = [
-  protected: bstr .cbor protected-signed-corim-header,
-  unprotected: unprotected-signed-corim-header,
-  payload: bstr .cbor unsigned-corim,
-  signature: bstr,
+  protected: bstr .cbor protected-signed-corim-header-map
+  unprotected: unprotected-signed-corim-header-map
+  payload: bstr .cbor unsigned-corim-map
+  signature: bstr
 ]
 
 ; vim: set tw=60 ts=2 et:

@@ -1,65 +1,47 @@
-xcorim = 
-  #6.47113(unsigned-xcorim) / 
+corim-revocation =
+  #6.47113(unsigned-xcorim-map) /
   #6.47114(signed-xcorim)
 
 signed-xcorim = #6.18(COSE-Sign1-xcorim)
 
-cose-label = int / tstr
-cose-values = any
-
-protected-signed-xcorim-header = {
-  1 => int,                      ; algorithm identifier
-  3 => "application/xrim+cbor",  ; content type identifier
-  4 => bstr,                     ; key identifier
-  corim-meta-key => corim-meta   ; xcorim signature
-                                 ; attributes are the same
-                                 ; as defined by corim
-                                 ; schema
-  * cose-label => cose-values,
+protected-signed-xcorim-header-map = {
+  xcorim.alg-id => int
+  xcorim.content-type => "application/xrim+cbor"
+  xcorim.issuer-key-id => bstr
+  xcorim.meta => xcorim-meta-map
+  * cose-label => cose-values
 }
 
-corim-meta = {
-  ; xcorim-entity-map is pointing to the details regarding construction and signing of xCoRIM
-  ; compare tag-metadata tag-issuer these are different
-  ; things
-  xcorim.entity => one-or-more<xcorim-entity-map>
-  ; NOTE(henk) this needed a key to be valid, but I am not
-  ; sure what the semantics are
-  ? validity => validity-entry,
-  ; used for revocation - NOTE(tho) I'm not sure I
-  ; understand how is this supposed to work?
-  ? deny-id => $corim-id-type,
+xcorim-meta-map = {
+  xcorim.signer => xcorim-entity-map
+  xcorim.timestamp => time
 }
 
 xcorim-entity-map = {
-  xcorim.entity-name => text,
-  ? xcorim.reg-id => any-uri,
-  xcorim.role => one-or-more<$xrim-role>,
+  xcorim.entity-name => $entity-name-type-choice
+  xcorim.role => one-or-more<$xcorim-role-type-choice>
+  ? xcorim.reg-id => uri
   * $$xcorim-entity-map-extension
 }
 
-$xrim-role /= xcorim.creator
-$xrim-role /= xcorim.signer
+$xcorim-role-type-choice /= xcorim.deny-list-signer
+$xcorim-role-type-choice /= xcorim.deny-list-creator
 
-unprotected-signed-xcorim-header = {
-  * cose-label => cose-values,
+unprotected-signed-xcorim-header-map = {
+  * cose-label => cose-values
 }
 
 COSE-Sign1-xcorim = [
-  protected: bstr .cbor protected-signed-xcorim-header,
-  unprotected: unprotected-signed-xcorim-header,
-  payload: bstr .cbor unsigned-xcorim,
-  signature: bstr,
+  protected: bstr .cbor protected-signed-xcorim-header-map
+  unprotected: unprotected-signed-xcorim-header-map
+  payload: bstr .cbor unsigned-xcorim-map
+  signature: bstr
 ]
 
-unsigned-xcorim = {
-  denied-rims => one-or-more<corim-id>
-  * $$unsigned-xcorim-extension
+unsigned-xcorim-map = {
+  ? xcorim.creator => xcorim-entity-map
+  xcorim.deny-list => one-or-more<$corim-id-type-choice>
+  * $$unsigned-xcorim-map-extension
 }
-
-corim-id = bstr .size 16
-
-validity-entry = "a XCoRIM validity entry"
-$corim-id-type /= "one of many corim ID types"
 
 ; vim: set tw=60 ts=2 et:

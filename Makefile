@@ -4,23 +4,42 @@ SHELL := /bin/bash
 
 include tools.mk
 
-check: corim.cddl ; $(cddl) $< g 1
+check: check-corim check-xcorim
 
-CLEANFILES += corim.cddl
+define cddl_check_template
 
-CDDL_FRAGS := concise-rim.cddl
-CDDL_FRAGS += signed-corim.cddl
-CDDL_FRAGS += unsigned-corim.cddl
-CDDL_FRAGS += concise-mid-tag.cddl
-CDDL_FRAGS += concise-swid-tag.cddl
-CDDL_FRAGS += concise-swid-tag-ext.cddl
-CDDL_FRAGS += comid-code-points.cddl
-CDDL_FRAGS += corim-code-points.cddl
-CDDL_FRAGS += xcorim-code-points.cddl
-CDDL_FRAGS += cose-key.cddl
+check-$(1): $(1)-autogen.cddl
+	$$(cddl) $$< g 1
 
-corim.cddl: $(CDDL_FRAGS)
-	for f in $^ ; do ( grep -v '^;' $$f ; echo ) ; done > $@
+.PHONY: check-$(1)
+
+$(1)-autogen.cddl: $(2)
+	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
+
+CLEANFILES += $(1)-autogen.cddl
+
+endef # cddl_check_template
+
+CORIM_FRAGS := concise-rim.cddl
+CORIM_FRAGS += signed-corim.cddl
+CORIM_FRAGS += unsigned-corim.cddl
+CORIM_FRAGS += concise-mid-tag.cddl
+CORIM_FRAGS += concise-swid-tag.cddl
+CORIM_FRAGS += concise-swid-tag-ext.cddl
+CORIM_FRAGS += comid-code-points.cddl
+CORIM_FRAGS += corim-code-points.cddl
+CORIM_FRAGS += macro-non-empty.cddl
+CORIM_FRAGS += cose-key.cddl
+CORIM_FRAGS += common.cddl
+
+$(eval $(call cddl_check_template,corim,$(CORIM_FRAGS)))
+
+XCORIM_FRAGS += xcorim.cddl
+XCORIM_FRAGS += xcorim-code-points.cddl
+XCORIM_FRAGS += common.cddl
+XCORIM_FRAGS += macro-one-or-more.cddl
+
+$(eval $(call cddl_check_template,xcorim,$(XCORIM_FRAGS)))
 
 GITHUB := https://raw.githubusercontent.com/
 COSWID_REPO := sacmwg/draft-ietf-sacm-coswid/master

@@ -8,7 +8,11 @@ xcorim.role = 1
 xcorim.reg-id = 2
 
 ; $xcorim-role-type-choice
+;
+; The person or organization that issued the xCoRIM
 xcorim.deny-list-signer = 1
+
+; The person or organization that created the xCoRIM
 xcorim.deny-list-creator = 2
 
 ; protected-signed-xcorim-header-map

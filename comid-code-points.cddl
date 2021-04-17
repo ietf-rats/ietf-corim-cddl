@@ -108,16 +108,8 @@ comid.tag-creator = 1
 ; Person or organization that created the module
 comid.creator = 2
 
-; Entity that furthers marketing, selling or distribution
-; of the module
-comid.distributor = 3
-
-; Person or organization that holds the right to issue the
-; module license
-comid.licensor = 4
-
 ; Person or organization making updates to a module, used
 ; when different from the module creator
-comid.maintainer = 5
+comid.maintainer = 3
 
 ; vim: set tw=60 ts=2 et:

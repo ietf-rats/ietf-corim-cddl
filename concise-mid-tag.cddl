@@ -41,8 +41,6 @@ module-entity-map = {
 
 $module-role-type-choice /= comid.tag-creator
 $module-role-type-choice /= comid.creator
-$module-role-type-choice /= comid.distributor
-$module-role-type-choice /= comid.licensor
 $module-role-type-choice /= comid.maintainer
 
 linked-tag-map = {

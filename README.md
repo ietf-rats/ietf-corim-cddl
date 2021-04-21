@@ -4,6 +4,7 @@
 
 * `curl`
 * `cddl`
+* `diag2diag`
 
 ## Make targets
 

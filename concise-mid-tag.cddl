@@ -5,8 +5,8 @@
 ;   dependencies to other manifests
 concise-mid-tag = {
   ? comid.language => language-type
-  comid.tag-metadata => tag-metadata-map
-  ? comid.module-metadata => module-metadata-map
+  comid.tag-identity => tag-identity-map
+  ? comid.module-name => element-name-map
   ? comid.entity => one-or-more<module-entity-map>
   ? comid.linked-tags => one-or-more<linked-tag-map>
   ? comid.claims => claims-map
@@ -15,7 +15,7 @@ concise-mid-tag = {
 
 language-type = text
 
-tag-metadata-map = {
+tag-identity-map = {
   comid.tag-id => $tag-id-type-choice
   comid.tag-version => tag-version-type
   * $$tag-metadata-map-extension
@@ -25,12 +25,6 @@ $tag-id-type-choice /= tstr
 $tag-id-type-choice /= uuid-type
 
 tag-version-type = uint .default 0
-
-module-metadata-map = {
-  ? comid.module-name => element-name-map
-  ? comid.module-version => module-version-map
-  * $$module-metadata-map-extension
-}
 
 module-entity-map = {
   comid.entity-name => text
@@ -151,7 +145,7 @@ tagged-ueid-type = #6.48000(ueid-type)
 ; version-scheme is defined in CoSWID
 module-version-map = {
   comid.version => version-type
-  comid.version-scheme => $version-scheme
+  ? comid.version-scheme => $version-scheme
 }
 
 version-type = text .default '0.0.0'
@@ -161,7 +155,7 @@ version-type = text .default '0.0.0'
 ;   there are extension points in endorsed-value and
 ;   ref-value?
 element-value-map = non-empty<{
-  ? comid.version => version-type
+  ? comid.version => module-version-map
   ? comid.svn => svn-type
   ? comid.digests => digests-type
   ? comid.flags => flags-type

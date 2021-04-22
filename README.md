@@ -1,4 +1,6 @@
-# ietf-corim-cddl
+# Concise Reference Integrity Manifest
+
+[![CI](https://github.com/ietf-rats/ietf-corim-cddl/actions/workflows/ci.yml/badge.svg)](https://github.com/ietf-rats/ietf-corim-cddl/actions/workflows/ci.yml)
 
 ## Tools
 

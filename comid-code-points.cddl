@@ -1,18 +1,14 @@
 ; concise-mid-tag
 comid.language = 0
-comid.tag-metadata = 1
-comid.module-metadata = 2
+comid.tag-identity = 1
+comid.module-name = 2
 comid.entity = 3
 comid.linked-tags = 4
 comid.claims = 5
 
-; tag-metadata-map
+; tag-identity-map
 comid.tag-id = 0
 comid.tag-version = 1
-
-; module-metadata-map
-comid.module-name = 0
-comid.module-version = 1
 
 ; module-entity-map
 comid.entity-name = 0

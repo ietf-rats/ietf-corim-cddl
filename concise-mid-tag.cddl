@@ -62,6 +62,8 @@ claims-map = non-empty<{
 identity-claim-map = {
   ? comid.device-id => $device-id-type-choice
   comid.key-material => COSE_KeySet
+  ? comid.identity-element-name => element-name-map
+  * $$identity-claim-map-extension
 }
 
 $device-id-type-choice /= tagged-ueid-type

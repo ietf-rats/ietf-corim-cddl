@@ -53,7 +53,7 @@ $tag-rel-type-choice /= comid.patches
 ; - any ref-value entry can match evidence
 claims-map = non-empty<{
   ? comid.reference-claims => one-or-more<reference-claim-map>
-  ? comid.endorsements => one-or-more<endorsed-value-map>
+  ? comid.endorsements => one-or-more<endorsed-claim-map>
   ? comid.identity-claims => one-or-more<identity-claim-map>
   ? comid.instance-claims => one-or-more<instance-claim-map>
   * $$claims-map-extension
@@ -179,10 +179,10 @@ raw-value-mask-type = bytes
 ; - How do vendor specific schemas allocate indices (keys)?
 ;   We need to specify a range of keys with rules 'first
 ;   come first served'
-endorsed-value-map = {
+endorsed-claim-map = {
   comid.element-name => element-name-map
   ? comid.element-value => element-value-map
-  * $$endorsed-value-map-extension
+  * $$endorsed-claim-map-extension
 }
 
 ; Notes:

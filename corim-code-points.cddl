@@ -22,9 +22,9 @@ corim.signer = 0
 corim.validity = 1
 
 ; corim-entity-map
-corim.entity-name = 1
-corim.reg-id = 2
-corim.role = 3
+corim.entity-name = 0
+corim.reg-id = 1
+corim.role = 2
 
 ; $entity-name-type-choice values
 ;

@@ -179,18 +179,18 @@ raw-value-mask-type = bytes
 ; - How do vendor specific schemas allocate indices (keys)?
 ;   We need to specify a range of keys with rules 'first
 ;   come first served'
-endorsed-claim-map = {
-  comid.element-name => element-name-map
+endorsed-claim-map = non-empty<{
+  ? comid.element-name => element-name-map
   ? comid.element-value => element-value-map
   * $$endorsed-claim-map-extension
-}
+}>
 
 ; Notes:
 ; - a collection of reference values can be modeled using
 ;   multiplicity of tags and/or claims, but we need to
 ;   verify how to apply AND and OR logic for matching
 reference-claim-map = {
-  comid.element-name => element-name-map
+  ? comid.element-name => element-name-map
   comid.element-value => element-value-map
   * $$reference-claim-map-extension
 }

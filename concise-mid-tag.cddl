@@ -208,6 +208,6 @@ operational-flags = &(
 
 ; Notes:
 ; - hash-entry is defined in CoSWID schema
-digests-type = [ hash-entry / [2* hash-entry] ]
+digests-type = one-or-more<hash-entry>
 
 ; vim: set tw=60 ts=2 et:

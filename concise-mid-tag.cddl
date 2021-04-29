@@ -62,7 +62,7 @@ claims-map = non-empty<{
 identity-claim-map = {
   ? comid.element-name => element-name-map
   ? comid.device-id => $device-id-type-choice
-  comid.key-material => COSE_KeySet
+  comid.key-material => one-or-more<COSE_Key>
   * $$identity-claim-map-extension
 }
 

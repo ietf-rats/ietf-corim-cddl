@@ -73,7 +73,7 @@ $device-id-type-choice /= tagged-uuid-type
 ; RFC4108?
 
 instance-claim-map = {
-  ? comid.instance-element-name => element-name-map
+  ? comid.element-name => element-name-map
   $$instance-value-group-choice
 }
 

@@ -90,7 +90,7 @@ comid.instance-claims = 3
 comid.device-id = 1
 comid.key-material = 2
 
-; $instance-value-choice
+; $$instance-value-group-choice
 comid.mac-addr = 1
 comid.ip-addr = 2
 comid.serial-number = 3

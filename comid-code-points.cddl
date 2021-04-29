@@ -75,7 +75,7 @@ comid.patches = 5
 comid.version-scheme = 1
 
 ; endorsed-claim-map and reference-claim-map
-; (also identity-claim-map)
+; (also identity-claim-map and instance-claim-map)
 comid.element-name = 0
 comid.element-value = 1
 
@@ -90,8 +90,7 @@ comid.instance-claims = 3
 comid.device-id = 1
 comid.key-material = 2
 
-; instance-value-map and $instance-value-choice
-comid.instance-element-name = 0
+; $$instance-value-group-choice
 comid.mac-addr = 1
 comid.ip-addr = 2
 comid.serial-number = 3

@@ -75,7 +75,7 @@ comid.patches = 5
 comid.version-scheme = 1
 
 ; endorsed-claim-map and reference-claim-map
-; (also identity-claim-map and instance-value-map)
+; (also identity-claim-map and instance-claim-map)
 comid.element-name = 0
 comid.element-value = 1
 

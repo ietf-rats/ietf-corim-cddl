@@ -27,7 +27,7 @@ $tag-id-type-choice /= uuid-type
 tag-version-type = uint .default 0
 
 module-entity-map = {
-  comid.entity-name => text
+  comid.entity-name => $entity-name-type-choice
   ? comid.reg-id => uri
   comid.role => one-or-more<$module-role-type-choice>
   * $$module-entity-map-extension

@@ -18,7 +18,7 @@ language-type = text
 tag-identity-map = {
   comid.tag-id => $tag-id-type-choice
   comid.tag-version => tag-version-type
-  * $$tag-metadata-map-extension
+  * $$tag-identity-map-extension
 }
 
 $tag-id-type-choice /= tstr

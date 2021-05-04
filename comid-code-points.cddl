@@ -6,6 +6,12 @@ comid.entity = 3
 comid.linked-tags = 4
 comid.claims = 5
 
+; ref-instance-claim-map
+comid.ref-claim-value = 1
+
+; endors-instance-claim-map
+comid.endors-claim-value = 1
+
 ; tag-identity-map
 comid.tag-id = 0
 comid.tag-version = 1
@@ -83,7 +89,8 @@ comid.element-value = 1
 comid.reference-claims = 0
 comid.endorsements = 1
 comid.identity-claims = 2
-comid.instance-claims = 3
+comid.ref-instance-claims = 3
+comid.endors-instance-claims = 4
 
 ; identity-claim-map
 ; (note: 0 is taken by comid.element-name)

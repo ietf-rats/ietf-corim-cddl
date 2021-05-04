@@ -55,7 +55,8 @@ claims-map = non-empty<{
   ? comid.reference-claims => one-or-more<reference-claim-map>
   ? comid.endorsements => one-or-more<endorsed-claim-map>
   ? comid.identity-claims => one-or-more<identity-claim-map>
-  ? comid.instance-claims => one-or-more<instance-claim-map>
+  ? comid.ref-instance-claims => one-or-more<ref-instance-claim-map>
+  ? comid.endors-instance-claims => one-or-more<endors-instance-claim-map>
   * $$claims-map-extension
 }>
 
@@ -72,10 +73,17 @@ $device-id-type-choice /= tagged-uuid-type
 ; Note: is there a #6.4711 definition for hardwaremodulename
 ; RFC4108?
 
-instance-claim-map = {
+ref-instance-claim-map = {
   ? comid.element-name => element-name-map
   $$instance-value-group-choice
+  comid.ref-claim-value => reference-value-map
 }
+
+endors-instance-claim-map = {
+  ? comid.element-name => element-name-map
+  ? $$instance-value-group-choice
+  ? comid.endors-claim-value => endorsed-value-map
+ }
 
 $$instance-value-group-choice //= (
   comid.mac-addr => mac-addr-type-choice //
@@ -156,13 +164,13 @@ version-type = text .default '0.0.0'
 ; - do we need an extension point in element-value given
 ;   there are extension points in endorsed-value and
 ;   ref-value?
-element-value-map = non-empty<{
+element-value-group = (
   ? comid.version => module-version-map
   ? comid.svn => svn-type
   ? comid.digests => digests-type
   ? comid.flags => flags-type
   ? raw-value-group
-}>
+)
 
 svn-type = int
 flags-type = bytes .bits operational-flags
@@ -183,9 +191,22 @@ raw-value-mask-type = bytes
 ;   come first served'
 endorsed-claim-map = non-empty<{
   ? comid.element-name => element-name-map
-  ? comid.element-value => element-value-map
-  * $$endorsed-claim-map-extension
+  ? comid.element-value => endorsed-value-map
+<<<<<<< HEAD
 }>
+
+endorsed-value-map = non-empty<{
+  element-value-group
+  * $$endorsed-value-map-extension
+=======
+>>>>>>> 29cce05... Use instance reference and instance endorsed map
+}>
+
+endorsed-value-map = non-empty<{
+  element-value-group
+  * $$endorsed-value-map-extension
+}>
+
 
 ; Notes:
 ; - a collection of reference values can be modeled using
@@ -193,9 +214,13 @@ endorsed-claim-map = non-empty<{
 ;   verify how to apply AND and OR logic for matching
 reference-claim-map = {
   ? comid.element-name => element-name-map
-  comid.element-value => element-value-map
-  * $$reference-claim-map-extension
+  comid.element-value => reference-value-map
 }
+
+reference-value-map = non-empty<{
+  element-value-group
+  * $$reference-value-map-extension
+}>
 
 ; Notes:
 ; - requires functional compare

@@ -192,14 +192,6 @@ raw-value-mask-type = bytes
 endorsed-claim-map = non-empty<{
   ? comid.element-name => element-name-map
   ? comid.element-value => endorsed-value-map
-<<<<<<< HEAD
-}>
-
-endorsed-value-map = non-empty<{
-  element-value-group
-  * $$endorsed-value-map-extension
-=======
->>>>>>> 29cce05... Use instance reference and instance endorsed map
 }>
 
 endorsed-value-map = non-empty<{

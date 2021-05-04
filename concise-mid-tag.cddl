@@ -156,13 +156,13 @@ version-type = text .default '0.0.0'
 ; - do we need an extension point in element-value given
 ;   there are extension points in endorsed-value and
 ;   ref-value?
-element-value-map = non-empty<{
+element-value-group = (
   ? comid.version => module-version-map
   ? comid.svn => svn-type
   ? comid.digests => digests-type
   ? comid.flags => flags-type
   ? raw-value-group
-}>
+)
 
 svn-type = int
 flags-type = bytes .bits operational-flags
@@ -183,8 +183,12 @@ raw-value-mask-type = bytes
 ;   come first served'
 endorsed-claim-map = non-empty<{
   ? comid.element-name => element-name-map
-  ? comid.element-value => element-value-map
-  * $$endorsed-claim-map-extension
+  ? comid.element-value => endorsed-value-map
+}>
+
+endorsed-value-map = non-empty<{
+  element-value-group
+  * $$endorsed-value-map-extension
 }>
 
 ; Notes:
@@ -193,9 +197,13 @@ endorsed-claim-map = non-empty<{
 ;   verify how to apply AND and OR logic for matching
 reference-claim-map = {
   ? comid.element-name => element-name-map
-  comid.element-value => element-value-map
-  * $$reference-claim-map-extension
+  comid.element-value => reference-value-map
 }
+
+reference-value-map = non-empty<{
+  element-value-group
+  * $$reference-value-map-extension
+}>
 
 ; Notes:
 ; - requires functional compare

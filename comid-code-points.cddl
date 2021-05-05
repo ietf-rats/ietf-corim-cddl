@@ -102,7 +102,7 @@ comid.uuid = 5
 comid.reference-claim-value = 6
 
 ; endorsed-instance-claim-map
-comid.endorsed-claim-value = 7
+comid.endorsed-claim-value = 6
 
 ; $module-role-type-choice values
 ;

@@ -83,7 +83,8 @@ comid.element-value = 1
 comid.reference-claims = 0
 comid.endorsements = 1
 comid.identity-claims = 2
-comid.instance-claims = 3
+comid.reference-instance-claims = 3
+comid.endorsements-instance-claims = 4
 
 ; identity-claim-map
 ; (note: 0 is taken by comid.element-name)
@@ -96,6 +97,12 @@ comid.ip-addr = 2
 comid.serial-number = 3
 comid.ueid = 4
 comid.uuid = 5
+
+; reference-instance-claim-map
+comid.reference-claim-value = 6
+
+; endorsed-instance-claim-map
+comid.endorsed-claim-value = 6
 
 ; $module-role-type-choice values
 ;

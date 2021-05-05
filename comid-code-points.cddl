@@ -6,12 +6,6 @@ comid.entity = 3
 comid.linked-tags = 4
 comid.claims = 5
 
-; ref-instance-claim-map
-comid.ref-claim-value = 1
-
-; endors-instance-claim-map
-comid.endors-claim-value = 1
-
 ; tag-identity-map
 comid.tag-id = 0
 comid.tag-version = 1
@@ -89,8 +83,8 @@ comid.element-value = 1
 comid.reference-claims = 0
 comid.endorsements = 1
 comid.identity-claims = 2
-comid.ref-instance-claims = 3
-comid.endors-instance-claims = 4
+comid.reference-instance-claims = 3
+comid.endorsements-instance-claims = 4
 
 ; identity-claim-map
 ; (note: 0 is taken by comid.element-name)
@@ -103,6 +97,12 @@ comid.ip-addr = 2
 comid.serial-number = 3
 comid.ueid = 4
 comid.uuid = 5
+
+; reference-instance-claim-map
+comid.reference-claim-value = 6
+
+; endorsed-instance-claim-map
+comid.endorsed-claim-value = 7
 
 ; $module-role-type-choice values
 ;

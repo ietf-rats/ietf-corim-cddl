@@ -50,13 +50,13 @@ $tag-rel-type-choice /= comid.replaces
 $tag-rel-type-choice /= comid.patches
 
 ; Notes:
-; - any ref-value entry can match evidence
+; - any reference-value entry can match evidence
 claims-map = non-empty<{
   ? comid.reference-claims => one-or-more<reference-claim-map>
   ? comid.endorsements => one-or-more<endorsed-claim-map>
   ? comid.identity-claims => one-or-more<identity-claim-map>
-  ? comid.ref-instance-claims => one-or-more<ref-instance-claim-map>
-  ? comid.endors-instance-claims => one-or-more<endors-instance-claim-map>
+  ? comid.reference-instance-claims => one-or-more<reference-instance-claim-map>
+  ? comid.endorsements-instance-claims => one-or-more<endorsed-instance-claim-map>
   * $$claims-map-extension
 }>
 
@@ -73,16 +73,16 @@ $device-id-type-choice /= tagged-uuid-type
 ; Note: is there a #6.4711 definition for hardwaremodulename
 ; RFC4108?
 
-ref-instance-claim-map = {
+reference-instance-claim-map = {
   ? comid.element-name => element-name-map
   $$instance-value-group-choice
-  comid.ref-claim-value => reference-value-map
+  comid.reference-claim-value => reference-value-map
 }
 
-endors-instance-claim-map = {
+endorsed-instance-claim-map = {
   ? comid.element-name => element-name-map
   ? $$instance-value-group-choice
-  ? comid.endors-claim-value => endorsed-value-map
+  ? comid.endorsed-claim-value => endorsed-value-map
  }
 
 $$instance-value-group-choice //= (
@@ -163,7 +163,7 @@ version-type = text .default '0.0.0'
 ; Notes:
 ; - do we need an extension point in element-value given
 ;   there are extension points in endorsed-value and
-;   ref-value?
+;   reference-value?
 element-value-group = (
   ? comid.version => module-version-map
   ? comid.svn => svn-type
@@ -198,7 +198,6 @@ endorsed-value-map = non-empty<{
   element-value-group
   * $$endorsed-value-map-extension
 }>
-
 
 ; Notes:
 ; - a collection of reference values can be modeled using

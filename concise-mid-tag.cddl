@@ -53,10 +53,10 @@ $tag-rel-type-choice /= comid.patches
 ; - any reference-value entry can match evidence
 claims-map = non-empty<{
   ? comid.reference-claims => one-or-more<reference-claim-map>
-  ? comid.endorsements => one-or-more<endorsed-claim-map>
+  ? comid.endorsed-claims => one-or-more<endorsed-claim-map>
   ? comid.identity-claims => one-or-more<identity-claim-map>
   ? comid.reference-instance-claims => one-or-more<reference-instance-claim-map>
-  ? comid.endorsements-instance-claims => one-or-more<endorsed-instance-claim-map>
+  ? comid.endorsed-instance-claims => one-or-more<endorsed-instance-claim-map>
   * $$claims-map-extension
 }>
 

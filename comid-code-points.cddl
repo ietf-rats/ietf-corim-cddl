@@ -81,10 +81,10 @@ comid.element-value = 1
 
 ; claims-entry
 comid.reference-claims = 0
-comid.endorsements = 1
+comid.endorsed-claims = 1
 comid.identity-claims = 2
 comid.reference-instance-claims = 3
-comid.endorsements-instance-claims = 4
+comid.endorsed-instance-claims = 4
 
 ; identity-claim-map
 ; (note: 0 is taken by comid.element-name)

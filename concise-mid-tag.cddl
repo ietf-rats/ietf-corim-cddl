@@ -55,14 +55,11 @@ claims-map = non-empty<{
   ? comid.reference-claims => one-or-more<reference-claim-map>
   ? comid.endorsed-claims => one-or-more<endorsed-claim-map>
   ? comid.identity-claims => one-or-more<identity-claim-map>
-  ? comid.reference-instance-claims => one-or-more<reference-instance-claim-map>
-  ? comid.endorsed-instance-claims => one-or-more<endorsed-instance-claim-map>
   * $$claims-map-extension
 }>
 
 identity-claim-map = {
   ? comid.element-name => element-name-map
-  ? comid.device-id => $device-id-type-choice
   comid.key-material => one-or-more<COSE_Key>
   * $$identity-claim-map-extension
 }
@@ -72,26 +69,6 @@ $device-id-type-choice /= tagged-uuid-type
 
 ; Note: is there a #6.4711 definition for hardwaremodulename
 ; RFC4108?
-
-reference-instance-claim-map = {
-  ? comid.element-name => element-name-map
-  $$instance-value-group-choice
-  comid.reference-claim-value => reference-value-map
-}
-
-endorsed-instance-claim-map = {
-  ? comid.element-name => element-name-map
-  ? $$instance-value-group-choice
-  ? comid.endorsed-claim-value => endorsed-value-map
- }
-
-$$instance-value-group-choice //= (
-  comid.mac-addr => mac-addr-type-choice //
-  comid.ip-addr => ip-addr-type-choice //
-  comid.serial-number => serial-number-type //
-  comid.ueid => ueid-type //
-  comid.uuid => uuid-type
-)
 
 ip-addr-type-choice = ip4-addr-type / ip6-addr-type
 ip4-addr-type = bytes .size 4
@@ -117,6 +94,7 @@ element-name-map = non-empty<{
   ? comid.model => model-type
   ? comid.layer => layer-type
   ? comid.index => index-type
+  ? comid.device-id => $device-id-type-choice
 }>
 
 label-type = text
@@ -160,16 +138,22 @@ module-version-map = {
 
 version-type = text .default '0.0.0'
 
-; Notes:
-; - do we need an extension point in element-value given
-;   there are extension points in endorsed-value and
-;   reference-value?
 element-value-group = (
   ? comid.version => module-version-map
   ? comid.svn => svn-type
   ? comid.digests => digests-type
   ? comid.flags => flags-type
   ? raw-value-group
+;
+; former $$instance-value-group-choice, except it's not
+; a group-choice because the values can co-exist, i.e.,
+; they are not an alternative
+;
+  ? comid.mac-addr => mac-addr-type-choice
+  ? comid.ip-addr => ip-addr-type-choice
+  ? comid.serial-number => serial-number-type
+  ? comid.ueid => ueid-type
+  ? comid.uuid => uuid-type
 )
 
 svn-type = int

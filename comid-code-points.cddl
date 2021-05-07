@@ -26,6 +26,7 @@ comid.class-id = 2
 comid.model = 3
 comid.layer = 4
 comid.index = 5
+comid.device-id = 6
 
 ; element-value-map
 comid.version = 0
@@ -83,26 +84,17 @@ comid.element-value = 1
 comid.reference-claims = 0
 comid.endorsed-claims = 1
 comid.identity-claims = 2
-comid.reference-instance-claims = 3
-comid.endorsed-instance-claims = 4
 
 ; identity-claim-map
 ; (note: 0 is taken by comid.element-name)
-comid.device-id = 1
-comid.key-material = 2
+comid.key-material = 1
 
 ; $$instance-value-group-choice
-comid.mac-addr = 1
-comid.ip-addr = 2
-comid.serial-number = 3
-comid.ueid = 4
-comid.uuid = 5
-
-; reference-instance-claim-map
-comid.reference-claim-value = 6
-
-; endorsed-instance-claim-map
-comid.endorsed-claim-value = 6
+comid.mac-addr = 6
+comid.ip-addr = 7
+comid.serial-number = 8
+comid.ueid = 9
+comid.uuid = 10
 
 ; $module-role-type-choice values
 ;

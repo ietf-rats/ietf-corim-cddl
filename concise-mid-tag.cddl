@@ -62,25 +62,25 @@ claims-map = non-empty<{
 
 identity-claim-map = {
   ? comid.element-name => element-name-map
-  ? comid.device-id => $device-id-type-choice
+  ? comid.instance-id => $instance-id-type-choice
   comid.key-material => one-or-more<COSE_Key>
   * $$identity-claim-map-extension
 }
 
-$device-id-type-choice /= tagged-ueid-type
-$device-id-type-choice /= tagged-uuid-type
+$instance-id-type-choice /= tagged-ueid-type
+$instance-id-type-choice /= tagged-uuid-type
 
 ; Note: is there a #6.4711 definition for hardwaremodulename
 ; RFC4108?
 
 reference-instance-claim-map = {
-  ? comid.element-name => element-name-map
+  ? comid.class-id => class-id-map
   $$instance-value-group-choice
   comid.reference-claim-value => reference-value-map
 }
 
 endorsed-instance-claim-map = {
-  ? comid.element-name => element-name-map
+  ? comid.class-id => class-id-map
   ? $$instance-value-group-choice
   ? comid.endorsed-claim-value => endorsed-value-map
  }
@@ -204,7 +204,7 @@ endorsed-value-map = non-empty<{
 ;   multiplicity of tags and/or claims, but we need to
 ;   verify how to apply AND and OR logic for matching
 reference-claim-map = {
-  ? comid.element-name => class-id-map
+  ? comid.class-id => class-id-map
   comid.measurement-value => reference-value-map
 }
 

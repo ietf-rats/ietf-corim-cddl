@@ -6,7 +6,7 @@
 concise-mid-tag = {
   ? comid.language => language-type
   comid.tag-identity => tag-identity-map
-  ? comid.module-name => element-name-map
+  ? comid.module-name => class-id-map
   ? comid.entity => one-or-more<module-entity-map>
   ? comid.linked-tags => one-or-more<linked-tag-map>
   ? comid.claims => claims-map
@@ -110,10 +110,10 @@ serial-number-type = text
 ; - vendor is the namespace authority designation
 ; - type SHOULD include a namespace authority if vendor is
 ;   omitted
-element-name-map = non-empty<{
+class-id-map = non-empty<{
   ? comid.label => label-type
   ? comid.vendor => vendor-type
-  ? comid.class-id => $class-id-type-choice
+  ? comid.id => $class-id-type-choice
   ? comid.model => model-type
   ? comid.layer => layer-type
   ? comid.index => index-type
@@ -161,10 +161,10 @@ module-version-map = {
 version-type = text .default '0.0.0'
 
 ; Notes:
-; - do we need an extension point in element-value given
+; - do we need an extension point in measurement-value given
 ;   there are extension points in endorsed-value and
 ;   reference-value?
-element-value-group = (
+measurement-value-group = (
   ? comid.version => module-version-map
   ? comid.svn => svn-type
   ? comid.digests => digests-type
@@ -184,18 +184,18 @@ raw-value-type = bytes
 raw-value-mask-type = bytes
 
 ; Notes:
-; - one endorser benefits from the element-value of another
+; - one endorser benefits from the measurement-value of another
 ;   endorser
 ; - How do vendor specific schemas allocate indices (keys)?
 ;   We need to specify a range of keys with rules 'first
 ;   come first served'
 endorsed-claim-map = non-empty<{
-  ? comid.element-name => element-name-map
-  ? comid.element-value => endorsed-value-map
+  ? comid.class-id => class-id-map
+  ? comid.measurement-value => endorsed-value-map
 }>
 
 endorsed-value-map = non-empty<{
-  element-value-group
+  measurement-value-group
   * $$endorsed-value-map-extension
 }>
 
@@ -204,12 +204,12 @@ endorsed-value-map = non-empty<{
 ;   multiplicity of tags and/or claims, but we need to
 ;   verify how to apply AND and OR logic for matching
 reference-claim-map = {
-  ? comid.element-name => element-name-map
-  comid.element-value => reference-value-map
+  ? comid.element-name => class-id-map
+  comid.measurement-value => reference-value-map
 }
 
 reference-value-map = non-empty<{
-  element-value-group
+  measurement-value-group
   * $$reference-value-map-extension
 }>
 

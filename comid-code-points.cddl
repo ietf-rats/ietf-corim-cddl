@@ -19,15 +19,15 @@ comid.role = 2
 comid.linked-tag-id = 0
 comid.tag-rel = 1
 
-; element-name-map
+; class-id-map
 comid.label = 0
 comid.vendor = 1
-comid.class-id = 2
+comid.id = 2
 comid.model = 3
 comid.layer = 4
 comid.index = 5
 
-; element-value-map
+; measurement-value-map
 comid.version = 0
 comid.svn = 1
 comid.digests = 2
@@ -88,7 +88,7 @@ comid.endorsed-instance-claims = 4
 
 ; identity-claim-map
 ; (note: 0 is taken by comid.element-name)
-comid.device-id = 1
+comid.instance-id = 1
 comid.key-material = 2
 
 ; $$instance-value-group-choice

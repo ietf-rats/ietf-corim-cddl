@@ -1,0 +1,36 @@
+; concise-mid-tag
+comid.claims = 5
+
+; claims-map
+comid.reference-claims = 0
+comid.endorsed-claims = 1
+comid.identity-claims = 2
+
+; environment-map
+comid.class = 0
+comid.instance = 1
+
+; class-map
+comid.class-id = 0
+
+; instance-map
+comid.instance-id = 0
+
+; values-map
+comid.ver = 0
+comid.svn = 1
+comid.digests = 2
+comid.flags = 3
+comid.raw-value = 4
+comid.raw-value-mask = 5
+comid.mac-addr = 6
+comid.ip-addr = 7
+comid.serial-number = 8
+comid.ueid = 9
+comid.uuid = 10
+
+; version-map
+comid.version = 0
+comid.version-scheme = 1
+
+; vim: set tw=60 ts=2 et:

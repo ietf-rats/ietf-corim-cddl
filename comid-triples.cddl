@@ -1,0 +1,142 @@
+concise-mid-tag = {
+  ; TODO(tho) language
+  ; TODO(tho) tag-id
+  ; TODO(tho) module-name
+  ; TODO(tho) entity
+  ; TODO(tho) linked-tags
+  comid.claims => claims-map
+  ; TODO(tho) extension
+}
+
+claims-map = non-empty<{
+  comid.reference-claims => one-or-more<reference-claim-record>
+  comid.endorsed-claims => one-or-more<endorsed-claim-record>
+  comid.identity-claims => one-or-more<identity-claim-record>
+  * $$claims-map-extension
+}>
+
+; REFERENCE-VALUE triple
+; "target environment $TE" "has reference measurements" "$RV"
+reference-claim-record = {
+  target-environment: environment-map 
+  reference-values: values-map
+}
+
+; ENDORSED-VALUE triple
+; "environment $E" "has endorsed measurements" "$EV"
+endorsed-claim-record = {
+  environment: environment-map 
+  endorsed-values: values-map
+}
+
+; DEVICE-IDENTITY triple
+; (Should it be AE-IDENTITY instead?)
+; "attesting environment $AE" "signs Evidence with key" "$K"
+identity-claim-record = {
+  attesting-environment: environment-map 
+  identity: COSE_Key
+}
+
+environment-map = non-empty<{
+  ? comid.class => class-map
+  ? comid.instance => instance-map
+}>
+
+class-map = {
+  comid.class-id => $class-id-type-choice
+  ; TODO(tho) add layer, index, etc. or add them as
+  ; class-map-extension?
+  * $$class-map-extension
+}
+
+$class-id-type-choice /= tagged-oid-type
+$class-id-type-choice /= tagged-uuid-type
+$class-id-type-choice /= tagged-impl-id-type
+
+instance-map = {
+  comid.instance-id => $instance-id-type-choice
+  * $$instance-map-extension
+}
+
+$instance-id-type-choice /= tagged-ueid-type
+$instance-id-type-choice /= tagged-uuid-type
+
+;
+; From draft-ietf-cbor-tags-oid (TODO(tho), roid and pen)
+;
+oid-type = bytes
+tagged-oid-type = #6.111(oid-type)
+
+;
+; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
+;
+tagged-uuid-type = #6.37(uuid-type)
+
+;
+; From draft-ietf-rats-eat
+;
+ueid-type = bytes .size 33
+tagged-ueid-type = #6.48000(ueid-type)
+
+;
+; From draft-tschofenig-rats-psa-token
+;
+impl-id-type = bytes .size 32
+tagged-impl-id-type = #6.47115(impl-id-type)
+
+values-map = non-empty<{
+  ? comid.ver => version-map
+  ? comid.svn => svn-type
+  ? comid.digests => digests-type
+  ? comid.flags => flags-type
+  ? raw-value-group
+  ? comid.mac-addr => mac-addr-type-choice
+  ? comid.ip-addr => ip-addr-type-choice
+  ? comid.serial-number => serial-number-type
+  ? comid.ueid => ueid-type ; XXX(tho) what is the use case?
+  ? comid.uuid => uuid-type ; XXX(tho) what is the use case?
+  * $$values-map-extension
+}>
+
+version-map = {
+  comid.version => version-type
+  ? comid.version-scheme => $version-scheme
+}
+version-type = text .default '0.0.0'
+; version-scheme is defined in CoSWID
+
+svn-type = int
+flags-type = bytes .bits operational-flags
+
+; Notes:
+; - requires functional compare - XXX(tho) what does this mean?
+operational-flags = &(
+  not-configured: 0
+  not-secure: 1
+  recovery: 2
+  debug: 3
+)
+
+raw-value-group = (
+  comid.raw-value => raw-value-type
+  ? comid.raw-value-mask => raw-value-mask-type
+)
+
+raw-value-type = bytes
+raw-value-mask-type = bytes
+
+ip-addr-type-choice = ip4-addr-type / ip6-addr-type
+ip4-addr-type = bytes .size 4
+ip6-addr-type = bytes .size 16
+
+mac-addr-type-choice = eui48-addr-type / eui64-addr-type
+eui48-addr-type = bytes .size 6
+eui64-addr-type = bytes .size 8
+
+serial-number-type = text
+
+; Notes:
+; - hash-entry is defined in CoSWID schema
+digests-type = one-or-more<hash-entry>
+
+; vim: set tw=70 ts=2 et:

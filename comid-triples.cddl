@@ -26,7 +26,7 @@ reference-claim-record = {
 ; "environment $E" "has endorsed measurements" "$EV"
 endorsed-claim-record = {
   environment: environment-map 
-  endorsed-values: values-map
+  endorsed-values: one-or-more<values-map>
 }
 
 ; DEVICE-IDENTITY triple

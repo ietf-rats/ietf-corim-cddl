@@ -1,10 +1,10 @@
 ; concise-mid-tag
-comid.claims = 5
+comid.triples = 5
 
-; claims-map
-comid.reference-claims = 0
-comid.endorsed-claims = 1
-comid.identity-claims = 2
+; triples-map
+comid.reference-triples = 0
+comid.endorsed-triples = 1
+comid.identity-triples = 2
 
 ; environment-map
 comid.class = 0
@@ -12,11 +12,13 @@ comid.instance = 1
 
 ; class-map
 comid.class-id = 0
+comid.layer = 1
+comid.index = 2
 
 ; instance-map
 comid.instance-id = 0
 
-; values-map
+; measurement-map
 comid.ver = 0
 comid.svn = 1
 comid.digests = 2

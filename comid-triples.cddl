@@ -4,37 +4,37 @@ concise-mid-tag = {
   ; TODO(tho) module-name
   ; TODO(tho) entity
   ; TODO(tho) linked-tags
-  comid.claims => claims-map
+  comid.triples => triples-map
   ; TODO(tho) extension
 }
 
-claims-map = non-empty<{
-  ? comid.reference-claims => one-or-more<reference-claim-record>
-  ? comid.endorsed-claims => one-or-more<endorsed-claim-record>
-  ? comid.identity-claims => one-or-more<identity-claim-record>
-  * $$claims-map-extension
+triples-map = non-empty<{
+  ? comid.reference-triples => one-or-more<reference-triple-record>
+  ? comid.endorsed-triples => one-or-more<endorsed-triple-record>
+  ? comid.identity-triples => one-or-more<identity-triple-record>
+  * $$triples-map-extension
 }>
 
 ; REFERENCE-VALUE triple
 ; "target environment $TE" "has reference measurements" "$RV"
-reference-claim-record = {
+reference-triple-record = {
   target-environment: environment-map 
-  reference-values: one-or-more<values-map>
+  reference-measurements: one-or-more<measurement-map>
 }
 
 ; ENDORSED-VALUE triple
 ; "environment $E" "has endorsed measurements" "$EV"
-endorsed-claim-record = {
+endorsed-triple-record = {
   environment: environment-map 
-  endorsed-values: one-or-more<values-map>
+  endorsed-measurements: one-or-more<measurement-map>
 }
 
 ; DEVICE-IDENTITY triple
 ; (Should it be AE-IDENTITY instead?)
 ; "attesting environment $AE" "signs Evidence with key" "$K"
-identity-claim-record = {
+identity-triple-record = {
   attesting-environment: environment-map 
-  identity: COSE_Key
+  identity: one-or-more<COSE_Key>
 }
 
 environment-map = non-empty<{
@@ -44,14 +44,23 @@ environment-map = non-empty<{
 
 class-map = {
   comid.class-id => $class-id-type-choice
-  ; TODO(tho) add layer, index, etc. or add them as
-  ; class-map-extension?
+  ? comid.layer => uint
+  ? comid.index => uint
   * $$class-map-extension
 }
 
+ns-auth = tstr
+uuid-class-type = [ ns-auth, uuid-type ]
+tagged-uuid-class-type = #6.900(uuid-class-type)
+
+model = tstr
+model-class-type = [ ns-auth, model ]
+tagged-model-class-type = #6.901(model-class-type)
+
 $class-id-type-choice /= tagged-oid-type
-$class-id-type-choice /= tagged-uuid-type
 $class-id-type-choice /= tagged-impl-id-type
+$class-id-type-choice /= tagged-uuid-class-type
+$class-id-type-choice /= tagged-model-class-type
 
 instance-map = {
   comid.instance-id => $instance-id-type-choice
@@ -84,7 +93,7 @@ tagged-ueid-type = #6.48000(ueid-type)
 impl-id-type = bytes .size 32
 tagged-impl-id-type = #6.47115(impl-id-type)
 
-values-map = non-empty<{
+measurement-map = non-empty<{
   ? comid.ver => version-map
   ? comid.svn => svn-type
   ? comid.digests => digests-type
@@ -93,9 +102,9 @@ values-map = non-empty<{
   ? comid.mac-addr => mac-addr-type-choice
   ? comid.ip-addr => ip-addr-type-choice
   ? comid.serial-number => serial-number-type
-  ? comid.ueid => ueid-type ; XXX(tho) what is the use case?
-  ? comid.uuid => uuid-type ; XXX(tho) what is the use case?
-  * $$values-map-extension
+  ? comid.ueid => ueid-type
+  ? comid.uuid => uuid-type
+  * $$measurement-map-extension
 }>
 
 version-map = {
@@ -108,8 +117,13 @@ version-type = text .default '0.0.0'
 svn-type = int
 flags-type = bytes .bits operational-flags
 
-; Notes:
-; - requires functional compare - XXX(tho) what does this mean?
+; operational-flags maps DiceTcbInfo.flags, i.e.:
+; OperationalFlags ::= BIT STRING {
+;   notConfigured (0),
+;   notSecure (1),
+;   recovery (2),
+;   debug (3)
+; }
 operational-flags = &(
   not-configured: 0
   not-secure: 1

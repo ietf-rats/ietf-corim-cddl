@@ -19,7 +19,7 @@ claims-map = non-empty<{
 ; "target environment $TE" "has reference measurements" "$RV"
 reference-claim-record = {
   target-environment: environment-map 
-  reference-values: values-map
+  reference-values: one-or-more<values-map>
 }
 
 ; ENDORSED-VALUE triple

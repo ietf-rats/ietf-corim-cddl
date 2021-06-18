@@ -9,9 +9,9 @@ concise-mid-tag = {
 }
 
 claims-map = non-empty<{
-  comid.reference-claims => one-or-more<reference-claim-record>
-  comid.endorsed-claims => one-or-more<endorsed-claim-record>
-  comid.identity-claims => one-or-more<identity-claim-record>
+  ? comid.reference-claims => one-or-more<reference-claim-record>
+  ? comid.endorsed-claims => one-or-more<endorsed-claim-record>
+  ? comid.identity-claims => one-or-more<identity-claim-record>
   * $$claims-map-extension
 }>
 

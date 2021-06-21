@@ -17,25 +17,25 @@ triples-map = non-empty<{
 
 ; REFERENCE-VALUE triple
 ; "target environment $TE" "has reference measurements" "$RV"
-reference-triple-record = {
-  target-environment: environment-map 
-  reference-measurements: one-or-more<measurement-map>
-}
+reference-triple-record = [
+  environment-map ; target environment
+  one-or-more<measurement-map> ; reference measurements
+]
 
 ; ENDORSED-VALUE triple
 ; "environment $E" "has endorsed measurements" "$EV"
-endorsed-triple-record = {
-  environment: environment-map 
-  endorsed-measurements: one-or-more<measurement-map>
-}
+endorsed-triple-record = [
+  environment-map ; (target or attesting) environment
+  one-or-more<measurement-map> ; endorsed measurements
+]
 
 ; DEVICE-IDENTITY triple
 ; (Should it be AE-IDENTITY instead?)
 ; "attesting environment $AE" "signs Evidence with key" "$K"
-identity-triple-record = {
-  attesting-environment: environment-map 
-  identity: one-or-more<COSE_Key>
-}
+identity-triple-record = [
+  environment-map ; attesting-environment
+  one-or-more<COSE_Key> ; identity
+]
 
 environment-map = non-empty<{
   ? comid.class => class-map
@@ -49,13 +49,12 @@ class-map = {
   * $$class-map-extension
 }
 
+; generic name-spaced identifier
 ns-auth = tstr
-uuid-class-type = [ ns-auth, uuid-type ]
-tagged-uuid-class-type = #6.900(uuid-class-type)
+ns-id<id> = [ ns-auth, id ]
 
-model = tstr
-model-class-type = [ ns-auth, model ]
-tagged-model-class-type = #6.901(model-class-type)
+tagged-uuid-class-type = #6.900(ns-id<uuid-type>)
+tagged-model-class-type = #6.901(ns-id<tstr>)
 
 $class-id-type-choice /= tagged-oid-type
 $class-id-type-choice /= tagged-impl-id-type
@@ -93,6 +92,7 @@ tagged-ueid-type = #6.48000(ueid-type)
 impl-id-type = bytes .size 32
 tagged-impl-id-type = #6.47115(impl-id-type)
 
+; see https://github.com/ietf-rats/ietf-corim-cddl/issues/72
 measurement-map = non-empty<{
   ? comid.ver => version-map
   ? comid.svn => svn-type

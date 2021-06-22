@@ -47,14 +47,14 @@ identity-triple-record = [
 
 verification-key = {
   ; Verification key (typically a public key)
-  corim.key => COSE_Key
+  comid.key => COSE_Key
   ; Optional X.509 certificate chain corresponding to the public key
-  ; in corim.key, encoded as an array of one or more base64-encoded
+  ; in comid.key, encoded as an array of one or more base64-encoded
   ; DER PKIX certificates.  The certificate containing the public key
-  ; in corim.key MUST be the first certificate.  This MAY be followed
+  ; in comid.key MUST be the first certificate.  This MAY be followed
   ; by additional ; certificates, with each subsequent certificate
   ; being the one used to certify the previous one.
-  ? corim.keychain => [ + tstr ]
+  ? comid.keychain => [ + tstr ]
 }
 
 environment-map = non-empty<{

@@ -35,8 +35,8 @@ comid.ueid = 9
 comid.uuid = 10
 
 ; verification-key
-corim.key = 0
-corim.keychain = 1
+comid.key = 0
+comid.keychain = 1
 
 ; version-map
 comid.version = 0

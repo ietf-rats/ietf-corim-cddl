@@ -5,6 +5,7 @@ comid.triples = 5
 comid.reference-triples = 0
 comid.endorsed-triples = 1
 comid.identity-triples = 2
+comid.attest-key-triples = 3
 
 ; environment-map
 comid.class = 0
@@ -14,6 +15,8 @@ comid.instance = 1
 comid.class-id = 0
 comid.layer = 1
 comid.index = 2
+comid.vendor = 3
+comid.model = 4
 
 ; instance-map
 comid.instance-id = 0
@@ -30,6 +33,10 @@ comid.ip-addr = 7
 comid.serial-number = 8
 comid.ueid = 9
 comid.uuid = 10
+
+; verification-key
+corim.key = 0
+corim.keychain = 1
 
 ; version-map
 comid.version = 0

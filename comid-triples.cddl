@@ -11,12 +11,14 @@ concise-mid-tag = {
 triples-map = non-empty<{
   ? comid.reference-triples => one-or-more<reference-triple-record>
   ? comid.endorsed-triples => one-or-more<endorsed-triple-record>
+  ? comid.attest-key-triples => one-or-more<attest-key-triple-record>
   ? comid.identity-triples => one-or-more<identity-triple-record>
   * $$triples-map-extension
 }>
 
 ; REFERENCE-VALUE triple
 ; "target environment $TE" "has reference measurements" "$RV"
+; NOTE(tho): can an attesting evironement have reference values?
 reference-triple-record = [
   environment-map ; target environment
   one-or-more<measurement-map> ; reference measurements
@@ -29,24 +31,43 @@ endorsed-triple-record = [
   one-or-more<measurement-map> ; endorsed measurements
 ]
 
-; DEVICE-IDENTITY triple
-; (Should it be AE-IDENTITY instead?)
-; "attesting environment $AE" "signs Evidence with key" "$K"
-identity-triple-record = [
-  environment-map ; attesting-environment
-  one-or-more<COSE_Key> ; identity
+; ATTESTATION-VERIFICATION-KEY triple
+; "attesting environment $AE" "signs Evidence that can be verified with key" "$K"
+attest-key-triple-record = [
+  environment-map ; attesting environment
+  one-or-more<verification-key> ; attestation verification key(s)
 ]
+
+; DEVICE-IDENTITY triple
+; "device $D" "is identified by key" "$K"
+identity-triple-record = [
+  environment-map ; device identifier (instance or class)
+  one-or-more<verification-key> ; DevID, or semantically equivalent
+]
+
+verification-key = {
+  ; Verification key (typically a public key)
+  corim.key => COSE_Key
+  ; Optional X.509 certificate chain corresponding to the public key
+  ; in corim.key, encoded as an array of one or more base64-encoded
+  ; DER PKIX certificates.  The certificate containing the public key
+  ; in corim.key MUST be the first certificate.  This MAY be followed
+  ; by additional ; certificates, with each subsequent certificate
+  ; being the one used to certify the previous one.
+  ? corim.keychain => [ + tstr ]
+}
 
 environment-map = non-empty<{
   ? comid.class => class-map
-  ? comid.instance => instance-map
+  ? comid.instance => $instance-id-type-choice
 }>
 
 class-map = {
   comid.class-id => $class-id-type-choice
   ? comid.layer => uint
   ? comid.index => uint
-  * $$class-map-extension
+  ? comid.vendor => tstr
+  ? comid.model => tstr
 }
 
 ; generic name-spaced identifier
@@ -60,11 +81,6 @@ $class-id-type-choice /= tagged-oid-type
 $class-id-type-choice /= tagged-impl-id-type
 $class-id-type-choice /= tagged-uuid-class-type
 $class-id-type-choice /= tagged-model-class-type
-
-instance-map = {
-  comid.instance-id => $instance-id-type-choice
-  * $$instance-map-extension
-}
 
 $instance-id-type-choice /= tagged-ueid-type
 $instance-id-type-choice /= tagged-uuid-type

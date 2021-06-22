@@ -13,10 +13,10 @@ comid.instance = 1
 
 ; class-map
 comid.class-id = 0
-comid.layer = 1
-comid.index = 2
-comid.vendor = 3
-comid.model = 4
+comid.vendor = 1
+comid.model = 2
+comid.layer = 3
+comid.index = 4
 
 ; instance-map
 comid.instance-id = 0

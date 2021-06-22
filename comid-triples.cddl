@@ -64,10 +64,10 @@ environment-map = non-empty<{
 
 class-map = {
   comid.class-id => $class-id-type-choice
-  ? comid.layer => uint
-  ? comid.index => uint
   ? comid.vendor => tstr
   ? comid.model => tstr
+  ? comid.layer => uint
+  ? comid.index => uint
 }
 
 ; generic name-spaced identifier

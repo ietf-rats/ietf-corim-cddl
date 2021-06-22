@@ -34,7 +34,7 @@ comid.serial-number = 8
 comid.ueid = 9
 comid.uuid = 10
 
-; verification-key
+; verification-key-map
 comid.key = 0
 comid.keychain = 1
 

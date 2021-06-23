@@ -65,13 +65,14 @@ environment-map = non-empty<{
   ? comid.group => $group-id-type-choice
 }>
 
-class-map = {
-  comid.class-id => $class-id-type-choice
+class-map = non-empty<{
+  ; TODO(tho) add text "class-map SHOULD include class-id"
+  ? comid.class-id => $class-id-type-choice
   ? comid.vendor => tstr
   ? comid.model => tstr
   ? comid.layer => uint
   ? comid.index => uint
-}
+}>
 
 ; generic name-spaced identifier
 ns-auth = tstr

@@ -1,0 +1,43 @@
+; concise-mid-tag
+comid.triples = 5
+
+; triples-map
+comid.reference-triples = 0
+comid.endorsed-triples = 1
+comid.identity-triples = 2
+comid.attest-key-triples = 3
+
+; environment-map
+comid.class = 0
+comid.instance = 1
+comid.group = 2
+
+; class-map
+comid.class-id = 0
+comid.vendor = 1
+comid.model = 2
+comid.layer = 3
+comid.index = 4
+
+; measurement-map
+comid.ver = 0
+comid.svn = 1
+comid.digests = 2
+comid.flags = 3
+comid.raw-value = 4
+comid.raw-value-mask = 5
+comid.mac-addr = 6
+comid.ip-addr = 7
+comid.serial-number = 8
+comid.ueid = 9
+comid.uuid = 10
+
+; verification-key-map
+comid.key = 0
+comid.keychain = 1
+
+; version-map
+comid.version = 0
+comid.version-scheme = 1
+
+; vim: set tw=60 ts=2 et:

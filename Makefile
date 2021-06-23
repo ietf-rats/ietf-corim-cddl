@@ -23,10 +23,12 @@ endef # cddl_check_template
 CORIM_FRAGS := concise-rim.cddl
 CORIM_FRAGS += signed-corim.cddl
 CORIM_FRAGS += unsigned-corim.cddl
-CORIM_FRAGS += concise-mid-tag.cddl
+#CORIM_FRAGS += concise-mid-tag.cddl
+CORIM_FRAGS += comid-triples.cddl
 CORIM_FRAGS += concise-swid-tag.cddl
 CORIM_FRAGS += concise-swid-tag-ext.cddl
-CORIM_FRAGS += comid-code-points.cddl
+#CORIM_FRAGS += comid-code-points.cddl
+CORIM_FRAGS += comid-triples-code-points.cddl
 CORIM_FRAGS += corim-code-points.cddl
 CORIM_FRAGS += generic-non-empty.cddl
 CORIM_FRAGS += cose-key.cddl

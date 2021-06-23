@@ -9,6 +9,4 @@ COSE_Key = {
   * cose-label => cose-values
 }
 
-COSE_KeySet = [+COSE_Key]
-
 ; vim: set tw=60 ts=2 et:

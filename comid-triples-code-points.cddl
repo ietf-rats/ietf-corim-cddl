@@ -10,6 +10,7 @@ comid.attest-key-triples = 3
 ; environment-map
 comid.class = 0
 comid.instance = 1
+comid.group = 2
 
 ; class-map
 comid.class-id = 0
@@ -17,9 +18,6 @@ comid.vendor = 1
 comid.model = 2
 comid.layer = 3
 comid.index = 4
-
-; instance-map
-comid.instance-id = 0
 
 ; measurement-map
 comid.ver = 0

@@ -62,6 +62,7 @@ verification-key-map = {
 environment-map = non-empty<{
   ? comid.class => class-map
   ? comid.instance => $instance-id-type-choice
+  ? comid.group => $group-id-type-choice
 }>
 
 class-map = {
@@ -86,6 +87,8 @@ $class-id-type-choice /= tagged-model-class-type
 
 $instance-id-type-choice /= tagged-ueid-type
 $instance-id-type-choice /= tagged-uuid-type
+
+$group-id-type-choice /= tagged-uuid-type
 
 ;
 ; From draft-ietf-cbor-tags-oid (TODO(tho), roid and pen)

@@ -1,12 +1,38 @@
 concise-mid-tag = {
-  ; TODO(tho) language
-  ; TODO(tho) tag-id
-  ; TODO(tho) module-name
-  ; TODO(tho) entity NOTE(tho) call it entity-map (no module- prefix)
-  ; TODO(tho) linked-tags
+  ? comid.language => language-type
+  comid.tag-identity => tag-identity-map
+  ? comid.entity => one-or-more<entity-map>
+  ? comid.linked-tags => one-or-more<linked-tag-map>
   comid.triples => triples-map
-  ; TODO(tho) extension
+  * $$concise-mid-tag-extension
 }
+
+language-type = text
+
+tag-identity-map = {
+  comid.tag-id => $tag-id-type-choice
+  ? comid.tag-version => tag-version-type
+}
+
+$tag-id-type-choice /= tstr
+$tag-id-type-choice /= uuid-type
+
+tag-version-type = uint .default 0
+
+entity-map = {
+  comid.entity-name => $entity-name-type-choice
+  ? comid.reg-id => uri
+  comid.role => one-or-more<$module-role-type-choice>
+  * $$entity-map-extension
+}
+
+linked-tag-map = {
+  comid.linked-tag-id => $tag-id-type-choice
+  comid.tag-rel => $tag-rel-type-choice
+}
+
+$tag-rel-type-choice /= comid.supplements
+$tag-rel-type-choice /= comid.replaces
 
 triples-map = non-empty<{
   ? comid.reference-triples => one-or-more<reference-triple-record>

@@ -45,6 +45,8 @@ identity-triple-record = [
   one-or-more<verification-key-map> ; DevID, or semantically equivalent
 ]
 
+pkix-base64-cert-type = tstr
+
 verification-key-map = {
   ; Verification key (typically a public key)
   comid.key => COSE_Key
@@ -52,9 +54,9 @@ verification-key-map = {
   ; in comid.key, encoded as an array of one or more base64-encoded
   ; DER PKIX certificates.  The certificate containing the public key
   ; in comid.key MUST be the first certificate.  This MAY be followed
-  ; by additional ; certificates, with each subsequent certificate
+  ; by additional certificates, with each subsequent certificate
   ; being the one used to certify the previous one.
-  ? comid.keychain => [ + tstr ]
+  ? comid.keychain => [ + pkix-base64-cert-type ]
 }
 
 environment-map = non-empty<{

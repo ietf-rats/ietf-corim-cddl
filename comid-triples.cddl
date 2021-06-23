@@ -2,7 +2,7 @@ concise-mid-tag = {
   ; TODO(tho) language
   ; TODO(tho) tag-id
   ; TODO(tho) module-name
-  ; TODO(tho) entity
+  ; TODO(tho) entity NOTE(tho) call it entity-map (no module- prefix)
   ; TODO(tho) linked-tags
   comid.triples => triples-map
   ; TODO(tho) extension
@@ -74,17 +74,9 @@ class-map = non-empty<{
   ? comid.index => uint
 }>
 
-; generic name-spaced identifier
-ns-auth = tstr
-ns-id<id> = [ ns-auth, id ]
-
-tagged-uuid-class-type = #6.900(ns-id<uuid-type>)
-tagged-model-class-type = #6.901(ns-id<tstr>)
-
 $class-id-type-choice /= tagged-oid-type
 $class-id-type-choice /= tagged-impl-id-type
-$class-id-type-choice /= tagged-uuid-class-type
-$class-id-type-choice /= tagged-model-class-type
+$class-id-type-choice /= tagged-uuid-type
 
 $instance-id-type-choice /= tagged-ueid-type
 $instance-id-type-choice /= tagged-uuid-type

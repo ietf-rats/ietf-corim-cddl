@@ -66,4 +66,8 @@ comid.supplements = 0
 ; remains unchanged. The tag-version is incremented.
 comid.replaces = 1
 
+comid.tag-creator = 0
+comid.creator = 1
+comid.maintainer = 2
+
 ; vim: set tw=60 ts=2 et:

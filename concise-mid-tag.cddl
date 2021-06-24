@@ -22,9 +22,13 @@ tag-version-type = uint .default 0
 entity-map = {
   comid.entity-name => $entity-name-type-choice
   ? comid.reg-id => uri
-  comid.role => one-or-more<$module-role-type-choice>
+  comid.role => one-or-more<$comid-role-type-choice>
   * $$entity-map-extension
 }
+
+$comid-role-type-choice /= comid.tag-creator
+$comid-role-type-choice /= comid.creator
+$comid-role-type-choice /= comid.maintainer
 
 linked-tag-map = {
   comid.linked-tag-id => $tag-id-type-choice

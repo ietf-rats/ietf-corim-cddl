@@ -1,5 +1,22 @@
 ; concise-mid-tag
-comid.triples = 5
+comid.language = 0
+comid.tag-identity = 1
+comid.entity = 2
+comid.linked-tags = 3
+comid.triples = 4
+
+; tag-identity-map
+comid.tag-id = 0
+comid.tag-version = 1
+
+; entity-map
+comid.entity-name = 0
+comid.reg-id = 1
+comid.role = 2
+
+; linked-tag-map
+comid.linked-tag-id = 0
+comid.tag-rel = 1
 
 ; triples-map
 comid.reference-triples = 0
@@ -39,5 +56,14 @@ comid.keychain = 1
 ; version-map
 comid.version = 0
 comid.version-scheme = 1
+
+; The current CoMID has additional triples that augment the
+; triples of the target CoMID.
+comid.supplements = 0
+
+; The current CoMID contains corrections to a previously
+; issued CoMID.  This tag replaces the target tag. The tag-id
+; remains unchanged. The tag-version is incremented.
+comid.replaces = 1
 
 ; vim: set tw=60 ts=2 et:

@@ -1,16 +1,15 @@
 ; concise-mid-tag
 comid.language = 0
 comid.tag-identity = 1
-comid.module-name = 2
-comid.entity = 3
-comid.linked-tags = 4
-comid.claims = 5
+comid.entity = 2
+comid.linked-tags = 3
+comid.triples = 4
 
 ; tag-identity-map
 comid.tag-id = 0
 comid.tag-version = 1
 
-; module-entity-map
+; entity-map
 comid.entity-name = 0
 comid.reg-id = 1
 comid.role = 2
@@ -19,101 +18,52 @@ comid.role = 2
 comid.linked-tag-id = 0
 comid.tag-rel = 1
 
-; element-name-map
-comid.label = 0
-comid.vendor = 1
-comid.class-id = 2
-comid.model = 3
-comid.layer = 4
-comid.index = 5
+; triples-map
+comid.reference-triples = 0
+comid.endorsed-triples = 1
+comid.identity-triples = 2
+comid.attest-key-triples = 3
 
-; element-value-map
-comid.version = 0
+; environment-map
+comid.class = 0
+comid.instance = 1
+comid.group = 2
+
+; class-map
+comid.class-id = 0
+comid.vendor = 1
+comid.model = 2
+comid.layer = 3
+comid.index = 4
+
+; measurement-map
+comid.ver = 0
 comid.svn = 1
 comid.digests = 2
 comid.flags = 3
 comid.raw-value = 4
 comid.raw-value-mask = 5
+comid.mac-addr = 6
+comid.ip-addr = 7
+comid.serial-number = 8
+comid.ueid = 9
+comid.uuid = 10
 
-; $tag-rel-type-choice values
-;
-; The current module has additional module(s) identified by
-; the linked tag(s). The union of all modules describes an
-; acceptable device.
-comid.includes = 0
+; verification-key-map
+comid.key = 0
+comid.keychain = 1
 
-; The current module has additional module(s) identified by
-; the linked tag(s) that describe alternative acceptable
-; modules. At least one of the alternatives is included to
-; describe an acceptable device.
-comid.or-includes = 1
-
-; The current module has additional claims that augment the
-; claim set of the target module. The current tag module
-; information must match the target module for the claims to
-; be combined under the target.
-comid.supplements = 2
-
-; The current module contains claims that fully replace the
-; target module claims. This is applied when the module is
-; updated or changes in some fashion.
-comid.updates = 3
-
-; The current tag contains corrections to a previously
-; issued tag. This tag replaces the target tag. The tag-id
-; remains unchanged. The tag-version is incremented.
-comid.replaces = 4
-
-; The current module contains claims that partially replace
-; the target module claims. This is applied when the module
-; is updated or changes in some fashion.  The target module
-; contains both valid and replaced claims.
-comid.patches = 5
-
-; module-version-map
-;comid.version = 0
+; version-map
+comid.version = 0
 comid.version-scheme = 1
 
-; endorsed-claim-map and reference-claim-map
-; (also identity-claim-map and instance-claim-map)
-comid.element-name = 0
-comid.element-value = 1
+; The current CoMID has additional triples that augment the
+; triples of the target CoMID.
+comid.supplements = 0
 
-; claims-entry
-comid.reference-claims = 0
-comid.endorsed-claims = 1
-comid.identity-claims = 2
-comid.reference-instance-claims = 3
-comid.endorsed-instance-claims = 4
-
-; identity-claim-map
-; (note: 0 is taken by comid.element-name)
-comid.device-id = 1
-comid.key-material = 2
-
-; $$instance-value-group-choice
-comid.mac-addr = 1
-comid.ip-addr = 2
-comid.serial-number = 3
-comid.ueid = 4
-comid.uuid = 5
-
-; reference-instance-claim-map
-comid.reference-claim-value = 6
-
-; endorsed-instance-claim-map
-comid.endorsed-claim-value = 6
-
-; $module-role-type-choice values
-;
-; Person or organization that created the CoMID tag
-comid.tag-creator = 1
-
-; Person or organization that created the module
-comid.creator = 2
-
-; Person or organization making updates to a module, used
-; when different from the module creator
-comid.maintainer = 3
+; The current CoMID contains corrections to a previously
+; issued CoMID.  This tag replaces the target tag. The tag-id
+; remains unchanged. The tag-version is incremented.
+comid.replaces = 1
 
 ; vim: set tw=60 ts=2 et:

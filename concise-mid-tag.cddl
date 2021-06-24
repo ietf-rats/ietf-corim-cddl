@@ -1,15 +1,9 @@
-; Notes:
-; - linked-tags contains references to dependent CoSWID and
-;   CoMID tags
-; - claims may be omitted for manifests that only capture
-;   dependencies to other manifests
 concise-mid-tag = {
   ? comid.language => language-type
   comid.tag-identity => tag-identity-map
-  ? comid.module-name => element-name-map
-  ? comid.entity => one-or-more<module-entity-map>
+  ? comid.entity => one-or-more<entity-map>
   ? comid.linked-tags => one-or-more<linked-tag-map>
-  ? comid.claims => claims-map
+  comid.triples => triples-map
   * $$concise-mid-tag-extension
 }
 
@@ -17,8 +11,7 @@ language-type = text
 
 tag-identity-map = {
   comid.tag-id => $tag-id-type-choice
-  comid.tag-version => tag-version-type
-  * $$tag-identity-map-extension
+  ? comid.tag-version => tag-version-type
 }
 
 $tag-id-type-choice /= tstr
@@ -26,72 +19,169 @@ $tag-id-type-choice /= uuid-type
 
 tag-version-type = uint .default 0
 
-module-entity-map = {
+entity-map = {
   comid.entity-name => $entity-name-type-choice
   ? comid.reg-id => uri
-  comid.role => one-or-more<$module-role-type-choice>
-  * $$module-entity-map-extension
+  comid.role => one-or-more<$comid-role-type-choice>
+  * $$entity-map-extension
 }
 
-$module-role-type-choice /= comid.tag-creator
-$module-role-type-choice /= comid.creator
-$module-role-type-choice /= comid.maintainer
+$comid-role-type-choice /= comid.tag-creator
+$comid-role-type-choice /= comid.creator
+$comid-role-type-choice /= comid.maintainer
 
 linked-tag-map = {
   comid.linked-tag-id => $tag-id-type-choice
   comid.tag-rel => $tag-rel-type-choice
 }
 
-$tag-rel-type-choice /= comid.includes
-$tag-rel-type-choice /= comid.or-includes
 $tag-rel-type-choice /= comid.supplements
-$tag-rel-type-choice /= comid.updates
 $tag-rel-type-choice /= comid.replaces
-$tag-rel-type-choice /= comid.patches
 
-; Notes:
-; - any reference-value entry can match evidence
-claims-map = non-empty<{
-  ? comid.reference-claims => one-or-more<reference-claim-map>
-  ? comid.endorsed-claims => one-or-more<endorsed-claim-map>
-  ? comid.identity-claims => one-or-more<identity-claim-map>
-  ? comid.reference-instance-claims => one-or-more<reference-instance-claim-map>
-  ? comid.endorsed-instance-claims => one-or-more<endorsed-instance-claim-map>
-  * $$claims-map-extension
+triples-map = non-empty<{
+  ? comid.reference-triples => one-or-more<reference-triple-record>
+  ? comid.endorsed-triples => one-or-more<endorsed-triple-record>
+  ? comid.attest-key-triples => one-or-more<attest-key-triple-record>
+  ? comid.identity-triples => one-or-more<identity-triple-record>
+  * $$triples-map-extension
 }>
 
-identity-claim-map = {
-  ? comid.element-name => element-name-map
-  ? comid.device-id => $device-id-type-choice
-  comid.key-material => one-or-more<COSE_Key>
-  * $$identity-claim-map-extension
+; REFERENCE-VALUE triple
+; "target environment $TE" "has reference measurements" "$RV"
+; NOTE(tho): can an attesting evironement have reference values?
+reference-triple-record = [
+  environment-map ; target environment
+  one-or-more<measurement-map> ; reference measurements
+]
+
+; ENDORSED-VALUE triple
+; "environment $E" "has endorsed measurements" "$EV"
+endorsed-triple-record = [
+  environment-map ; (target or attesting) environment
+  one-or-more<measurement-map> ; endorsed measurements
+]
+
+; ATTESTATION-VERIFICATION-KEY triple
+; "attesting environment $AE" "signs Evidence that can be verified with key" "$K"
+attest-key-triple-record = [
+  environment-map ; attesting environment
+  one-or-more<verification-key-map> ; attestation verification key(s)
+]
+
+; DEVICE-IDENTITY triple
+; "device $D" "is identified by key" "$K"
+identity-triple-record = [
+  environment-map ; device identifier (instance or class)
+  one-or-more<verification-key-map> ; DevID, or semantically equivalent
+]
+
+pkix-base64-cert-type = tstr
+
+verification-key-map = {
+  ; Verification key (typically a public key)
+  comid.key => COSE_Key
+  ; Optional X.509 certificate chain corresponding to the public key
+  ; in comid.key, encoded as an array of one or more base64-encoded
+  ; DER PKIX certificates.  The certificate containing the public key
+  ; in comid.key MUST be the first certificate.  This MAY be followed
+  ; by additional certificates, with each subsequent certificate
+  ; being the one used to certify the previous one.
+  ? comid.keychain => [ + pkix-base64-cert-type ]
 }
 
-$device-id-type-choice /= tagged-ueid-type
-$device-id-type-choice /= tagged-uuid-type
+environment-map = non-empty<{
+  ? comid.class => class-map
+  ? comid.instance => $instance-id-type-choice
+  ? comid.group => $group-id-type-choice
+}>
 
-; Note: is there a #6.4711 definition for hardwaremodulename
-; RFC4108?
+class-map = non-empty<{
+  ; TODO(tho) add text "class-map SHOULD include class-id"
+  ? comid.class-id => $class-id-type-choice
+  ? comid.vendor => tstr
+  ? comid.model => tstr
+  ? comid.layer => uint
+  ? comid.index => uint
+}>
 
-reference-instance-claim-map = {
-  ? comid.element-name => element-name-map
-  $$instance-value-group-choice
-  comid.reference-claim-value => reference-value-map
+$class-id-type-choice /= tagged-oid-type
+$class-id-type-choice /= tagged-impl-id-type
+$class-id-type-choice /= tagged-uuid-type
+
+$instance-id-type-choice /= tagged-ueid-type
+$instance-id-type-choice /= tagged-uuid-type
+
+$group-id-type-choice /= tagged-uuid-type
+
+;
+; From draft-ietf-cbor-tags-oid (TODO(tho), roid and pen)
+;
+oid-type = bytes
+tagged-oid-type = #6.111(oid-type)
+
+;
+; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
+;
+tagged-uuid-type = #6.37(uuid-type)
+
+;
+; From draft-ietf-rats-eat
+;
+ueid-type = bytes .size 33
+tagged-ueid-type = #6.48000(ueid-type)
+
+;
+; From draft-tschofenig-rats-psa-token
+;
+impl-id-type = bytes .size 32
+tagged-impl-id-type = #6.47115(impl-id-type)
+
+; see https://github.com/ietf-rats/ietf-corim-cddl/issues/72
+measurement-map = non-empty<{
+  ? comid.ver => version-map
+  ? comid.svn => svn-type
+  ? comid.digests => digests-type
+  ? comid.flags => flags-type
+  ? raw-value-group
+  ? comid.mac-addr => mac-addr-type-choice
+  ? comid.ip-addr => ip-addr-type-choice
+  ? comid.serial-number => serial-number-type
+  ? comid.ueid => ueid-type
+  ? comid.uuid => uuid-type
+  * $$measurement-map-extension
+}>
+
+version-map = {
+  comid.version => version-type
+  ? comid.version-scheme => $version-scheme
 }
+version-type = text .default '0.0.0'
+; version-scheme is defined in CoSWID
 
-endorsed-instance-claim-map = {
-  ? comid.element-name => element-name-map
-  ? $$instance-value-group-choice
-  ? comid.endorsed-claim-value => endorsed-value-map
- }
+svn-type = int
+flags-type = bytes .bits operational-flags
 
-$$instance-value-group-choice //= (
-  comid.mac-addr => mac-addr-type-choice //
-  comid.ip-addr => ip-addr-type-choice //
-  comid.serial-number => serial-number-type //
-  comid.ueid => ueid-type //
-  comid.uuid => uuid-type
+; operational-flags maps DiceTcbInfo.flags, i.e.:
+; OperationalFlags ::= BIT STRING {
+;   notConfigured (0),
+;   notSecure (1),
+;   recovery (2),
+;   debug (3)
+; }
+operational-flags = &(
+  not-configured: 0
+  not-secure: 1
+  recovery: 2
+  debug: 3
 )
+
+raw-value-group = (
+  comid.raw-value => raw-value-type
+  ? comid.raw-value-mask => raw-value-mask-type
+)
+
+raw-value-type = bytes
+raw-value-mask-type = bytes
 
 ip-addr-type-choice = ip4-addr-type / ip6-addr-type
 ip4-addr-type = bytes .size 4
@@ -103,127 +193,8 @@ eui64-addr-type = bytes .size 8
 
 serial-number-type = text
 
-; Note: are there other well defined types under #6.4711 or
-; EAT etc...
-
-; Notes:
-; - vendor is the namespace authority designation
-; - type SHOULD include a namespace authority if vendor is
-;   omitted
-element-name-map = non-empty<{
-  ? comid.label => label-type
-  ? comid.vendor => vendor-type
-  ? comid.class-id => $class-id-type-choice
-  ? comid.model => model-type
-  ? comid.layer => layer-type
-  ? comid.index => index-type
-}>
-
-label-type = text
-vendor-type = text
-model-type = text
-layer-type = int
-index-type = int
-
-$class-id-type-choice /= tagged-oid-type
-$class-id-type-choice /= tagged-uuid-type
-$class-id-type-choice /= tagged-impl-id-type
-
-;
-; From draft-ietf-cbor-tags-oid (TBD, roid and pen)
-;
-oid-type = bytes
-tagged-oid-type = #6.111(oid-type)
-
-;
-; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
-;
-tagged-uuid-type = #6.37(uuid-type)
-
-;
-; From draft-tschofenig-rats-psa-token
-;
-impl-id-type = bytes .size 32
-tagged-impl-id-type = #6.47115(impl-id-type)
-
-;
-; From draft-ietf-rats-eat
-;
-ueid-type = bytes .size 33
-tagged-ueid-type = #6.48000(ueid-type)
-
-; version-scheme is defined in CoSWID
-module-version-map = {
-  comid.version => version-type
-  ? comid.version-scheme => $version-scheme
-}
-
-version-type = text .default '0.0.0'
-
-; Notes:
-; - do we need an extension point in element-value given
-;   there are extension points in endorsed-value and
-;   reference-value?
-element-value-group = (
-  ? comid.version => module-version-map
-  ? comid.svn => svn-type
-  ? comid.digests => digests-type
-  ? comid.flags => flags-type
-  ? raw-value-group
-)
-
-svn-type = int
-flags-type = bytes .bits operational-flags
-
-raw-value-group = (
-  comid.raw-value => raw-value-type
-  ? comid.raw-value-mask => raw-value-mask-type
-)
-
-raw-value-type = bytes
-raw-value-mask-type = bytes
-
-; Notes:
-; - one endorser benefits from the element-value of another
-;   endorser
-; - How do vendor specific schemas allocate indices (keys)?
-;   We need to specify a range of keys with rules 'first
-;   come first served'
-endorsed-claim-map = non-empty<{
-  ? comid.element-name => element-name-map
-  ? comid.element-value => endorsed-value-map
-}>
-
-endorsed-value-map = non-empty<{
-  element-value-group
-  * $$endorsed-value-map-extension
-}>
-
-; Notes:
-; - a collection of reference values can be modeled using
-;   multiplicity of tags and/or claims, but we need to
-;   verify how to apply AND and OR logic for matching
-reference-claim-map = {
-  ? comid.element-name => element-name-map
-  comid.element-value => reference-value-map
-}
-
-reference-value-map = non-empty<{
-  element-value-group
-  * $$reference-value-map-extension
-}>
-
-; Notes:
-; - requires functional compare
-operational-flags = &(
-  not-configured: 0
-  not-secure: 1
-  recovery: 2
-  debug: 3
-)
-
 ; Notes:
 ; - hash-entry is defined in CoSWID schema
 digests-type = one-or-more<hash-entry>
 
-; vim: set tw=60 ts=2 et:
+; vim: set tw=70 ts=2 et:

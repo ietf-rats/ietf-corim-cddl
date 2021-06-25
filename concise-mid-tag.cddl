@@ -136,8 +136,16 @@ tagged-ueid-type = #6.48000(ueid-type)
 impl-id-type = bytes .size 32
 tagged-impl-id-type = #6.47115(impl-id-type)
 
+$measured-element-type-choice /= tagged-oid-type
+$measured-element-type-choice /= tagged-uuid-type
+
+measurement-map = {
+  ? comid.mkey => $measured-element-type-choice
+  comid.mval => measurement-values-map
+}
+
 ; see https://github.com/ietf-rats/ietf-corim-cddl/issues/72
-measurement-map = non-empty<{
+measurement-values-map = non-empty<{
   ? comid.ver => version-map
   ? comid.svn => svn-type-choice
   ? comid.digests => digests-type
@@ -148,7 +156,7 @@ measurement-map = non-empty<{
   ? comid.serial-number => serial-number-type
   ? comid.ueid => ueid-type
   ? comid.uuid => uuid-type
-  * $$measurement-map-extension
+  * $$measurement-values-map-extension
 }>
 
 version-map = {

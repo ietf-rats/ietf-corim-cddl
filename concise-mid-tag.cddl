@@ -136,13 +136,13 @@ tagged-ueid-type = #6.48000(ueid-type)
 impl-id-type = bytes .size 32
 tagged-impl-id-type = #6.47115(impl-id-type)
 
-$measured-element-type-choice /= null
 $measured-element-type-choice /= tagged-oid-type
 $measured-element-type-choice /= tagged-uuid-type
 
-measurement-map = [
-  $measured-element-type-choice, measurement-values-map
-]
+measurement-map = {
+  ? comid.mkey => $measured-element-type-choice
+  comid.mval => measurement-values-map
+}
 
 ; see https://github.com/ietf-rats/ietf-corim-cddl/issues/72
 measurement-values-map = non-empty<{

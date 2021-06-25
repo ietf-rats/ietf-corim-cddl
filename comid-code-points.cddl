@@ -37,6 +37,10 @@ comid.layer = 3
 comid.index = 4
 
 ; measurement-map
+comid.mkey = 0
+comid.mval = 1
+
+; measurement-values-map
 comid.ver = 0
 comid.svn = 1
 comid.digests = 2

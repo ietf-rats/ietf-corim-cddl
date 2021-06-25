@@ -2,7 +2,8 @@
 
 | type trait | example | typo convention |
 -------------|---------|-----------------|
-| type choice | `int / text` | `$`NAME`-type-choice` |
+| extensible type choice | `int / text / ...` | `$`NAME`-type-choice` |
+| fixed type choice | `int / text` | NAME`-type-choice` |
 | group choice | `( 1 => int // 2 => text )` | `$$`NAME`-group-choice` |
 | group | `( 1 => int, 2 => text )` | NAME`-group` |
 | type | `int` | NAME`-type`|

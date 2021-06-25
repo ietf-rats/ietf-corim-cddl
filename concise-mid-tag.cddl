@@ -139,12 +139,12 @@ tagged-impl-id-type = #6.47115(impl-id-type)
 ; see https://github.com/ietf-rats/ietf-corim-cddl/issues/72
 measurement-map = non-empty<{
   ? comid.ver => version-map
-  ? comid.svn => $svn-type-choice
+  ? comid.svn => svn-type-choice
   ? comid.digests => digests-type
   ? comid.flags => flags-type
   ? raw-value-group
-  ? comid.mac-addr => $mac-addr-type-choice
-  ? comid.ip-addr => $ip-addr-type-choice
+  ? comid.mac-addr => mac-addr-type-choice
+  ? comid.ip-addr =>  ip-addr-type-choice
   ? comid.serial-number => serial-number-type
   ? comid.ueid => ueid-type
   ? comid.uuid => uuid-type
@@ -162,7 +162,7 @@ svn = int
 min-svn = int
 tagged-svn = #6.1000(svn)
 tagged-min-svn = #6.1001(min-svn)
-$svn-type-choice = tagged-svn / tagged-min-svn
+svn-type-choice = tagged-svn / tagged-min-svn
 
 flags-type = bytes .bits operational-flags
 
@@ -188,11 +188,11 @@ raw-value-group = (
 raw-value-type = bytes
 raw-value-mask-type = bytes
 
-$ip-addr-type-choice = ip4-addr-type / ip6-addr-type
+ip-addr-type-choice = ip4-addr-type / ip6-addr-type
 ip4-addr-type = bytes .size 4
 ip6-addr-type = bytes .size 16
 
-$mac-addr-type-choice = eui48-addr-type / eui64-addr-type
+mac-addr-type-choice = eui48-addr-type / eui64-addr-type
 eui48-addr-type = bytes .size 6
 eui64-addr-type = bytes .size 8
 

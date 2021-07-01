@@ -6,7 +6,8 @@ SHELL := /bin/bash
 
 include tools.mk
 
-check:: check-corim check-xcorim
+check:: check-corim check-corim-examples
+check:: check-xcorim
 check:: check-comid check-comid-examples
 
 # $1: label
@@ -58,7 +59,9 @@ CORIM_FRAGS += generic-non-empty.cddl
 CORIM_FRAGS += cose-key.cddl
 CORIM_FRAGS += common.cddl
 
-$(eval $(call cddl_check_template,corim,$(CORIM_FRAGS),))
+CORIM_EXAMPLES := $(wildcard examples/corim-*.diag)
+
+$(eval $(call cddl_check_template,corim,$(CORIM_FRAGS),$(CORIM_EXAMPLES)))
 
 XCORIM_FRAGS += xcorim.cddl
 XCORIM_FRAGS += xcorim-code-points.cddl

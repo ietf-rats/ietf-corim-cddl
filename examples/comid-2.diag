@@ -87,7 +87,7 @@
       },
       / measurement-map / {
         / comid.mval / 1 : {
-          / comid.svn / 1 : 1
+          / comid.svn / 1 : 1000(1)
         }
       }
     ]

@@ -11,7 +11,7 @@ check:: check-comid check-comid-examples
 
 # $1: label
 # $2: cddl fragments
-# $3: cbor test files
+# $3: diag test files
 define cddl_check_template
 
 check-$(1): $(1)-autogen.cddl
@@ -22,15 +22,17 @@ check-$(1): $(1)-autogen.cddl
 $(1)-autogen.cddl: $(2)
 	for f in $$^ ; do ( grep -v '^;' $$$$f ; echo ) ; done > $$@
 
-check-$(1)-examples: $(1)-autogen.cddl $(3)
-	@for f in $(3); do \
+CLEANFILES += $(1)-autogen.cddl
+
+check-$(1)-examples: $(1)-autogen.cddl $(3:.diag=.cbor)
+	@for f in $(3:.diag=.cbor); do \
 		echo ">> validating $$$$f" ; \
 		$$(cddl) $$< validate $$$$f ; \
 	done
 
-CLEANFILES += $(1)-autogen.cddl
+.PHONY: check-$(1)-examples
 
-# TODO(tho) cleanup cbor files
+CLEANFILES += $(3:.diag=.cbor)
 
 endef # cddl_check_template
 
@@ -41,7 +43,7 @@ COMID_FRAGS += common.cddl
 COMID_FRAGS += generic-non-empty.cddl
 COMID_FRAGS += cose-key.cddl
 
-COMID_EXAMPLES := $(wildcard examples/comid-*.cbor)
+COMID_EXAMPLES := $(wildcard examples/comid-*.diag)
 
 $(eval $(call cddl_check_template,comid,$(COMID_FRAGS),$(COMID_EXAMPLES)))
 

@@ -11,7 +11,7 @@ check:: check-comid check-comid-examples
 
 # $1: label
 # $2: cddl fragments
-# $3: diag test files
+# $3: cbor test files
 define cddl_check_template
 
 check-$(1): $(1)-autogen.cddl

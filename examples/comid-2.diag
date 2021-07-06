@@ -39,7 +39,7 @@
               ),
             / comid.vendor / 1 : "ACME Inc.",
             / comid.model / 2 : "ACME RoadRunner Trusted OS",
-            / comid.layer / 3 : 2
+            / comid.layer / 3 : 2,
 	    / comid.index / 4 : 0
           }
         },
@@ -61,7 +61,7 @@
               ),
             / comid.vendor / 1 : "ACME Inc.",
             / comid.model / 2 : "ACME RoadRunner Trusted OS",
-            / comid.layer / 3 : 2
+            / comid.layer / 3 : 2,
 	    / comid.index / 4 : 1
           }
         },

@@ -42,8 +42,8 @@
                       / tagged-uuid-type / 37(
                         h'a71b3e388d454a0581f352e58c832c5c'
                       ),
-                    / comid.vendor / 1 : "ACME Inc.",
-                    / comid.model / 2 : "ACME RoadRunner Trusted OS",
+                    / comid.vendor / 1 : "WYLIE Inc.",
+                    / comid.model / 2 : "WYLIE Coyote Trusted OS",
                     / comid.layer / 3 : 2,
                     / comid.index / 4 : 0
                   }
@@ -64,8 +64,8 @@
                       / tagged-uuid-type / 37(
                         h'a71b3e388d454a0581f352e58c832c5c'
                       ),
-                    / comid.vendor / 1 : "ACME Inc.",
-                    / comid.model / 2 : "ACME RoadRunner Trusted OS",
+                    / comid.vendor / 1 : "WYLIE Inc.",
+                    / comid.model / 2 : "WYLIE Coyote Trusted OS",
                     / comid.layer / 3 : 2,
                     / comid.index / 4 : 1
                   }

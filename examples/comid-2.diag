@@ -40,7 +40,7 @@
             / comid.vendor / 1 : "WYLIE Inc.",
             / comid.model / 2 : "WYLIE Coyote Trusted OS",
             / comid.layer / 3 : 2,
-	    / comid.index / 4 : 0
+	      / comid.index / 4 : 0
           }
         },
         / measurement-map / {

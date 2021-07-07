@@ -17,7 +17,7 @@
                 h'67b28b6c34cc40a19117ab5b05911e37'
               ),
             / comid.vendor / 1 : "ACME Inc.",
-            / comid.model / 2 : "ACME RoadRunner BootLoader",
+            / comid.model / 2 : "ACME RoadRunner Firmware",
             / comid.layer / 3 : 1
           }
         },
@@ -37,9 +37,10 @@
               / tagged-uuid-type / 37(
 		h'a71b3e388d454a0581f352e58c832c5c'
               ),
-            / comid.vendor / 1 : "ACME Inc.",
-            / comid.model / 2 : "ACME RoadRunner Trusted OS",
-            / comid.layer / 3 : 2
+            / comid.vendor / 1 : "WYLIE Inc.",
+            / comid.model / 2 : "WYLIE Coyote Trusted OS",
+            / comid.layer / 3 : 2,
+	      / comid.index / 4 : 0
           }
         },
         / measurement-map / {
@@ -56,18 +57,19 @@
           / comid.class / 0 : {
             / comid.class-id / 0 :
               / tagged-uuid-type / 37(
-		h'5bf4c7c6d8ff4276948834b3706eb2c3'
+		h'a71b3e388d454a0581f352e58c832c5c'
               ),
-            / comid.vendor / 1 : "ACME Inc.",
-            / comid.model / 2 : "ACME RoadRunner Platform FW",
-            / comid.layer / 3 : 3
+            / comid.vendor / 1 : "WYLIE Inc.",
+            / comid.model / 2 : "WYLIE Coyote Trusted OS",
+            / comid.layer / 3 : 2,
+	      / comid.index / 4 : 1
           }
         },
         / measurement-map / {
           / comid.mval / 1 : {
             / comid.digests / 2 : [
               / hash-alg-id / 1, / sha256 /
-              / hash-value / h'f39b89f45032cffb5dde99290a1c20de2485ea4f5316d24d06fb48ccc6fbecce'
+              / hash-value / h'bb71198ed60a95dc3c619e555c2c0b8d7564a38031b034a195892591c65365b0'
             ]
           }
         }

@@ -2,7 +2,9 @@
 
 SHELL := /bin/bash
 
-%.cbor: %.diag ; diag2cbor.rb $< > $@
+%.cbor: %.diag
+	diag2cbor.rb $< > $@
+	cbor2pretty.rb $@
 
 include tools.mk
 

@@ -1,6 +1,6 @@
 corim-revocation =
-  #6.47113(unsigned-xcorim-map) /
-  #6.47114(signed-xcorim)
+  #6.503(unsigned-xcorim-map) /
+  #6.504(signed-xcorim)
 
 signed-xcorim = #6.18(COSE-Sign1-xcorim)
 

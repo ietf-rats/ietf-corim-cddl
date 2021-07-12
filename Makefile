@@ -44,7 +44,6 @@ COMID_FRAGS += comid-code-points.cddl
 COMID_FRAGS += concise-swid-tag.cddl
 COMID_FRAGS += common.cddl
 COMID_FRAGS += generic-non-empty.cddl
-COMID_FRAGS += cose-key.cddl
 
 COMID_EXAMPLES := $(wildcard examples/comid-*.diag)
 
@@ -58,7 +57,6 @@ CORIM_FRAGS += concise-swid-tag.cddl
 CORIM_FRAGS += comid-code-points.cddl
 CORIM_FRAGS += corim-code-points.cddl
 CORIM_FRAGS += generic-non-empty.cddl
-CORIM_FRAGS += cose-key.cddl
 CORIM_FRAGS += common.cddl
 
 CORIM_EXAMPLES := $(wildcard examples/corim-*.diag)

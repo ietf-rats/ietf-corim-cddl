@@ -12,7 +12,7 @@ corim-locator-map = {
 
 ; NOTE(henk) does a concise-mid-tag by itself should be
 ; allowed to be signed the same as a CoSWID tag?
-$concise-tag-type-choice /= #6.47116(bytes .cbor concise-swid-tag)
-$concise-tag-type-choice /= #6.47117(bytes .cbor concise-mid-tag)
+$concise-tag-type-choice /= #6.505(bytes .cbor concise-swid-tag)
+$concise-tag-type-choice /= #6.506(bytes .cbor concise-mid-tag)
 
 ; vim: set tw=60 ts=2 et:

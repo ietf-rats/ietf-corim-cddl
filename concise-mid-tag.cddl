@@ -128,13 +128,13 @@ tagged-uuid-type = #6.37(uuid-type)
 ; From draft-ietf-rats-eat
 ;
 ueid-type = bytes .size 33
-tagged-ueid-type = #6.48000(ueid-type)
+tagged-ueid-type = #6.550(ueid-type)
 
 ;
 ; From draft-tschofenig-rats-psa-token
 ;
 impl-id-type = bytes .size 32
-tagged-impl-id-type = #6.47115(impl-id-type)
+tagged-impl-id-type = #6.551(impl-id-type)
 
 $measured-element-type-choice /= tagged-oid-type
 $measured-element-type-choice /= tagged-uuid-type
@@ -168,8 +168,8 @@ version-type = text .default '0.0.0'
 
 svn = int
 min-svn = int
-tagged-svn = #6.1000(svn)
-tagged-min-svn = #6.1001(min-svn)
+tagged-svn = #6.552(svn)
+tagged-min-svn = #6.553(min-svn)
 svn-type-choice = tagged-svn / tagged-min-svn
 
 flags-type = bytes .bits operational-flags

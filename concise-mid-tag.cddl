@@ -107,7 +107,6 @@ class-map = non-empty<{
 }>
 
 $class-id-type-choice /= tagged-oid-type
-$class-id-type-choice /= tagged-impl-id-type
 $class-id-type-choice /= tagged-uuid-type
 
 $instance-id-type-choice /= tagged-ueid-type
@@ -131,12 +130,6 @@ tagged-uuid-type = #6.37(uuid-type)
 ;
 ueid-type = bytes .size 33
 tagged-ueid-type = #6.550(ueid-type)
-
-;
-; From draft-tschofenig-rats-psa-token
-;
-impl-id-type = bytes .size 32
-tagged-impl-id-type = #6.551(impl-id-type)
 
 $measured-element-type-choice /= tagged-oid-type
 $measured-element-type-choice /= tagged-uuid-type

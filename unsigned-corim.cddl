@@ -2,8 +2,11 @@ unsigned-corim-map = {
   corim.id => $corim-id-type-choice
   corim.tags => one-or-more<$concise-tag-type-choice>
   ? corim.dependent-rims => one-or-more<corim-locator-map>
+  ? corim.profile => profile-type-choice
   * $$unsigned-corim-map-extension
 }
+
+profile-type-choice = uri / tagged-oid-type
 
 corim-locator-map = {
   corim.href => uri

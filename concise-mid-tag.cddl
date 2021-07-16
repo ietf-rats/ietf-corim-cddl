@@ -48,7 +48,6 @@ triples-map = non-empty<{
 
 ; REFERENCE-VALUE triple
 ; "target environment $TE" "has reference measurements" "$RV"
-; NOTE(tho): can an attesting evironement have reference values?
 reference-triple-record = [
   environment-map ; target environment
   one-or-more<measurement-map> ; reference measurements
@@ -98,7 +97,6 @@ environment-map = non-empty<{
 }>
 
 class-map = non-empty<{
-  ; TODO(tho) add text "class-map SHOULD include class-id"
   ? comid.class-id => $class-id-type-choice
   ? comid.vendor => tstr
   ? comid.model => tstr

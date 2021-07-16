@@ -2,6 +2,7 @@
 corim.id = 0
 corim.tags = 1
 corim.dependent-rims = 2
+corim.profile = 3
 
 ; corim-locator-map
 corim.href = 0

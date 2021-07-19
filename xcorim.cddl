@@ -20,7 +20,7 @@ xcorim-meta-map = {
 
 xcorim-entity-map = {
   xcorim.entity-name => $entity-name-type-choice
-  xcorim.role => one-or-more<$xcorim-role-type-choice>
+  xcorim.role => [ + $xcorim-role-type-choice ]
   ? xcorim.reg-id => uri
   * $$xcorim-entity-map-extension
 }
@@ -41,7 +41,7 @@ COSE-Sign1-xcorim = [
 
 unsigned-xcorim-map = {
   ? xcorim.creator => xcorim-entity-map
-  xcorim.deny-list => one-or-more<$corim-id-type-choice>
+  xcorim.deny-list => [ + $corim-id-type-choice ]
   * $$unsigned-xcorim-map-extension
 }
 

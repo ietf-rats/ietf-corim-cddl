@@ -1,8 +1,8 @@
 concise-mid-tag = {
   ? comid.language => language-type
   comid.tag-identity => tag-identity-map
-  ? comid.entity => one-or-more<entity-map>
-  ? comid.linked-tags => one-or-more<linked-tag-map>
+  ? comid.entity => [ + entity-map ]
+  ? comid.linked-tags => [ + linked-tag-map ]
   comid.triples => triples-map
   * $$concise-mid-tag-extension
 }
@@ -22,7 +22,7 @@ tag-version-type = uint .default 0
 entity-map = {
   comid.entity-name => $entity-name-type-choice
   ? comid.reg-id => uri
-  comid.role => one-or-more<$comid-role-type-choice>
+  comid.role => [ + $comid-role-type-choice ]
   * $$entity-map-extension
 }
 
@@ -39,10 +39,10 @@ $tag-rel-type-choice /= comid.supplements
 $tag-rel-type-choice /= comid.replaces
 
 triples-map = non-empty<{
-  ? comid.reference-triples => one-or-more<reference-triple-record>
-  ? comid.endorsed-triples => one-or-more<endorsed-triple-record>
-  ? comid.attest-key-triples => one-or-more<attest-key-triple-record>
-  ? comid.identity-triples => one-or-more<identity-triple-record>
+  ? comid.reference-triples => [ + reference-triple-record ]
+  ? comid.endorsed-triples => [ + endorsed-triple-record ]
+  ? comid.attest-key-triples => [ + attest-key-triple-record ]
+  ? comid.identity-triples => [ + identity-triple-record ]
   * $$triples-map-extension
 }>
 
@@ -50,28 +50,28 @@ triples-map = non-empty<{
 ; "target environment $TE" "has reference measurements" "$RV"
 reference-triple-record = [
   environment-map ; target environment
-  one-or-more<measurement-map> ; reference measurements
+  [ + measurement-map ] ; reference measurements
 ]
 
 ; ENDORSED-VALUE triple
 ; "environment $E" "has endorsed measurements" "$EV"
 endorsed-triple-record = [
   environment-map ; (target or attesting) environment
-  one-or-more<measurement-map> ; endorsed measurements
+  [ + measurement-map ] ; endorsed measurements
 ]
 
 ; ATTESTATION-VERIFICATION-KEY triple
 ; "attesting environment $AE" "signs Evidence that can be verified with key" "$K"
 attest-key-triple-record = [
   environment-map ; attesting environment
-  one-or-more<verification-key-map> ; attestation verification key(s)
+  [ + verification-key-map ] ; attestation verification key(s)
 ]
 
 ; DEVICE-IDENTITY triple
 ; "device $D" "is identified by key" "$K"
 identity-triple-record = [
   environment-map ; device identifier (instance or class)
-  one-or-more<verification-key-map> ; DevID, or semantically equivalent
+  [ + verification-key-map ] ; DevID, or semantically equivalent
 ]
 
 pkix-base64-key-type = tstr
@@ -201,6 +201,6 @@ serial-number-type = text
 
 ; Notes:
 ; - hash-entry is defined in CoSWID schema
-digests-type = one-or-more<hash-entry>
+digests-type = [ + hash-entry ]
 
 ; vim: set tw=70 ts=2 et:

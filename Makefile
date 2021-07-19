@@ -66,7 +66,6 @@ $(eval $(call cddl_check_template,corim,$(CORIM_FRAGS),$(CORIM_EXAMPLES)))
 XCORIM_FRAGS += xcorim.cddl
 XCORIM_FRAGS += xcorim-code-points.cddl
 XCORIM_FRAGS += common.cddl
-XCORIM_FRAGS += generic-one-or-more.cddl
 
 $(eval $(call cddl_check_template,xcorim,$(XCORIM_FRAGS),))
 

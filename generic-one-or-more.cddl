@@ -1,6 +1,0 @@
-; The one-or-more macro provides an encoding optimisation
-; in case one-element arrays are a sensible fraction of
-; the expected corpus.
-one-or-more<T> = T / [ 2* T ]
-
-; vim: set tw=60 ts=2 et:

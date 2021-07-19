@@ -9,7 +9,7 @@ protected-signed-corim-header-map = {
 }
 
 corim-meta-map = {
-  corim.signer => one-or-more<corim-entity-map>
+  corim.signer => [ + corim-entity-map ]
   ? corim.validity => validity-map
 }
 

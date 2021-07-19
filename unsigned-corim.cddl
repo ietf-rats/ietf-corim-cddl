@@ -1,8 +1,8 @@
 unsigned-corim-map = {
   corim.id => $corim-id-type-choice
-  corim.tags => one-or-more<$concise-tag-type-choice>
-  ? corim.dependent-rims => one-or-more<corim-locator-map>
-  ? corim.profile => one-or-more<profile-type-choice>
+  corim.tags => [ + $concise-tag-type-choice ]
+  ? corim.dependent-rims => [ + corim-locator-map ]
+  ? corim.profile => [ + profile-type-choice ]
   * $$unsigned-corim-map-extension
 }
 

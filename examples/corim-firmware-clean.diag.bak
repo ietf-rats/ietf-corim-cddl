@@ -1,5 +1,10 @@
+<<<<<<< Updated upstream
 / corim / 500(
  / unsigned-corim / 501({
+=======
+/corim / 500(
+ / unsigned-corim-map / 501({
+>>>>>>> Stashed changes
   / corim.id / 0 : h'29B834181A5C4E4EA53E8F8786BC8C5B',
   / corim.tags / 1 : [
    / concise-mid-tag / 506( <<
@@ -16,7 +21,10 @@
       / comid.reference-triples / 0 : [
         [
           / environment-map / {
+<<<<<<< Updated upstream
             / ** Hash of ROM extension ** /
+=======
+>>>>>>> Stashed changes
             / comid.class / 0 : {
               / comid.vendor / 1 : "fwmfginc.example",
               / comid.model / 2 : "fwY_n5x",
@@ -24,6 +32,7 @@
               / comid.index / 4 : 0
             }
           },
+<<<<<<< Updated upstream
           / measurement-map /
           [
             {
@@ -42,6 +51,20 @@
         [
           / environment-map / {
             / ** Hash of CMF descriptor (SDM firmware) ** /
+=======
+          / measurement-map / [ {
+           / comid.mval / 1 : {
+            / comid.svn / 1 : 552(2),
+            / comid.digests / 2 : [ [
+              / hash-alg-id / 1, / sha256 /
+              / hash-value / h'15E77D6F133252F1DB7044901313884F2977D2109B33C79F33E079BFC78865255C0FB733C240FDDA544B8215D7B8F815'
+             ] ]
+           }
+          } ]
+        ],
+        [
+          / environment-map / {
+>>>>>>> Stashed changes
             / comid.class / 0 : {
               / comid.vendor / 1 : "fwmfginc.example",
               / comid.model / 2 : "fwY_n5x",
@@ -77,12 +100,21 @@
           },
           / measurement-map / [ {
            / comid.mval / 1 : {
+<<<<<<< Updated upstream
             / raw-value-group /
              / comid.raw-value / 4 : h'0000000000000000',
              / comid.raw-value-mask / 5 : h'FFFFFFFF00000000'
+=======
+            / comid.svn / 1 : 552(2),
+            / comid.digests / 2 : [ [
+              / hash-alg-id / 1, / sha256 /
+              / hash-value / h'3D90B6BF003DA2D94EA5463F97FB3C53DDC51CFBA1E3E38EEF7AF071A67986595D22729131DF9FE80F5451EEF154F85E'
+            ] ]
+>>>>>>> Stashed changes
            }
           } ]
         ]
+<<<<<<< Updated upstream
       ]
     }
   }
@@ -90,6 +122,26 @@
   ],
   / corim.profile / 3 : [
     111( h'6086480186F84D010F06') / 2.16.840.1.113741.1.15.6 /
+=======
+      ],
+      / comid.endorsed-triples / 1 : [ [
+        / environment-map / {
+         / comid.class / 0 : {
+           / comid.class-id / 0 :
+            / tagged-oid-type / 111(h'6086480186F84D010F046301'),
+            / comid.vendor / 1 : "fwmfginc.example"
+         }
+        },
+        / measurement-map / {
+         / comid.mval / 1 : {
+          / comid.svn / 1 : 552(2)
+         }
+        }
+      ] ]
+    }
+   }
+  >> )
+>>>>>>> Stashed changes
   ]
  })
 )

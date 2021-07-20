@@ -16,7 +16,7 @@
       / comid.reference-triples / 0 : [
         [
           / environment-map / {
-            / ** Hash of firmware Y ** /
+            / ** Hash of layer 0 firmware Y ** /
             / comid.class / 0 : {
               / comid.vendor / 1 : "fwmfginc.example",
               / comid.model / 2 : "fwY_n5x",
@@ -41,10 +41,10 @@
         ],
         [
           / environment-map / {
-            / ** Hash of CMF descriptor (SDM firmware) ** /
+            / ** Hash of layer 1 firmware X ** /
             / comid.class / 0 : {
               / comid.vendor / 1 : "fwmfginc.example",
-              / comid.model / 2 : "fwY_n5x",
+              / comid.model / 2 : "fwX_n5x",
               / comid.layer / 3 : 1,
               / comid.index / 4 : 0
             }

@@ -16,7 +16,7 @@
       / comid.reference-triples / 0 : [
         [
           / environment-map / {
-            / ** Hash of ROM extension ** /
+            / ** Hash of firmware Y ** /
             / comid.class / 0 : {
               / comid.vendor / 1 : "fwmfginc.example",
               / comid.model / 2 : "fwY_n5x",

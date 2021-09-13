@@ -1,7 +1,7 @@
 ; concise-mid-tag
 comid.language = 0
 comid.tag-identity = 1
-comid.entity = 2
+comid.entities = 2
 comid.linked-tags = 3
 comid.triples = 4
 

@@ -1,7 +1,7 @@
 concise-mid-tag = {
   ? comid.language => language-type
   comid.tag-identity => tag-identity-map
-  ? comid.entity => [ + entity-map ]
+  ? comid.entities => [ + entity-map ]
   ? comid.linked-tags => [ + linked-tag-map ]
   comid.triples => triples-map
   * $$concise-mid-tag-extension

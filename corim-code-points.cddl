@@ -19,7 +19,7 @@ corim.not-before = 0
 corim.not-after = 1
 
 ; corim-meta-map
-corim.signer = 0
+corim.entities = 0
 corim.validity = 1
 
 ; corim-entity-map

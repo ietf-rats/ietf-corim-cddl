@@ -4,6 +4,7 @@ unsigned-corim-map = {
   ? corim.dependent-rims => [ + corim-locator-map ]
   ? corim.profile => [ + profile-type-choice ]
   ? corim.rim-validity => validity-map
+  ? corim.entities => [ + corim-entity-map ]
   * $$unsigned-corim-map-extension
 }
 
@@ -18,5 +19,14 @@ corim-locator-map = {
 ; allowed to be signed the same as a CoSWID tag?
 $concise-tag-type-choice /= #6.505(bytes .cbor concise-swid-tag)
 $concise-tag-type-choice /= #6.506(bytes .cbor concise-mid-tag)
+
+corim-entity-map = {
+  corim.entity-name => $entity-name-type-choice
+  ? corim.reg-id => uri
+  corim.role => $corim-role-type-choice
+  * $$corim-entity-map-extension
+}
+
+$corim-role-type-choice /= corim.manifest-creator
 
 ; vim: set tw=60 ts=2 et:

@@ -9,19 +9,15 @@ protected-signed-corim-header-map = {
 }
 
 corim-meta-map = {
-  corim.entities => [ + corim-entity-map ]
+  corim.signer => corim-signer-map
   ? corim.signature-validity => validity-map
 }
 
-corim-entity-map = {
-  corim.entity-name => $entity-name-type-choice
-  ? corim.reg-id => uri
-  corim.role => $corim-role-type-choice
-  * $$corim-entity-map-extension
+corim-signer-map = {
+  corim.signer-name => $entity-name-type-choice
+  ? corim.signer-uri => uri
+  * $$corim-signer-map-extension
 }
-
-$corim-role-type-choice /= corim.manifest-creator
-$corim-role-type-choice /= corim.manifest-signer
 
 validity-map = {
   ? corim.not-before => time

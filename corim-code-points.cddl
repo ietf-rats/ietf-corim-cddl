@@ -4,6 +4,7 @@ corim.tags = 1
 corim.dependent-rims = 2
 corim.profile = 3
 corim.rim-validity = 4
+corim.entities = 5
 
 ; corim-locator-map
 corim.href = 0
@@ -20,8 +21,12 @@ corim.not-before = 0
 corim.not-after = 1
 
 ; corim-meta-map
-corim.entities = 0
+corim.signer = 0
 corim.signature-validity = 1
+
+; corim-signer-map
+corim.signer-name = 0
+corim.signer-uri = 1
 
 ; corim-entity-map
 corim.entity-name = 0
@@ -32,8 +37,5 @@ corim.role = 2
 ;
 ; Person or organization responsible for creating the CoRIM
 corim.manifest-creator = 1
-
-; Person or organization responsible for signing the CoRIM
-corim.manifest-signer = 2
 
 ; vim: set tw=60 ts=2 et:

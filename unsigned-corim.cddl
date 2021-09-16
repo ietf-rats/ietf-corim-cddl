@@ -3,6 +3,7 @@ unsigned-corim-map = {
   corim.tags => [ + $concise-tag-type-choice ]
   ? corim.dependent-rims => [ + corim-locator-map ]
   ? corim.profile => [ + profile-type-choice ]
+  ? corim.rim-validity => validity-map
   * $$unsigned-corim-map-extension
 }
 

@@ -182,11 +182,12 @@ operational-flags = &(
 )
 
 raw-value-group = (
-  comid.raw-value => raw-value-type
+  comid.raw-value => $raw-value-type-choice
   ? comid.raw-value-mask => raw-value-mask-type
 )
 
-raw-value-type = bytes
+$raw-value-type-choice /= #6.560(bytes)
+
 raw-value-mask-type = bytes
 
 ip-addr-type-choice = ip4-addr-type / ip6-addr-type

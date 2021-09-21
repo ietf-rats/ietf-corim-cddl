@@ -4,7 +4,7 @@ protected-signed-corim-header-map = {
   corim.alg-id => int
   corim.content-type => "application/rim+cbor"
   corim.issuer-key-id => bstr
-  corim.meta => corim-meta-map
+  corim.meta => bstr .cbor corim-meta-map
   * cose-label => cose-values 
 }
 

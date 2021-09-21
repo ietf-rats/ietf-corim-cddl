@@ -24,13 +24,13 @@ validity-map = {
   corim.not-after => time
 }
 
-unprotected-signed-corim-header-map = {
+unprotected-corim-header-map = {
   * cose-label => cose-values
 }
 
 COSE-Sign1-corim = [
   protected: bstr .cbor protected-signed-corim-header-map
-  unprotected: unprotected-signed-corim-header-map
+  unprotected: unprotected-corim-header-map
   payload: bstr .cbor unsigned-corim-map
   signature: bstr
 ]

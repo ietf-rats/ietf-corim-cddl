@@ -9,38 +9,43 @@ protected-signed-xcorim-header-map = {
   xcorim.alg-id => int
   xcorim.content-type => "application/xrim+cbor"
   xcorim.issuer-key-id => bstr
-  xcorim.meta => xcorim-meta-map
+  xcorim.meta => bstr .cbor xcorim-meta-map
   * cose-label => cose-values
 }
 
 xcorim-meta-map = {
-  xcorim.signer => xcorim-entity-map
+  xcorim.signer => xcorim-signer-map
   xcorim.timestamp => time
+}
+
+xcorim-signer-map = {
+  xcorim.signer-name => $entity-name-type-choice
+  ? xcorim.signer-uri => uri
+  * $$xcorim-entity-map-extension
 }
 
 xcorim-entity-map = {
   xcorim.entity-name => $entity-name-type-choice
-  xcorim.role => [ + $xcorim-role-type-choice ]
   ? xcorim.reg-id => uri
+  xcorim.role => $xcorim-role-type-choice
   * $$xcorim-entity-map-extension
 }
 
-$xcorim-role-type-choice /= xcorim.deny-list-signer
 $xcorim-role-type-choice /= xcorim.deny-list-creator
 
-unprotected-signed-xcorim-header-map = {
+unprotected-xcorim-header-map = {
   * cose-label => cose-values
 }
 
 COSE-Sign1-xcorim = [
   protected: bstr .cbor protected-signed-xcorim-header-map
-  unprotected: unprotected-signed-xcorim-header-map
+  unprotected: unprotected-xcorim-header-map
   payload: bstr .cbor unsigned-xcorim-map
   signature: bstr
 ]
 
 unsigned-xcorim-map = {
-  ? xcorim.creator => xcorim-entity-map
+  ? xcorim.entity => [ + xcorim-entity-map ]
   xcorim.deny-list => [ + $corim-id-type-choice ]
   * $$unsigned-xcorim-map-extension
 }

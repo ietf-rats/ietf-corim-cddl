@@ -1,6 +1,10 @@
 ; unsigned-xcorim-map
-xcorim.creator = 0
+xcorim.entity = 0
 xcorim.deny-list = 1
+
+; xcorim-signer-map
+xcorim.signer-name = 0
+xcorim.signer-uri = 1
 
 ; xcorim-entity-map
 xcorim.entity-name = 0
@@ -9,13 +13,10 @@ xcorim.reg-id = 2
 
 ; $xcorim-role-type-choice
 ;
-; The person or organization that issued the xCoRIM
-xcorim.deny-list-signer = 1
-
 ; The person or organization that created the xCoRIM
 xcorim.deny-list-creator = 2
 
-; protected-signed-xcorim-header-map
+; protected-xcorim-header-map
 xcorim.alg-id = 1
 xcorim.content-type = 3
 xcorim.issuer-key-id = 4

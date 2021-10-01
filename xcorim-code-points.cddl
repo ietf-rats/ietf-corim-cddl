@@ -14,7 +14,7 @@ xcorim.reg-id = 2
 ; $xcorim-role-type-choice
 ;
 ; The person or organization that created the xCoRIM
-xcorim.deny-list-creator = 2
+xcorim.deny-list-creator = 1
 
 ; protected-xcorim-header-map
 xcorim.alg-id = 1

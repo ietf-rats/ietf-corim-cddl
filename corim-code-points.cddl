@@ -10,7 +10,7 @@ corim.entities = 5
 corim.href = 0
 corim.thumbprint = 1
 
-; protected-signed-corim-header-map
+; protected-corim-header-map
 corim.alg-id = 1
 corim.content-type = 3
 corim.issuer-key-id = 4

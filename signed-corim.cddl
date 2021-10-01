@@ -1,6 +1,6 @@
 signed-corim = #6.18(COSE-Sign1-corim)
 
-protected-signed-corim-header-map = {
+protected-corim-header-map = {
   corim.alg-id => int
   corim.content-type => "application/rim+cbor"
   corim.issuer-key-id => bstr
@@ -29,7 +29,7 @@ unprotected-corim-header-map = {
 }
 
 COSE-Sign1-corim = [
-  protected: bstr .cbor protected-signed-corim-header-map
+  protected: bstr .cbor protected-corim-header-map
   unprotected: unprotected-corim-header-map
   payload: bstr .cbor unsigned-corim-map
   signature: bstr

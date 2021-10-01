@@ -106,6 +106,7 @@ class-map = non-empty<{
 
 $class-id-type-choice /= tagged-oid-type
 $class-id-type-choice /= tagged-uuid-type
+$class-id-type-choice /= tagged-int-type
 
 $instance-id-type-choice /= tagged-ueid-type
 $instance-id-type-choice /= tagged-uuid-type
@@ -122,6 +123,11 @@ tagged-oid-type = #6.111(oid-type)
 ; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
 ;
 tagged-uuid-type = #6.37(uuid-type)
+
+;
+; numeric class identifer.  MUST be coupled with vendor.
+;
+tagged-int-type = #6.551(int)
 
 ;
 ; From draft-ietf-rats-eat

@@ -53,7 +53,7 @@ $(eval $(call cddl_check_template,comid,$(COMID_FRAGS),$(COMID_EXAMPLES)))
 
 CORIM_FRAGS := concise-rim.cddl
 CORIM_FRAGS += signed-corim.cddl
-CORIM_FRAGS += unsigned-corim.cddl
+CORIM_FRAGS += corim.cddl
 CORIM_FRAGS += concise-mid-tag.cddl
 CORIM_FRAGS += concise-swid-tag.cddl
 CORIM_FRAGS += comid-code-points.cddl

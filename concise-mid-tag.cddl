@@ -106,6 +106,7 @@ class-map = non-empty<{
 
 $class-id-type-choice /= tagged-oid-type
 $class-id-type-choice /= tagged-uuid-type
+$class-id-type-choice /= tagged-int-type
 
 $instance-id-type-choice /= tagged-ueid-type
 $instance-id-type-choice /= tagged-uuid-type
@@ -122,6 +123,11 @@ tagged-oid-type = #6.111(oid-type)
 ; github.com/lucas-clemente/cbor-specs/blob/master/uuid.md
 ;
 tagged-uuid-type = #6.37(uuid-type)
+
+;
+; numeric class identifer.  MUST be coupled with vendor.
+;
+tagged-int-type = #6.551(int)
 
 ;
 ; From draft-ietf-rats-eat
@@ -165,7 +171,7 @@ tagged-svn = #6.552(svn)
 tagged-min-svn = #6.553(min-svn)
 svn-type-choice = tagged-svn / tagged-min-svn
 
-flags-type = bytes .bits operational-flags
+flags-type = bytes .bits $operational-flags
 
 ; operational-flags maps DiceTcbInfo.flags, i.e.:
 ; OperationalFlags ::= BIT STRING {
@@ -174,12 +180,16 @@ flags-type = bytes .bits operational-flags
 ;   recovery (2),
 ;   debug (3)
 ; }
-operational-flags = &(
-  not-configured: 0
-  not-secure: 1
-  recovery: 2
-  debug: 3
-)
+;
+; replay-protected:    4 ; resists replacement attacks
+; integrity-protected: 5 ; resists memory modification
+;
+$operational-flags /= &( not-configured: 0 )
+$operational-flags /= &( not-secure: 1 )
+$operational-flags /= &( recovery: 2 )
+$operational-flags /= &( debug: 3 )
+$operational-flags /= &( replay-protected: 4 )
+$operational-flags /= &( integrity-protected: 5 )
 
 raw-value-group = (
   comid.raw-value => $raw-value-type-choice

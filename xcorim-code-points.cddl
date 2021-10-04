@@ -1,4 +1,4 @@
-; unsigned-xcorim-map
+; xcorim-map
 xcorim.entity = 0
 xcorim.deny-list = 1
 

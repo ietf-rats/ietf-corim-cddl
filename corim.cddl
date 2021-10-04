@@ -1,11 +1,11 @@
-unsigned-corim-map = {
+corim-map = {
   corim.id => $corim-id-type-choice
   corim.tags => [ + $concise-tag-type-choice ]
   ? corim.dependent-rims => [ + corim-locator-map ]
   ? corim.profile => [ + profile-type-choice ]
   ? corim.rim-validity => validity-map
   ? corim.entities => [ + corim-entity-map ]
-  * $$unsigned-corim-map-extension
+  * $$corim-map-extension
 }
 
 profile-type-choice = uri / tagged-oid-type

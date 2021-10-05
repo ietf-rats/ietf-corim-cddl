@@ -155,6 +155,7 @@ measurement-values-map = non-empty<{
   ? comid.serial-number => serial-number-type
   ? comid.ueid => ueid-type
   ? comid.uuid => uuid-type
+  ? comid.model-name => tstr
   * $$measurement-values-map-extension
 }>
 

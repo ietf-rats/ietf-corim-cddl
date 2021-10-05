@@ -52,6 +52,7 @@ comid.ip-addr = 7
 comid.serial-number = 8
 comid.ueid = 9
 comid.uuid = 10
+comid.model-name = 11
 
 ; verification-key-map
 comid.key = 0

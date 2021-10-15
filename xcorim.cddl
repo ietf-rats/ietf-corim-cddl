@@ -21,7 +21,7 @@ xcorim-meta-map = {
 xcorim-signer-map = {
   xcorim.signer-name => $entity-name-type-choice
   ? xcorim.signer-uri => uri
-  * $$xcorim-entity-map-extension
+  * $$xcorim-signer-map-extension
 }
 
 xcorim-entity-map = {

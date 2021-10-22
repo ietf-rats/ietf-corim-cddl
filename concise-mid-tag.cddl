@@ -183,15 +183,15 @@ flags-type = bytes .bits $operational-flags
 ;   debug (3)
 ; }
 ;
-; replay-protected:    4 ; resists replacement attacks
-; integrity-protected: 5 ; resists memory modification
+; not-replay-protected:    4 ; does not resists replacement attacks
+; not-integrity-protected: 5 ; does not resists memory modification
 ;
 $operational-flags /= &( not-configured: 0 )
 $operational-flags /= &( not-secure: 1 )
 $operational-flags /= &( recovery: 2 )
 $operational-flags /= &( debug: 3 )
-$operational-flags /= &( replay-protected: 4 )
-$operational-flags /= &( integrity-protected: 5 )
+$operational-flags /= &( not-replay-protected: 4 )
+$operational-flags /= &( not-integrity-protected: 5 )
 
 raw-value-group = (
   comid.raw-value => $raw-value-type-choice

@@ -1,6 +1,7 @@
 corim = #6.500($concise-reference-integrity-manifest-type-choice)
 
-$concise-reference-integrity-manifest-type-choice /= #6.501(corim-map)
+tagged-corim-map = #6.501(corim-map)
+$concise-reference-integrity-manifest-type-choice /= tagged-corim-map
 $concise-reference-integrity-manifest-type-choice /= #6.502(signed-corim)
 
 ; vim: set tw=60 ts=2 et:

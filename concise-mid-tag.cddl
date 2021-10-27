@@ -135,8 +135,8 @@ tagged-int-type = #6.551(int)
 ueid-type = bytes .size 33
 tagged-ueid-type = #6.550(ueid-type)
 
-$measured-element-type-choice /= tagged-oid-type
-$measured-element-type-choice /= tagged-uuid-type
+tagged-uint32-type = #6.66(uint .size 4) ; a big endian uint32
+$measured-element-type-choice /= tagged-uint32-type
 
 measurement-map = {
   ? comid.mkey => $measured-element-type-choice

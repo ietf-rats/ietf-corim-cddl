@@ -1,6 +1,7 @@
 xcorim = #6.525($xcorim-type-choice)
 
-$xcorim-type-choice /= #6.526(xcorim-map)
+tagged-xcorim-map = #6.526(xcorim-map)
+$xcorim-type-choice /= tagged-xcorim-map
 $xcorim-type-choice /= #6.527(signed-xcorim)
 
 signed-xcorim = #6.18(COSE-Sign1-xcorim)
@@ -40,7 +41,7 @@ unprotected-xcorim-header-map = {
 COSE-Sign1-xcorim = [
   protected: bstr .cbor protected-xcorim-header-map
   unprotected: unprotected-xcorim-header-map
-  payload: bstr .cbor xcorim-map
+  payload: bstr .cbor tagged-xcorim-map
   signature: bstr
 ]
 

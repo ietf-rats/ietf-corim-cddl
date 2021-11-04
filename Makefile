@@ -80,3 +80,6 @@ concise-swid-tag.cddl: ; $(curl) -O $(COSWID_REPO_URL)/$@
 CLEANFILES += concise-swid-tag.cddl
 
 clean: ; $(RM) $(CLEANFILES)
+
+# Extract the CBOR tags defined by CoRIM/CoMID (i.e., those in the 5xx space)
+cbor-tags.txt: $(wildcard *.cddl) ; grep -h '#6\.5' *cddl | sort -u -t'=' -k2 > $@

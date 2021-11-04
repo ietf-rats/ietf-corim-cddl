@@ -19,3 +19,8 @@ $ make
 ```
 $ make clean
 ```
+
+## CBOR tags
+
+For a list of the new CBOR tags defined by the CoRIM/CoMID CDDL see
+[cbor-tags.txt](cbor-tags.txt).

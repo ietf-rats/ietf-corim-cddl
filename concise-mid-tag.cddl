@@ -174,7 +174,10 @@ tagged-svn = #6.552(svn)
 tagged-min-svn = #6.553(min-svn)
 svn-type-choice = tagged-svn / tagged-min-svn
 
-flags-type = bytes .bits $operational-flags
+flags-type = [
+  flags : bytes .bits $operational-flags
+  ? mask : bytes .bits $operational-flags
+]
 
 ; operational-flags maps DiceTcbInfo.flags, i.e.:
 ; OperationalFlags ::= BIT STRING {

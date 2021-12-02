@@ -2,7 +2,7 @@ signed-corim = #6.18(COSE-Sign1-corim)
 
 protected-corim-header-map = {
   corim.alg-id => int
-  corim.content-type => "application/rim+cbor"
+  corim.content-type => "application/corim-unsigned+cbor"
   corim.issuer-key-id => bstr
   corim.meta => bstr .cbor corim-meta-map
   * cose-label => cose-values 

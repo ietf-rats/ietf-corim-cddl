@@ -8,7 +8,7 @@ signed-xcorim = #6.18(COSE-Sign1-xcorim)
 
 protected-xcorim-header-map = {
   xcorim.alg-id => int
-  xcorim.content-type => "application/xrim+cbor"
+  xcorim.content-type => "application/xcorim-unsigned+cbor"
   xcorim.issuer-key-id => bstr
   xcorim.meta => bstr .cbor xcorim-meta-map
   * cose-label => cose-values

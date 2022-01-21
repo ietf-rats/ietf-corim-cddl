@@ -5,7 +5,7 @@
 * Type name: `application`
 * Subtype name: `corim-signed+cbor`
 * Required parameters: n/a
-* Optional parameters: n/a
+* Optional parameters: "profile" (CoRIM profile in string format.  OIDs MUST use the dotted-decimal notation.)
 * Encoding considerations: binary
 * Security considerations: n/a
 * Interoperability considerations: n/a
@@ -30,7 +30,7 @@
 * Type name: `application`
 * Subtype name: `corim-unsigned+cbor`
 * Required parameters: n/a
-* Optional parameters: n/a
+* Optional parameters: "profile" (CoRIM profile in string format.  OIDs MUST use the dotted-decimal notation.)
 * Encoding considerations: binary
 * Security considerations: n/a
 * Interoperability considerations: n/a

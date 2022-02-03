@@ -149,7 +149,7 @@ measurement-values-map = non-empty<{
   ? comid.ver => version-map
   ? comid.svn => svn-type-choice
   ? comid.digests => digests-type
-  ? comid.flags => flags-type
+  ? comid.flags => flags-map
   ? raw-value-group
   ? comid.mac-addr => mac-addr-type-choice
   ? comid.ip-addr =>  ip-addr-type-choice
@@ -174,12 +174,8 @@ tagged-svn = #6.552(svn)
 tagged-min-svn = #6.553(min-svn)
 svn-type-choice = tagged-svn / tagged-min-svn
 
-flags-type = [
-  flags : bytes .bits $operational-flags
-  ? mask : bytes .bits $operational-flags
-]
 
-; operational-flags maps DiceTcbInfo.flags, i.e.:
+; flags-map maps DiceTcbInfo.flags, i.e.:
 ; OperationalFlags ::= BIT STRING {
 ;   notConfigured (0),
 ;   notSecure (1),
@@ -190,12 +186,16 @@ flags-type = [
 ; not-replay-protected:    4 ; does not resists replacement attacks
 ; not-integrity-protected: 5 ; does not resists memory modification
 ;
-$operational-flags /= &( not-configured: 0 )
-$operational-flags /= &( not-secure: 1 )
-$operational-flags /= &( recovery: 2 )
-$operational-flags /= &( debug: 3 )
-$operational-flags /= &( not-replay-protected: 4 )
-$operational-flags /= &( not-integrity-protected: 5 )
+; plus all the contraindicated / dual states
+flags-map = {
+  ? comid.operational-flag-configured => bool
+  ? comid.operational-flag-secure => bool
+  ? comid.operational-flag-recovery => bool
+  ? comid.operational-flag-debug => bool
+  ? comid.operational-flag-replay-protected => bool
+  ? comid.operational-flag-integrity-protected => bool
+  * $$flags-map-extension
+}
 
 raw-value-group = (
   comid.raw-value => $raw-value-type-choice

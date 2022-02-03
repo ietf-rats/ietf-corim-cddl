@@ -75,4 +75,12 @@ comid.tag-creator = 0
 comid.creator = 1
 comid.maintainer = 2
 
+; flags-map
+comid.operational-flag-configured = 0
+comid.operational-flag-secure = 1
+comid.operational-flag-recovery = 2
+comid.operational-flag-debug = 3
+comid.operational-flag-replay-protected = 4
+comid.operational-flag-integrity-protected = 5
+
 ; vim: set tw=60 ts=2 et:

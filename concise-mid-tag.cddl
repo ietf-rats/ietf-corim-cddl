@@ -175,18 +175,7 @@ tagged-min-svn = #6.553(min-svn)
 svn-type-choice = tagged-svn / tagged-min-svn
 
 
-; flags-map maps DiceTcbInfo.flags, i.e.:
-; OperationalFlags ::= BIT STRING {
-;   notConfigured (0),
-;   notSecure (1),
-;   recovery (2),
-;   debug (3)
-; }
-;
-; not-replay-protected:    4 ; does not resists replacement attacks
-; not-integrity-protected: 5 ; does not resists memory modification
-;
-; plus all the contraindicated / dual states
+; flags-map maps DiceTcbInfo.flags
 flags-map = {
   ? comid.operational-flag-configured => bool
   ? comid.operational-flag-secure => bool

@@ -17,7 +17,7 @@ check:: check-comid check-comid-examples
 define cddl_check_template
 
 check-$(1): $(1)-autogen.cddl
-	$$(cddl) $$< g 1 | $$(diag2diag) -e
+	$$(cddl) $$< g 1
 
 .PHONY: check-$(1)
 

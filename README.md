@@ -24,3 +24,8 @@ $ make clean
 
 For a list of the new CBOR tags defined by the CoRIM/CoMID CDDL see
 [cbor-tags.txt](cbor-tags.txt).
+
+## Media Types
+
+For a list of the new Media Types defined by the CoRIM/CoMID spec see
+[media-types.md](media-types.md).

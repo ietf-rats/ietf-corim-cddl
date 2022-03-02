@@ -81,7 +81,7 @@ tagged-pkix-base64-key-type = #6.554(tstr)
 
 $cert-type-choice /= tagged-pkix-base64-cert-type
 
-; X.509 certificate chain in DER format base64-encoded
+; X.509 certificate in DER format base64-encoded
 tagged-pkix-base64-cert-type = #6.555(tstr)
 
 verification-key-map = non-empty<{

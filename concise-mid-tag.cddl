@@ -89,7 +89,7 @@ verification-key-map = non-empty<{
   ; public key.
   ? comid.key => $key-type-choice
   ; Certificate chain that anchors the verification process.
-  ; The chain is encoded as an array of one or more PKIX certificates.
+  ; The chain is encoded as an array of one or more public key certificates.
   ; If comid.key is provided, the certificate containing the public
   ; key in comid.key MUST be the first certificate.  This MAY be
   ; followed by additional certificates, with each subsequent

@@ -88,7 +88,7 @@ verification-key-map = non-empty<{
   ; Raw key used for verification.  Typically, but not necessarily a
   ; public key.
   ? comid.key => $key-type-choice
-  ; X.509 certificate chain that anchors the verification process.
+  ; Certificate chain that anchors the verification process.
   ; The chain is encoded as an array of one or more PKIX certificates.
   ; If comid.key is provided, the certificate containing the public
   ; key in comid.key MUST be the first certificate.  This MAY be

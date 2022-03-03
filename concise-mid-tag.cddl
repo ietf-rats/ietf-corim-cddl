@@ -92,7 +92,7 @@ raw-key-or-authority-path //=
   (comid.rawkey => $rawkey-type-choice)
 
 raw-key-or-authority-path //=
-  (comid.authority-path => $authority-path-type-choice)
+  (comid.authority-path => [ + $authority-path-type-choice ] )
 
 environment-map = non-empty<{
   ? comid.class => class-map

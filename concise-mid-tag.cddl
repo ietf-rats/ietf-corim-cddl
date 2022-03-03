@@ -74,28 +74,25 @@ identity-triple-record = [
   [ + verification-key-map ] ; DevID, or semantically equivalent
 ]
 
-$key-type-choice /= tagged-pkix-base64-key-type
+$rawkey-type-choice /= tagged-pkix-base64-key-type
 
 ; Raw key in DER format base64-encoded.
 tagged-pkix-base64-key-type = #6.554(tstr)
 
-$cert-type-choice /= tagged-pkix-base64-cert-type
+$authority-path-type-choice /= tagged-pkix-base64-cert-type
 
-; X.509 certificate in DER format base64-encoded
+; X.509 certificate chain in DER format base64-encoded
 tagged-pkix-base64-cert-type = #6.555(tstr)
 
-verification-key-map = non-empty<{
-  ; Raw key used for verification.  Typically, but not necessarily a
-  ; public key.
-  ? comid.key => $key-type-choice
-  ; Certificate chain that anchors the verification process.
-  ; The chain is encoded as an array of one or more public key certificates.
-  ; If comid.key is provided, the certificate containing the public
-  ; key in comid.key MUST be the first certificate.  This MAY be
-  ; followed by additional certificates, with each subsequent
-  ; certificate being the one used to certify the previous one.
-  ? comid.keychain => [ + $cert-type-choice ]
-}>
+verification-key-map = {
+  raw-key-or-authority-path
+}
+
+raw-key-or-authority-path //=
+  (comid.rawkey => $rawkey-type-choice)
+
+raw-key-or-authority-path //=
+  (comid.authority-path => $authority-path-type-choice)
 
 environment-map = non-empty<{
   ? comid.class => class-map

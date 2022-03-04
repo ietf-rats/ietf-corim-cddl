@@ -61,34 +61,30 @@ endorsed-triple-record = [
 ]
 
 ; ATTESTATION-VERIFICATION-KEY triple
-; "attesting environment $AE" "signs Evidence that can be verified with key" "$K"
+; "attesting environment $AE" "signs Evidence that can be verified with a set of keys [$K]"
 attest-key-triple-record = [
   environment-map ; attesting environment
-  [ + verification-key-map ] ; attestation verification key(s)
+  [ + $crypto-key-type-choice ] ; attestation verification key(s)
 ]
 
 ; DEVICE-IDENTITY triple
-; "device $D" "is identified by key" "$K"
+; "device $D" "is identified by a set of keys [$K]"
 identity-triple-record = [
   environment-map ; device identifier (instance or class)
-  [ + verification-key-map ] ; DevID, or semantically equivalent
+  [ + $crypto-key-type-choice ] ; DevID, or semantically equivalent
 ]
 
-pkix-base64-key-type = tstr
-pkix-base64-cert-type = tstr
+$crypto-key-type-choice /= tagged-pkix-base64-key-type
+$crypto-key-type-choice /= tagged-pkix-base64-cert-type
+$crypto-key-type-choice /= tagged-pkix-base64-cert-path-type
 
-verification-key-map = {
-  ; Verification key in DER format base64-encoded.
-  ; Typically, but not necessarily a public key.
-  comid.key => pkix-base64-key-type
-  ; Optional X.509 certificate chain corresponding to the public key
-  ; in comid.key, encoded as an array of one or more base64-encoded
-  ; DER PKIX certificates.  The certificate containing the public key
-  ; in comid.key MUST be the first certificate.  This MAY be followed
-  ; by additional certificates, with each subsequent certificate
-  ; being the one used to certify the previous one.
-  ? comid.keychain => [ + pkix-base64-cert-type ]
-}
+; Raw key in DER format base64-encoded.
+tagged-pkix-base64-key-type = #6.554(tstr)
+; X.509 certificate in DER format base64-encoded
+tagged-pkix-base64-cert-type = #6.555(tstr)
+; chain of X.509 certificates in DER format base64-encoded
+tagged-pkix-base64-cert-path-type = #6.556(tstr)
+
 
 environment-map = non-empty<{
   ? comid.class => class-map

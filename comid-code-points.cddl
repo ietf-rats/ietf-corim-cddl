@@ -54,10 +54,6 @@ comid.ueid = 9
 comid.uuid = 10
 comid.name = 11
 
-; verification-key-map
-comid.rawkey = 0
-comid.authority-path = 1
-
 ; version-map
 comid.version = 0
 comid.version-scheme = 1

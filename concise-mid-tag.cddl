@@ -76,6 +76,7 @@ identity-triple-record = [
 
 $crypto-key-type-choice /= tagged-pkix-base64-key-type
 $crypto-key-type-choice /= tagged-pkix-base64-cert-type
+$crypto-key-type-choice /= tagged-pkix-base64-cert-path-type
 
 ; Raw key in DER format base64-encoded.
 tagged-pkix-base64-key-type = #6.554(tstr)

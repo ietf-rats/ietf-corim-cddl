@@ -61,14 +61,14 @@ endorsed-triple-record = [
 ]
 
 ; ATTESTATION-VERIFICATION-KEY triple
-; "attesting environment $AE" "signs Evidence that can be verified with key" "$K"
+; "attesting environment $AE" "signs Evidence that can be verified with a set of keys [$K]"
 attest-key-triple-record = [
   environment-map ; attesting environment
   [ + $crypto-key-type-choice ] ; attestation verification key(s)
 ]
 
 ; DEVICE-IDENTITY triple
-; "device $D" "is identified by key" "$K"
+; "device $D" "is identified by a set of keys [$K]"
 identity-triple-record = [
   environment-map ; device identifier (instance or class)
   [ + $crypto-key-type-choice ] ; DevID, or semantically equivalent
@@ -85,11 +85,6 @@ tagged-pkix-base64-cert-type = #6.555(tstr)
 ; chain of X.509 certificates in DER format base64-encoded
 tagged-pkix-base64-cert-path-type = #6.556(tstr)
 
-raw-key-or-authority-path //=
-  (comid.rawkey => $rawkey-type-choice)
-
-raw-key-or-authority-path //=
-  (comid.authority-path => [ + $authority-path-type-choice ] )
 
 environment-map = non-empty<{
   ? comid.class => class-map

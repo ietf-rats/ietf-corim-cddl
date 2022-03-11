@@ -155,21 +155,49 @@ measurement-values-map = non-empty<{
   ? comid.name => tstr
   * $$measurement-values-map-extension
 }>
+;
+; Additional measurement values (potential)
+;
+$$measurement-values-map-extension //= (
+  ? comid.date => [tagged-date, operators-map] ; uses #6.1(int)
+  ? comid.tcbstatus => [tagged-tcbstatus, operators-map] ; tbd sgx specific?
+  ? comid.set-bstr => [tagged-set-bstr, operators-map]
+  ? comid.set-tstr => [tagged-set-tstr, operators-map]
+  ? comid.set-float16 => [tagged-set-float16, operators-map]
+  ? comid.set-float32 => [tagged-set-float32, operators-map]
+  ? comid.set-float64 => [tagged-set-float64, operators-map]
+  ? comid.set-int => [tagged-set-int, operators-map]
+  ? comid.set-uint => [tagged-set-uint, operators-map]
+  )
+)
+
 
 version-map = {
   comid.version => version-type
   ? comid.version-scheme => $version-scheme
+  ? comid.ops => operators-map
 }
 version-type = text .default '0.0.0'
 ; version-scheme is defined in CoSWID
+; supported comparison operators include:
+;   .eq - numeric form of major, minor, point values are equal
+;   .gt - numeric form of reference major is gt evidence major, 
+;       or major is eq and reference minor is gt evidence minor, 
+;       or major is eq, minor is eq and reference point is gt evidence point
+;   .gte - ref major is gt or eq to evidence major,
+;       or major is eq and ref minor is gt or eq to evidence minor,
+;       or major is eq, minor is eq ref point is gt or eq to evidence point
 
 svn-type = uint
-svn = svn-type
-min-svn = svn-type
+svn = [svn-type, operators-map]
+; supported comparison operators include:
+;   .eq - reference uint svn equals evidence svn
+min-svn = [svn-type, operators-map]
+; supported comparison operators include:
+;   .lte - reference uint svn is lt or equal to evidence svn
 tagged-svn = #6.552(svn)
 tagged-min-svn = #6.553(min-svn)
 svn-type-choice = tagged-svn / tagged-min-svn
-
 
 ; flags-map maps DiceTcbInfo.flags
 flags-map = {

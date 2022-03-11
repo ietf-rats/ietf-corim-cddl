@@ -206,3 +206,21 @@ serial-number-type = text
 digests-type = [ + hash-entry ]
 
 ; vim: set tw=70 ts=2 et:
+
+; 
+; Comparison operators
+;
+operators-map = {
+  ? comid.op-eq => bool
+  ? comid.op-gt => bool
+  ? comid.op-lt => bool
+  ? comid.op-gte => bool
+  ? comid.op-lte => bool
+  ? comid.op-set => bool
+  ? comid.op-subset => bool
+  ? comid.op-superset => bool
+  ? comid.op-disjointset => bool
+  ? comid.op-member => bool
+  ? comid.op-non-member => bool
+  * $$operators-map-extension
+}

@@ -158,8 +158,10 @@ $tagged-measurement-type-choice /= bstr .cbor #6.1179([tagged-set-float32, opera
 $tagged-measurement-type-choice /= bstr .cbor #6.1180([tagged-set-float64, operators-map])
 $tagged-measurement-type-choice /= bstr .cbor #6.1181([tagged-set-int, operators-map])
 $tagged-measurement-type-choice /= bstr .cbor #6.1182([tagged-set-uint, operators-map])
-; could do recursion with endorsed-triple-records as measurements
-$tagged-measurement-type-choice /= bstr .cbor #6.1183(endorsed-triple-record)
+; operators as n-fix logic as <operator, operand, ...> tuple
+$tagged-measurement-type-choice /= bstr .cbor #6.1183([op-gt tagged-set-uint tagged-set-uint])
+; could do recursion with endorsed-triple-records as measurements to link a matched reference claim to endorsed claims
+$tagged-measurement-type-choice /= bstr .cbor #6.1184(endorsed-triple-record)
 ; etc...
 
 ;
@@ -277,3 +279,11 @@ operators-map = {
   ? comid.op-non-member => bool
   * $$operators-map-extension
 }
+;
+; Operators as type-choice
+;
+$operator-type-choice /= op-eq
+op-eq = 1
+$operator-type-choice /= op-gt
+op-gt = 2
+; etc...

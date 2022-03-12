@@ -50,14 +50,14 @@ triples-map = non-empty<{
 ; "target environment $TE" "has reference measurements" "$RV"
 reference-triple-record = [
   environment-map ; target environment
-  [ + measurement-map ] ; reference measurements
+  [ + $tagged-measurement-type-choice ] ; reference measurements
 ]
 
 ; ENDORSED-VALUE triple
 ; "environment $E" "has endorsed measurements" "$EV"
 endorsed-triple-record = [
   environment-map ; (target or attesting) environment
-  [ + measurement-map ] ; endorsed measurements
+  [ + $tagged-measurement-type-choice ] ; endorsed measurements
 ]
 
 ; ATTESTATION-VERIFICATION-KEY triple
@@ -140,7 +140,22 @@ measurement-map = {
   comid.mval => measurement-values-map
 }
 
+;
+; Measurements as type-choice
+;
+$tagged-measurement-type-choice /= bstr .cbor #6.1170(measurement-map)
+$tagged-measurement-type-choice /= bstr .cbor #6.1171(measurement-values-map)
+$tagged-measurement-type-choice /= bstr .cbor #6.1172(version-map)
+$tagged-measurement-type-choice /= bstr .cbor tagged-svn
+$tagged-measurement-type-choice /= bstr .cbor tagged-min-svn
+$tagged-measurement-type-choice /= bstr .cbor #6.1173(digests-type)
+$tagged-measurement-type-choice /= bstr .cbor #6.1174(tstr-set-type)
+; etc...
+
+;
+; Measurements as map structure
 ; see https://github.com/ietf-rats/ietf-corim-cddl/issues/72
+;
 measurement-values-map = non-empty<{
   ? comid.ver => version-map
   ? comid.svn => svn-type-choice

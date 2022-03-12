@@ -150,6 +150,16 @@ $tagged-measurement-type-choice /= bstr .cbor tagged-svn
 $tagged-measurement-type-choice /= bstr .cbor tagged-min-svn
 $tagged-measurement-type-choice /= bstr .cbor #6.1173(digests-type)
 $tagged-measurement-type-choice /= bstr .cbor #6.1174(tstr-set-type)
+$tagged-measurement-type-choice /= bstr .cbor #6.1175([tagged-date, operators-map])
+$tagged-measurement-type-choice /= bstr .cbor #6.1176([tagged-set-bstr, operators-map])
+$tagged-measurement-type-choice /= bstr .cbor #6.1177([tagged-set-tstr, operators-map])
+$tagged-measurement-type-choice /= bstr .cbor #6.1178([tagged-set-float16, operators-map])
+$tagged-measurement-type-choice /= bstr .cbor #6.1179([tagged-set-float32, operators-map])
+$tagged-measurement-type-choice /= bstr .cbor #6.1180([tagged-set-float64, operators-map])
+$tagged-measurement-type-choice /= bstr .cbor #6.1181([tagged-set-int, operators-map])
+$tagged-measurement-type-choice /= bstr .cbor #6.1182([tagged-set-uint, operators-map])
+; could do recursion with endorsed-triple-records as measurements
+$tagged-measurement-type-choice /= bstr .cbor #6.1183(endorsed-triple-record)
 ; etc...
 
 ;

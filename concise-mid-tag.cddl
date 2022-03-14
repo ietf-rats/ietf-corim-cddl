@@ -49,28 +49,28 @@ triples-map = non-empty<{
 ; REFERENCE-VALUE triple
 ; "target environment $TE" "has reference measurements" "$RV"
 reference-triple-record = [
-  environment-map ; target environment
+  [ + $env-type-choice ] / environment-map ; target environment
   [ + $tagged-measurement-type-choice ] ; reference measurements
 ]
 
 ; ENDORSED-VALUE triple
 ; "environment $E" "has endorsed measurements" "$EV"
 endorsed-triple-record = [
-  environment-map ; (target or attesting) environment
+  [ + $env-type-choice ] / environment-map ; (target or attesting) environment
   [ + $tagged-measurement-type-choice ] ; endorsed measurements
 ]
 
 ; ATTESTATION-VERIFICATION-KEY triple
 ; "attesting environment $AE" "signs Evidence that can be verified with a set of keys [$K]"
 attest-key-triple-record = [
-  environment-map ; attesting environment
+  [ + $env-type-choice ] / environment-map ; attesting environment
   [ + $crypto-key-type-choice ] ; attestation verification key(s)
 ]
 
 ; DEVICE-IDENTITY triple
 ; "device $D" "is identified by a set of keys [$K]"
 identity-triple-record = [
-  environment-map ; device identifier (instance or class)
+  [ + $env-type-choice ] / environment-map ; device identifier (instance or class)
   [ + $crypto-key-type-choice ] ; DevID, or semantically equivalent
 ]
 
@@ -85,6 +85,33 @@ tagged-pkix-base64-cert-type = #6.555(tstr)
 ; chain of X.509 certificates in DER format base64-encoded
 tagged-pkix-base64-cert-path-type = #6.556(tstr)
 
+;
+; Environments
+;
+; Take care when extending this structure as a verifier will typically not be
+; able to match against an environment map containing keys it does not recognise
+;
+$env-type-choice /= #6.4711(environment-map)
+$env-type-choice /= #6.4712(class-map)
+$env-type-choice /= #6.4713($instance-id-type-choice)
+$env-type-choice /= #6.4714($group-id-type-choice)
+$env-type-choice /= #6.4715(source-map)
+$env-type-choice /= #6.4716($class-id-type-choice)
+$env-type-choice /= #6.4717(vendor-type)
+; etc...
+;
+; note: since environment triple record is [ + env ] there could be multiple values used
+; to construct the environment. e.g. [ #6.4715(source-map) #6.4715($class-id-type-choice) ]
+; 
+
+source-map {
+  ? comid.source => $source-type-choice
+  ? comid.authorised-by => $key-type-choice
+  * $$environment-map-extension
+}
+$source-type-choice /= uint
+$source-type-choice /= tstr
+$source-type-choice /= tagged-uuid-type
 
 environment-map = non-empty<{
   ? comid.class => class-map
@@ -94,11 +121,12 @@ environment-map = non-empty<{
 
 class-map = non-empty<{
   ? comid.class-id => $class-id-type-choice
-  ? comid.vendor => tstr
+  ? comid.vendor => vendor-type
   ? comid.model => tstr
   ? comid.layer => uint
   ? comid.index => uint
 }>
+vendor-type = tstr
 
 $class-id-type-choice /= tagged-oid-type
 $class-id-type-choice /= tagged-uuid-type

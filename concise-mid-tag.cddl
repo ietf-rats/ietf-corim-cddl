@@ -101,7 +101,7 @@ $env-type-choice /= #6.4717(vendor-type)
 ; etc...
 ;
 ; note: since environment triple record is [ + env ] there could be multiple values used
-; to construct the environment. e.g. [ #6.4715(source-map) #6.4715($class-id-type-choice) ]
+; to construct the environment. e.g. [ #6.4715(source-map) #6.4716($class-id-type-choice) ]
 ; 
 
 source-map {

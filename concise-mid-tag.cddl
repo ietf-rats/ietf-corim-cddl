@@ -165,7 +165,7 @@ $measured-element-type-choice /= uint
 
 measurement-map = {
   ? comid.mkey => $measured-element-type-choice
-  comid.mval => measurement-values-map
+  comid.mval => $tagged-measurement-type-choice / measurement-values-map
 }
 
 ;

@@ -39,6 +39,7 @@ comid.index = 4
 ; measurement-map
 comid.mkey = 0
 comid.mval = 1
+comid.authorized-by = 2
 
 ; measurement-values-map
 comid.ver = 0

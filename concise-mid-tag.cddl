@@ -137,7 +137,7 @@ tagged-ueid-type = #6.550(ueid-type)
 $measured-element-type-choice /= tagged-oid-type
 $measured-element-type-choice /= tagged-uuid-type
 ; The $measured-element-type-choice uint is intended for time series mval data where lower uint
-; values indicate older mval data while higher uint values indicate newer mval data; 0 is an asumed epoch.
+; values indicate older mval data while higher uint values indicate newer mval data; 0 is an assumed epoch.
 $measured-element-type-choice /= uint
 ; Subsequent additions to $measured-element-type-choice should be tagged values.
 

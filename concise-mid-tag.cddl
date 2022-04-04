@@ -138,6 +138,7 @@ $measured-element-type-choice /= uint
 measurement-map = {
   ? comid.mkey => $measured-element-type-choice
   comid.mval => measurement-values-map
+  ? comid.authorized-by => [ + $crypto-key-type-choice ]
 }
 
 ; see https://github.com/ietf-rats/ietf-corim-cddl/issues/72

@@ -1,31 +1,7 @@
-# Concise Reference Integrity Manifest
+# This is not the repo you are looking for...
 
-[![CI](https://github.com/ietf-rats/ietf-corim-cddl/actions/workflows/ci.yml/badge.svg)](https://github.com/ietf-rats/ietf-corim-cddl/actions/workflows/ci.yml)
+CoRIM's CDDL build & test machinery, examples and other paraphernalia have been moved to the [`cddl`](https://github.com/ietf-rats-wg/draft-ietf-rats-corim/tree/main/cddl) folder of the [parent IETF document](https://github.com/ietf-rats-wg/draft-ietf-rats-corim).
 
-## Tools
+Note that [all open issues](https://github.com/ietf-rats/ietf-corim-cddl/issues) have been triaged and moved across.
 
-* `curl`
-* `cddl`
-* `diag2diag`
-
-## Make targets
-
-* assemble and validate
-```
-$ make
-```
-
-* remove generated files
-```
-$ make clean
-```
-
-## CBOR tags
-
-For a list of the new CBOR tags defined by the CoRIM/CoMID CDDL see
-[cbor-tags.txt](cbor-tags.txt).
-
-## Media Types
-
-For a list of the new Media Types defined by the CoRIM/CoMID spec see
-[media-types.md](media-types.md).
+This repository is no longer in use.
